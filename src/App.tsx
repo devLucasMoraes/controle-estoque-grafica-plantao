@@ -1,9 +1,9 @@
 
 
 export const App = () => {
-  return (
-    <div>
-      Teste
-    </div>
-  );
+    return (
+        <div>
+            Teste
+        </div>
+    );
 };
