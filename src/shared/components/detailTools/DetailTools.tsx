@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Icon, Paper, useTheme } from '@mui/material';
+import { Box, Button, Divider, Icon, useTheme } from '@mui/material';
 
 export const DetailTools: React.FC = () => {
 
@@ -13,34 +13,31 @@ export const DetailTools: React.FC = () => {
         >
             <Button
                 color='primary'
-                disableElevation
                 variant='contained'
                 startIcon={<Icon>save</Icon>}
             >SALVAR</Button>
+
             <Button
                 color='primary'
-                disableElevation
                 variant='outlined'
-                startIcon={<Icon>save</Icon>}
-            >SALVAR E VOLTAR</Button>
+                startIcon={<Icon>info</Icon>}
+            >DETALHAR</Button>
             <Button
                 color='primary'
-                disableElevation
                 variant='outlined'
+                startIcon={<Icon>edit</Icon>}
+            >EDITAR</Button>
+
+            <Button
+                color='error'
+                variant='contained'
                 startIcon={<Icon>delete</Icon>}
             >APAGAR</Button>
-            <Button
-                color='primary'
-                disableElevation
-                variant='outlined'
-                startIcon={<Icon>add</Icon>}
-            >NOVO</Button>
 
             <Divider variant='middle' orientation='vertical' />
 
             <Button
                 color='primary'
-                disableElevation
                 variant='outlined'
                 startIcon={<Icon>arrow_back</Icon>}
             >VOLTAR</Button>
