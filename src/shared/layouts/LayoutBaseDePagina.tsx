@@ -6,10 +6,10 @@ import { useDrawerContext } from '../contexts';
 interface ILayoutBaseDePaginaProps {
     children: React.ReactNode;
     titulo: string;
-    toolsList?: ReactNode;
+    tools?: ReactNode;
 }
 
-export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, titulo, toolsList }) => {
+export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, titulo, tools }) => {
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -33,9 +33,9 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
                     {titulo}
                 </Typography>
 
-                {toolsList && (
+                {tools && (
                     <Box>
-                        {toolsList}
+                        {tools}
                     </Box>
                 )}
             </Box>
