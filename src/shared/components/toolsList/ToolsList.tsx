@@ -1,4 +1,5 @@
 import { Box, Button, Icon, TextField, useTheme } from '@mui/material';
+import { Environment } from '../../environment';
 
 
 interface IToolsListProps {
@@ -33,7 +34,7 @@ export const ToolsList: React.FC<IToolsListProps> = ({
                     sx={{ width: '50%' }}
                     size='small'
                     variant='standard'
-                    placeholder='Pesquisar...'
+                    placeholder={Environment.INPUT_DE_BUSCA}
                     value={textoDaBusca}
                     onChange={(e) => aoMudarTextDeBusca?.(e.target.value)}
                 />
