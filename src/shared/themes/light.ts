@@ -10,7 +10,7 @@ export const LightTheme = createTheme({
             main: '#f50057',
         },
         background: {
-            default: '#f0f0f0',
+            default: '#f6f7fb',
         },
     },
 });
