@@ -1,6 +1,6 @@
-import { LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
@@ -10,22 +10,46 @@ import { IListagemUser, UsersService } from '../../shared/services/api/users/Use
 export const ListagemDeUsers: React.FC = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
 
     const [rows, setRows] = useState<IListagemUser[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+
+    const pagina = useMemo(() => {
+        return Number(searchParams.get('pagina') || '1');
+    }, [searchParams]);
 
 
     const busca = useMemo(() => {
         return searchParams.get('busca') || '';
     }, [searchParams]);
 
+
+    const handleDelete = (id: number) => {
+        if (confirm('Realmente deseja apagar?')) {
+            UsersService.deleteById(id)
+                .then(result => {
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        setRows(oldRows => {
+                            return [
+                                ...oldRows.filter(oldRow => oldRow.id !== id)
+                            ];
+                        });
+                        alert('Registro apagado com sucesso!');
+                    }
+                });
+        }
+    };
+
     const { debouce } = useDebouce(500);
 
     useEffect(() => {
         setIsLoading(true);
         debouce(() => {
-            UsersService.getAll(1, busca)
+            UsersService.getAll(pagina, busca)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
@@ -37,7 +61,7 @@ export const ListagemDeUsers: React.FC = () => {
                     }
                 });
         });
-    }, [busca]);
+    }, [busca, pagina]);
 
 
 
@@ -47,7 +71,7 @@ export const ListagemDeUsers: React.FC = () => {
             tools={
                 <ToolsList
                     textoDaBusca={busca}
-                    aoMudarTextDeBusca={texto => setSearchParams({ busca: texto }, { replace: true })}
+                    aoMudarTextDeBusca={texto => setSearchParams({ busca: texto, pagina: '1' }, { replace: true })}
                 />
             }
         >
@@ -64,7 +88,14 @@ export const ListagemDeUsers: React.FC = () => {
                     <TableBody>
                         {rows.map(row => (
                             <TableRow key={row.id}>
-                                <TableCell>Ações</TableCell>
+                                <TableCell>
+                                    <IconButton size="small" onClick={() => handleDelete(row.id)}>
+                                        <Icon>delete</Icon>
+                                    </IconButton>
+                                    <IconButton size="small" onClick={() => navigate(`/pessoas/detalhe/${row.id}`)}>
+                                        <Icon>edit</Icon>
+                                    </IconButton>
+                                </TableCell>
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.email}</TableCell>
                             </TableRow>
@@ -85,6 +116,18 @@ export const ListagemDeUsers: React.FC = () => {
                         )}
                     </TableFooter>
 
+                    {(totalCount > 0 && totalCount > Environment.LIMITE_DE_LINHAS) && (
+                        <TableRow>
+                            <TableCell colSpan={3}>
+                                <Pagination
+                                    page={pagina}
+                                    onChange={(e, newPage) => setSearchParams({ busca, pagina: newPage.toString() }, { replace: true })}
+                                    count={Math.ceil(totalCount / Environment.LIMITE_DE_LINHAS)}
+                                    sx={{justifyContent:'center'}}
+                                />
+                            </TableCell>
+                        </TableRow>
+                    )}
                     
                 </Table>
             </TableContainer>
