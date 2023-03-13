@@ -1,4 +1,4 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ToolsList } from '../../shared/components';
@@ -74,6 +74,16 @@ export const ListagemDeUsers: React.FC = () => {
                     {totalCount === 0 && !isLoading && (
                         <caption>{Environment.LISTAGEM_VAZIA}</caption>
                     )}
+
+                    <TableFooter>
+                        {isLoading && (
+                            <TableRow>
+                                <TableCell colSpan={3}>
+                                    <LinearProgress variant='indeterminate' />
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableFooter>
 
                     
                 </Table>
