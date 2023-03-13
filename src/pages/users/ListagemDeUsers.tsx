@@ -2,6 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ToolsList } from '../../shared/components';
+import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IListagemUser, UsersService } from '../../shared/services/api/users/UsersService';
@@ -69,6 +70,12 @@ export const ListagemDeUsers: React.FC = () => {
                             </TableRow>
                         ))}
                     </TableBody>
+
+                    {totalCount === 0 && !isLoading && (
+                        <caption>{Environment.LISTAGEM_VAZIA}</caption>
+                    )}
+
+                    
                 </Table>
             </TableContainer>
         </LayoutBaseDePagina>
