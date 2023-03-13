@@ -1,8 +1,9 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-interface IListagemUser {
+export interface IListagemUser {
     id: number;
+    name: string;
     email: string;
     role: string;
     status: string;
@@ -11,8 +12,9 @@ interface IListagemUser {
     updatedAt: string;
 }
 
-interface IDetalheUser {
+export interface IDetalheUser {
     id: number;
+    name: string;
     email: string;
     role: string;
     status: string;
