@@ -12,7 +12,7 @@ interface IToolsListProps {
 }
 
 export const ToolsList: React.FC<IToolsListProps> = ({
-    mostrarInputBusca = true,
+    mostrarInputBusca = false,
     textoDaBusca = '',
     textoBotaoNovo = 'Criar novo',
     mostrarBotaoNovo = true,
