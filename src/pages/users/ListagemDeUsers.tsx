@@ -70,6 +70,8 @@ export const ListagemDeUsers: React.FC = () => {
             titulo='Listagem'
             tools={
                 <ToolsList
+                    aoClicarEmNovo={() => navigate('/users/records/new')}
+                    mostrarInputBusca
                     textoDaBusca={busca}
                     aoMudarTextDeBusca={texto => setSearchParams({ busca: texto, pagina: '1' }, { replace: true })}
                 />
@@ -92,7 +94,7 @@ export const ListagemDeUsers: React.FC = () => {
                                     <IconButton size="small" onClick={() => handleDelete(row.id)}>
                                         <Icon>delete</Icon>
                                     </IconButton>
-                                    <IconButton size="small" onClick={() => navigate(`/pessoas/detalhe/${row.id}`)}>
+                                    <IconButton size="small" onClick={() => navigate(`/users/records/edit/${row.id}`)}>
                                         <Icon>edit</Icon>
                                     </IconButton>
                                 </TableCell>
