@@ -7,9 +7,11 @@ interface ILayoutBaseDePaginaProps {
     children: React.ReactNode;
     titulo: string;
     tools?: ReactNode;
+    mostrarBotaoVoltar?: boolean;
+    aoClicaeEmVoltar?: () => void;
 }
 
-export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, titulo, tools }) => {
+export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, titulo, tools, mostrarBotaoVoltar = false, aoClicaeEmVoltar }) => {
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -24,26 +26,35 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
                         <Icon>menu</Icon>
                     </IconButton>
                 )}
-                <Typography
-                    variant={smDown ? 'h5' : mdDown ? 'h4' : 'h4'}
-                    overflow='hiden'
-                    whiteSpace='nowrap'
-                    textOverflow='ellipsis'
-                >
-                    {titulo}
-                </Typography>
+
+                <Box display='flex' gap={2}>
+                    {mostrarBotaoVoltar && (
+                        <IconButton color='primary' size='small' sx={{ border: 1, p: 1 }} onClick={aoClicaeEmVoltar}>
+                            <Icon>arrow_back</Icon>
+                        </IconButton>
+                    )}
+
+                    <Typography
+                        variant={smDown ? 'h5' : mdDown ? 'h4' : 'h4'}
+                        overflow='hiden'
+                        whiteSpace='nowrap'
+                        textOverflow='ellipsis'
+                    >
+                        {titulo}
+                    </Typography>
+                </Box>
 
                 {tools && (
                     <Box>
                         {tools}
                     </Box>
                 )}
-            </Box>
+            </Box >
 
 
             <Box flex={1} overflow='auto'>
                 {children}
             </Box>
-        </Box>
+        </Box >
     );
 };

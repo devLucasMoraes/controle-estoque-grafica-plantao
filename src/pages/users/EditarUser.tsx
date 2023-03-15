@@ -1,10 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 
 export const EditarUser: React.FC = () => {
 
     const { id = 'new' } = useParams<'id'>();
+    const navigate = useNavigate();
 
 
     const handleSave = () => {
@@ -16,11 +17,14 @@ export const EditarUser: React.FC = () => {
 
     return (
         <LayoutBaseDePagina
+            mostrarBotaoVoltar
+            aoClicaeEmVoltar={() => navigate('/users')}
             titulo='Editar'
             tools={
                 <DetailTools
                     mostrarBotaoSalvar
                     mostrarBotaoApagar={id !== 'new'}
+                    mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={handleDelete}
                     aoClicaeEmSalvar={handleSave}
                 />
