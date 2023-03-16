@@ -12,10 +12,10 @@ interface IDetailToolsProps {
 }
 
 export const DetailTools: React.FC<IDetailToolsProps> = ({
-    mostrarBotaoSalvar,
-    mostrarBotaoDetalhar,
-    mostrarBotaoEditar,
-    mostrarBotaoApagar,
+    mostrarBotaoSalvar = false,
+    mostrarBotaoDetalhar = false,
+    mostrarBotaoEditar = false,
+    mostrarBotaoApagar = false,
     aoClicaeEmSalvar,
     aoClicaeEmDetalhar,
     aoClicaeEmEditar,
