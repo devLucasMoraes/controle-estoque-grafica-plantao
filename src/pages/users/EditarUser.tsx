@@ -1,15 +1,28 @@
 import { LinearProgress } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools } from '../../shared/components';
+import { VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { UsersService } from '../../shared/services/api/users/UsersService';
+
+
+interface IFormData {
+    name: string;
+    email: string;
+    password_hash: string;
+    role: string;
+    status: string;
+}
 
 export const EditarUser: React.FC = () => {
 
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const formRef = useRef<FormHandles>(null);
 
     useEffect(() => {
         if (id !== 'new') {
@@ -22,14 +35,38 @@ export const EditarUser: React.FC = () => {
                         navigate('/users');
                     } else {
                         console.log(result);
+                        formRef.current?.setData(result);
                     }
                 });
         }
     }, [id]);
 
 
-    const handleSave = () => {
-        console.log('Save');
+    const handleSave = (dados: IFormData) => {
+        setIsLoading(true);
+        if (id === 'new') {
+            UsersService
+                .create(dados)
+                .then(result => {
+                    setIsLoading(false);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        navigate(`/users/records/show/${result}`);
+                    }
+                });
+        } else {
+            UsersService
+                .updateById(Number(id), { id: Number(id), ...dados })
+                .then(result => {
+                    setIsLoading(false);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        navigate(`/users/records/show/${result}`);
+                    }
+                });
+        }
     };
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
@@ -49,23 +86,32 @@ export const EditarUser: React.FC = () => {
         <LayoutBaseDePagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/users')}
-            titulo='Editar'
+            titulo={id === 'new' ? 'Novo usuario' : 'Editar'}
             tools={
                 <DetailTools
                     mostrarBotaoSalvar
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
-                    aoClicaeEmSalvar={handleSave}
+                    aoClicaeEmSalvar={() => formRef.current?.submitForm()}
+                    aoClicaeEmDetalhar={() => navigate(`/users/records/show/${id}`)}
                 />
             }
         >
+            <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
+                <VTextField placeholder='Nome' name='name' />
+                <VTextField placeholder='email' name='email' />
+                <VTextField placeholder='senha' name='password_hash' />
+                <VTextField placeholder='cargo' name='role' />
+                <VTextField placeholder='status' name='status' />
+                <button type='submit'>submit</button>
+            </Form>
 
             {isLoading && (
                 <LinearProgress variant='indeterminate' />
             )}
 
-            <p>Nova {id}</p>
+
         </LayoutBaseDePagina>
     );
 };
