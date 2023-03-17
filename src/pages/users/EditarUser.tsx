@@ -1,10 +1,11 @@
-import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
+import { Box, Grid, LinearProgress, Paper } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import * as yup from 'yup';
 import { DetailTools } from '../../shared/components';
-import { VTextField } from '../../shared/forms';
+import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { UsersService } from '../../shared/services/api/users/UsersService';
 
@@ -16,6 +17,14 @@ interface IFormData {
     role: string;
     status: string;
 }
+
+const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
+    name: yup.string().required(),
+    email: yup.string().required().email(),
+    password_hash: yup.string().required(),
+    role: yup.string().required(),
+    status: yup.string().required()
+});
 
 export const EditarUser: React.FC = () => {
 
@@ -43,30 +52,42 @@ export const EditarUser: React.FC = () => {
 
 
     const handleSave = (dados: IFormData) => {
-        setIsLoading(true);
-        if (id === 'new') {
-            UsersService
-                .create(dados)
-                .then(result => {
-                    setIsLoading(false);
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        navigate(`/users/records/show/${result}`);
-                    }
+        formValidationSchema
+            .validate(dados, { abortEarly: false })
+            .then(dadosValidados => {
+                setIsLoading(true);
+                if (id === 'new') {
+                    UsersService
+                        .create(dadosValidados)
+                        .then(result => {
+                            setIsLoading(false);
+                            if (result instanceof Error) {
+                                alert(result.message);
+                            } else {
+                                navigate(`/users/records/show/${result}`);
+                            }
+                        });
+                } else {
+                    UsersService
+                        .updateById(Number(id), { id: Number(id), ...dadosValidados })
+                        .then(result => {
+                            setIsLoading(false);
+                            if (result instanceof Error) {
+                                alert(result.message);
+                            } else {
+                                navigate(`/users/records/show/${result}`);
+                            }
+                        });
+                }
+            })
+            .catch((erros: yup.ValidationError) => {
+                const validationErrors: IVFormErros = {};
+                erros.inner.forEach(error => {
+                    if (!error.path) return;
+                    validationErrors[error.path] = error.message;
                 });
-        } else {
-            UsersService
-                .updateById(Number(id), { id: Number(id), ...dados })
-                .then(result => {
-                    setIsLoading(false);
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        navigate(`/users/records/show/${result}`);
-                    }
-                });
-        }
+                formRef.current?.setErrors(validationErrors);
+            });
     };
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
