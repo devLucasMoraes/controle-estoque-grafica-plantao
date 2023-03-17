@@ -1,4 +1,4 @@
-import { LinearProgress } from '@mui/material';
+import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
@@ -99,18 +99,60 @@ export const EditarUser: React.FC = () => {
             }
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
-                <VTextField placeholder='Nome' name='name' />
-                <VTextField placeholder='email' name='email' />
-                <VTextField placeholder='senha' name='password_hash' />
-                <VTextField placeholder='cargo' name='role' />
-                <VTextField placeholder='status' name='status' />
-                <button type='submit'>submit</button>
+                <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1}>
+                    <Grid container direction='column' spacing={2} padding={4}>
+                        {isLoading && (
+                            <Grid item>
+                                <LinearProgress variant='indeterminate' />
+                            </Grid>
+                        )}
+
+                        <Grid item marginBottom={2}>
+                            <VTextField
+                                fullWidth
+                                placeholder='Nome'
+                                name='name'
+                            />
+                        </Grid>
+
+                        <Grid item marginBottom={2}>
+                            <VTextField
+                                fullWidth
+                                placeholder='email'
+                                name='email'
+                            />
+                        </Grid>
+
+                        <Grid item marginBottom={2}>
+                            <VTextField
+                                fullWidth
+                                placeholder='senha'
+                                name='password_hash'
+                            />
+                        </Grid>
+
+                        <Grid item marginBottom={2}>
+                            <VTextField
+                                fullWidth
+                                placeholder='cargo'
+                                name='role'
+                            />
+                        </Grid>
+
+                        <Grid item marginBottom={2}>
+                            <VTextField
+                                fullWidth
+                                placeholder='status'
+                                name='status'
+                            />
+                        </Grid>
+
+                        <Grid item marginBottom={2}>
+                            <button type='submit'>submit</button>
+                        </Grid>
+                    </Grid>
+                </Box>
             </Form>
-
-            {isLoading && (
-                <LinearProgress variant='indeterminate' />
-            )}
-
 
         </LayoutBaseDePagina>
     );
