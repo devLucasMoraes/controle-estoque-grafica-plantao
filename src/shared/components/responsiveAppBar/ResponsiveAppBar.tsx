@@ -10,7 +10,7 @@ export const ResponsiveAppBar: React.FC = () => {
     const { toggleDrawerOpen } = useDrawerContext();
 
     return (
-        <AppBar position='static' color='primary'>
+        <AppBar position='static' color='primary' enableColorOnDark>
             <Toolbar>
                 {smDown &&
                     <IconButton onClick={toggleDrawerOpen}>
