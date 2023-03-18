@@ -1,4 +1,4 @@
-import { Box, Button, Icon, useTheme } from '@mui/material';
+import { Box, Button, Icon, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 interface IDetailToolsProps {
     mostrarBotaoSalvar?: boolean;
@@ -23,6 +23,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
 }) => {
 
     const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Box
@@ -37,34 +38,65 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
                     variant='contained'
                     startIcon={<Icon>save</Icon>}
                     onClick={aoClicaeEmSalvar}
-                >SALVAR</Button>
+                >
+                    <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+                        SALVAR
+                    </Typography>
+                </Button>
             }
 
             {mostrarBotaoDetalhar &&
                 <Button
                     color='primary'
                     variant='outlined'
-                    startIcon={<Icon>info</Icon>}
+                    startIcon={!smDown ? <Icon>info</Icon> : ''}
                     onClick={aoClicaeEmDetalhar}
-                >DETALHAR</Button>
+                >
+                    {smDown &&
+                        <Icon>info</Icon>
+                    }
+                    {!smDown &&
+                        <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+                            DETALHAR
+                        </Typography>
+                    }
+                </Button>
             }
 
             {mostrarBotaoEditar &&
                 <Button
                     color='primary'
                     variant='outlined'
-                    startIcon={<Icon>edit</Icon>}
+                    startIcon={!smDown ? <Icon>edit</Icon> : ''}
                     onClick={aoClicaeEmEditar}
-                >EDITAR</Button>
+                >
+                    {smDown &&
+                        <Icon>edit</Icon>
+                    }
+                    {!smDown &&
+                        <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+                            EDITAR
+                        </Typography>
+                    }
+                </Button>
             }
 
             {mostrarBotaoApagar &&
                 <Button
                     color='error'
                     variant='contained'
-                    startIcon={<Icon>delete</Icon>}
+                    startIcon={!smDown ? <Icon>delete</Icon> : ''}
                     onClick={aoClicaeEmApagar}
-                >APAGAR</Button>
+                >
+                    {smDown &&
+                        <Icon>delete</Icon> 
+                    }
+                    {!smDown &&
+                        <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+                            APAGAR
+                        </Typography>
+                    }
+                </Button>
             }
         </Box>
     );
