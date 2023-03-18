@@ -1,6 +1,7 @@
-import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, Icon, IconButton, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { useDrawerContext } from '../../contexts';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
 
 interface IListItemLinkProps {
     label: string;
@@ -41,6 +42,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
     const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+    const { toggleTheme, themeName } = useAppThemeContext();
 
     return (
         <>
@@ -65,6 +67,19 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
                                     to={drawerOption.path}
                                     onClick={smDown ? toggleDrawerOpen : undefined} />
                             ))}
+                        </List>
+                    </Box>
+
+                    <Box>
+                        <List component='nav'>
+                            <ListItemButton onClick={toggleTheme} >
+                                <ListItemIcon>
+                                    <IconButton sx={{ ml: 1 }} color="inherit">
+                                        {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+                                    </IconButton>
+                                </ListItemIcon>
+                                <ListItemText primary={themeName === 'light' ? 'Tema escuro' : 'Tema claro'} />
+                            </ListItemButton>
                         </List>
                     </Box>
                 </Box>
