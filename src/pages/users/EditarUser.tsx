@@ -110,17 +110,15 @@ export const EditarUser: React.FC = () => {
             titulo={id === 'new' ? 'Novo usuario' : 'Editar'}
             tools={
                 <DetailTools
-                    mostrarBotaoSalvar
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
-                    aoClicaeEmSalvar={() => formRef.current?.submitForm()}
                     aoClicaeEmDetalhar={() => navigate(`/users/records/show/${id}`)}
                 />
             }
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
-                <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1}>
+                <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
                     <Grid container direction='column' spacing={2} padding={4}>
                         {isLoading && (
                             <Grid item>
@@ -130,6 +128,7 @@ export const EditarUser: React.FC = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
+                                label='Nome'
                                 fullWidth
                                 placeholder='Nome'
                                 name='name'
@@ -138,6 +137,7 @@ export const EditarUser: React.FC = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
+                                label='Email'
                                 fullWidth
                                 placeholder='email'
                                 name='email'
@@ -146,6 +146,7 @@ export const EditarUser: React.FC = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
+                                label='Senha'
                                 fullWidth
                                 placeholder='senha'
                                 name='password_hash'
@@ -154,6 +155,7 @@ export const EditarUser: React.FC = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
+                                label='Cargo'
                                 fullWidth
                                 placeholder='cargo'
                                 name='role'
@@ -162,16 +164,20 @@ export const EditarUser: React.FC = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
+                                label='Status'
                                 fullWidth
                                 placeholder='status'
                                 name='status'
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
-                            <button type='submit'>submit</button>
-                        </Grid>
                     </Grid>
+                    <Box component='section' paddingBottom={4}>
+                        <DetailTools
+                            mostrarBotaoSalvar
+                            aoClicaeEmSalvar={() => formRef.current?.submitForm()}
+                        />
+                    </Box>
                 </Box>
             </Form>
 
