@@ -1,4 +1,5 @@
-import { Box, Button, Icon, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import { Environment } from '../../environment';
 
 
@@ -22,7 +23,7 @@ export const ToolsList: React.FC<IToolsListProps> = ({
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-    const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+
 
     return (
         <Box
@@ -31,7 +32,7 @@ export const ToolsList: React.FC<IToolsListProps> = ({
             gap={1}
             alignItems='center'
         >
-            {mostrarInputBusca && !smDown && !mdDown && (
+            {mostrarInputBusca && !smDown && (
                 <TextField
                     sx={{ width: '50%' }}
                     size='small'
@@ -48,12 +49,17 @@ export const ToolsList: React.FC<IToolsListProps> = ({
                         sx={{ px: 4 }}
                         color='primary'
                         variant='contained'
-                        startIcon={<Icon>add</Icon>}
+                        startIcon={!smDown ? <AddIcon /> : ''}
                         onClick={aoClicarEmNovo}
                     >
-                        <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-                            {textoBotaoNovo}
-                        </Typography>
+                        {smDown &&
+                            <AddIcon />
+                        }
+                        {!smDown &&
+                            <Typography variant='button' noWrap overflow='hidden'>
+                                {textoBotaoNovo}
+                            </Typography>
+                        }
                     </Button>
                 )}
             </Box>
