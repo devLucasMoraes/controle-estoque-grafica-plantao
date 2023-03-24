@@ -1,6 +1,5 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Box, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import { ReactNode } from 'react';
 
 interface ILayoutBaseDePaginaProps {
