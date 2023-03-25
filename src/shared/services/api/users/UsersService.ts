@@ -44,7 +44,7 @@ const getAll = async (page = 1, filter = ''): Promise<TUsersComTotalCount | Erro
     }
 };
 
-const getById = async (id: number): Promise<IDetalheUser | Error> => {
+const getById = async (id: number): Promise<IListagemUser | Error> => {
     try {
         const { data } = await Api.get(`/users/${id}`);
 
