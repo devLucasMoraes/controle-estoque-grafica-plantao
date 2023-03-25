@@ -102,7 +102,7 @@ export const ListagemDeUsers: React.FC = () => {
 
                 />,
                 <GridActionsCellItem
-                    key={`edit${params.row.id}`}
+                    key={`info${params.row.id}`}
                     icon={<Icon>info</ Icon>}
                     label="info"
                     onClick={() => navigate(`/users/records/show/${params.row.id}`)}
