@@ -1,8 +1,9 @@
 import { AppBar, Icon, IconButton, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { memo } from 'react';
 import { useDrawerContext } from '../../contexts';
 
 
-export const ResponsiveAppBar: React.FC = () => {
+const ResponsiveAppBarMemo = () => {
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -24,3 +25,5 @@ export const ResponsiveAppBar: React.FC = () => {
         </AppBar>
     );
 };
+
+export const ResponsiveAppBar = memo(ResponsiveAppBarMemo);

@@ -1,6 +1,6 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Box, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 
 interface ILayoutBaseDePaginaProps {
     children: React.ReactNode;
@@ -11,7 +11,7 @@ interface ILayoutBaseDePaginaProps {
     aoClicaeEmVoltar?: () => void;
 }
 
-export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, titulo, tools, mostrarBotaoVoltar = false, totalCount, aoClicaeEmVoltar }) => {
+const LayoutBaseDePaginaMemo = ({ children, titulo, tools, mostrarBotaoVoltar = false, totalCount, aoClicaeEmVoltar }: ILayoutBaseDePaginaProps) => {
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -50,9 +50,9 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
             </Box >
 
 
-            <Box 
-                overflow='auto' 
-                width='100%' 
+            <Box
+                overflow='auto'
+                width='100%'
                 height='75vh'
             >
                 {children}
@@ -60,3 +60,5 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
         </Box >
     );
 };
+
+export const LayoutBaseDePagina = memo(LayoutBaseDePaginaMemo);

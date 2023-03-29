@@ -2,6 +2,7 @@ import { Avatar, Box, Divider, Drawer, Icon, IconButton, List, ListItemButton, L
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useAppThemeContext, useDrawerContext } from '../../contexts';
+import { memo } from 'react';
 
 interface IListItemLinkProps {
     label: string;
@@ -10,7 +11,7 @@ interface IListItemLinkProps {
     onClick: (() => void) | undefined;
 }
 
-const ListItemLink: React.FC<IListItemLinkProps> = ({ icon, label, to, onClick }) => {
+const ListItemLink = ({ icon, label, to, onClick }: IListItemLinkProps) => {
 
     const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ interface IMenuLateralProps {
     children: React.ReactNode;
 }
 
-export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
+const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
 
     const theme = useTheme();
     const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -51,7 +52,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
                     <Box width='100%' height={theme.spacing(20)} display='flex' alignItems='center' justifyContent='center'>
                         <Avatar
                             sx={{ height: theme.spacing(12), width: theme.spacing(12) }}
-                            
+
                         />
                     </Box>
 
@@ -91,3 +92,5 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
         </>
     );
 };
+
+export const MenuLateral = memo(MenuLateralMemo);

@@ -1,6 +1,7 @@
-import { Box, Icon, Paper } from '@mui/material';
-import { DataGrid, GridColDef, ptBR } from '@mui/x-data-grid';
-import { GridActionsCellItem, GridToolbar } from '@mui/x-data-grid/components';
+import { Box, Paper } from '@mui/material';
+import { DataGrid, GridColDef, GridPaginationModel, ptBR } from '@mui/x-data-grid';
+import { GridActionsCellItem } from '@mui/x-data-grid/components';
+import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolsList } from '../../shared/components';
@@ -9,7 +10,7 @@ import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IListagemUser, UsersService } from '../../shared/services/api/users/UsersService';
 
-export const ListagemDeUsers: React.FC = () => {
+export const ListagemDeUsers = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -66,14 +67,16 @@ export const ListagemDeUsers: React.FC = () => {
             });
     }, [buscaMemo, pagina]);
 
-    useEffect(() => {
-        const page = paginationModel.page + 1;
+    const pagination = (e: GridPaginationModel): void => {
+        setPaginationModel(e);
+        const page = e.page + 1;
         setSearchParams({ busca: buscaMemo, pagina: page.toString() }, { replace: true });
-    }, [paginationModel]);
+    };
 
-    useEffect(() => {
-        debouce(() => setSearchParams({ busca: busca, pagina: '1' }, { replace: true }));
-    }, [busca]);
+    const setBuscaDebouce = (texto: string): void => {
+        setBusca(texto);
+        debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
+    };
 
     const columns = useMemo<GridColDef<IListagemUser>[]>(() => [
         {
@@ -89,21 +92,21 @@ export const ListagemDeUsers: React.FC = () => {
             renderCell: (params) => [
                 <GridActionsCellItem
                     key={`delete${params.row.id}`}
-                    icon={<Icon>delete</Icon>}
+                    icon={<Delete />}
                     label="Delete"
                     onClick={() => handleDelete(params.row.id)}
 
                 />,
                 <GridActionsCellItem
                     key={`edit${params.row.id}`}
-                    icon={<Icon>edit</Icon>}
+                    icon={<Edit />}
                     label="Edit"
                     onClick={() => navigate(`/users/records/edit/${params.row.id}`)}
 
                 />,
                 <GridActionsCellItem
                     key={`info${params.row.id}`}
-                    icon={<Icon>info</ Icon>}
+                    icon={<Info />}
                     label="info"
                     onClick={() => navigate(`/users/records/show/${params.row.id}`)}
                 />
@@ -166,7 +169,7 @@ export const ListagemDeUsers: React.FC = () => {
                     aoClicarEmNovo={() => navigate('/users/records/new')}
                     mostrarInputBusca
                     textoDaBusca={busca}
-                    aoMudarTextDeBusca={texto => setBusca(texto)}
+                    aoMudarTextDeBusca={texto => setBuscaDebouce(texto)}
                 />
             }
         >
@@ -182,11 +185,11 @@ export const ListagemDeUsers: React.FC = () => {
                     rowCount={totalCount}
                     rows={rows}
                     columns={columns}
-                    slots={{ toolbar: GridToolbar }}
+                    //slots={{ toolbar: GridToolbar }}
                     loading={isLoading}
                     paginationMode='server'
                     paginationModel={paginationModel}
-                    onPaginationModelChange={setPaginationModel}
+                    onPaginationModelChange={e => pagination(e)}
                     pageSizeOptions={[Environment.LIMITE_DE_LINHAS]}
                 />
             </Box>
