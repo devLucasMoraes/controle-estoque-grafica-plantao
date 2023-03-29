@@ -6,7 +6,7 @@ type TVTextFieldProps = TextFieldProps & {
     name: string;
 }
 
-export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
+export const VTextField = ({ name, ...rest }: TVTextFieldProps) => {
 
     const { clearError, defaultValue, error, fieldName, registerField } = useField(name);
     const [value, setValue] = useState(defaultValue || '');

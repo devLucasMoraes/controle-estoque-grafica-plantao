@@ -11,7 +11,7 @@ interface IDetailToolsProps {
     aoClicaeEmApagar?: () => void;
 }
 
-export const DetailTools: React.FC<IDetailToolsProps> = ({
+export const DetailTools = ({
     mostrarBotaoSalvar = false,
     mostrarBotaoDetalhar = false,
     mostrarBotaoEditar = false,
@@ -20,7 +20,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
     aoClicaeEmDetalhar,
     aoClicaeEmEditar,
     aoClicaeEmApagar
-}) => {
+}: IDetailToolsProps) => {
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -89,7 +89,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
                     onClick={aoClicaeEmApagar}
                 >
                     {smDown &&
-                        <Icon>delete</Icon> 
+                        <Icon>delete</Icon>
                     }
                     {!smDown &&
                         <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>

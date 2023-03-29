@@ -6,7 +6,7 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { CategoriasService, IListagemCategoria } from '../../shared/services/api/categorias/CategoriasService';
 
 
-export const DetalharCategoria: React.FC = () => {
+export const DetalharCategoria = () => {
 
     const navigate = useNavigate();
     const { id } = useParams<'id'>();

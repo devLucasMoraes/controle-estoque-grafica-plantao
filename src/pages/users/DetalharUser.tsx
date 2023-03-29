@@ -6,7 +6,7 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { UsersService, IListagemUser } from '../../shared/services/api/users/UsersService';
 
 
-export const DetalharUser: React.FC = () => {
+export const DetalharUser = () => {
 
     const navigate = useNavigate();
     const { id } = useParams<'id'>();

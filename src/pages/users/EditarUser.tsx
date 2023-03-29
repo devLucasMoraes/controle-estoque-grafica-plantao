@@ -26,7 +26,7 @@ const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
     status: yup.string().required()
 });
 
-export const EditarUser: React.FC = () => {
+export const EditarUser = () => {
 
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();

@@ -23,14 +23,14 @@ interface IDrawerProviderProps {
     children: React.ReactNode;
 }
 
-export const DrawerProvider: React.FC<IDrawerProviderProps> = ({children}) => {
+export const DrawerProvider = ({ children }: IDrawerProviderProps) => {
 
-    const[isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [drawerOptions, setDrawerOptions] = useState<IDrawerOptions[]>([]);
 
     const toggleDrawerOpen = useCallback(() => {
         setIsDrawerOpen(oldDrawerOpen => !oldDrawerOpen);
-    },[]);
+    }, []);
 
     const handleSetDrawerOptions = useCallback((newDrawerOptions: IDrawerOptions[]) => {
         setDrawerOptions(newDrawerOptions);

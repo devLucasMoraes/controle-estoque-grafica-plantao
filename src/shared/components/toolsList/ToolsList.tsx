@@ -12,14 +12,14 @@ interface IToolsListProps {
     aoClicarEmNovo?: () => void;
 }
 
-export const ToolsList: React.FC<IToolsListProps> = ({
+export const ToolsList = ({
     mostrarInputBusca = false,
     textoDaBusca = '',
     textoBotaoNovo = 'Criar novo',
     mostrarBotaoNovo = true,
     aoMudarTextDeBusca,
     aoClicarEmNovo
-}) => {
+}: IToolsListProps) => {
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
