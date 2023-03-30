@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useState } from 'react';
 
 interface IDrawerOptions {
     path: string;
-    icon: string;
+    icon: JSX.Element;
     label: string;
 }
 interface IDrawerContextData {

@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Drawer, Icon, IconButton, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useAppThemeContext, useDrawerContext } from '../../contexts';
@@ -6,7 +6,7 @@ import { memo } from 'react';
 
 interface IListItemLinkProps {
     label: string;
-    icon: string;
+    icon: JSX.Element;
     to: string;
     onClick: (() => void) | undefined;
 }
@@ -27,7 +27,7 @@ const ListItemLink = ({ icon, label, to, onClick }: IListItemLinkProps) => {
     return (
         <ListItemButton selected={!!match} onClick={handleClick}>
             <ListItemIcon>
-                <Icon>{icon}</Icon>
+                {icon}
             </ListItemIcon>
             <ListItemText primary={label} />
         </ListItemButton>

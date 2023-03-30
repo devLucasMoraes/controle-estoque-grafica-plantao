@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Add } from '@mui/icons-material';
 import { Environment } from '../../environment';
 
 
@@ -49,11 +49,11 @@ export const ToolsList = ({
                         sx={{ px: 4 }}
                         color='primary'
                         variant='contained'
-                        startIcon={!smDown ? <AddIcon /> : ''}
+                        startIcon={!smDown ? <Add /> : ''}
                         onClick={aoClicarEmNovo}
                     >
                         {smDown &&
-                            <AddIcon />
+                            <Add />
                         }
                         {!smDown &&
                             <Typography variant='button' noWrap overflow='hidden'>

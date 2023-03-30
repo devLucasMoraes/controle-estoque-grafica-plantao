@@ -1,4 +1,5 @@
-import { AppBar, Icon, IconButton, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { AppBar, IconButton, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Menu } from '@mui/icons-material';
 import { memo } from 'react';
 import { useDrawerContext } from '../../contexts';
 
@@ -15,7 +16,7 @@ const ResponsiveAppBarMemo = () => {
             <Toolbar>
                 {mdDown &&
                     <IconButton onClick={toggleDrawerOpen}>
-                        <Icon>menu</Icon>
+                        <Menu />
                     </IconButton>
                 }
                 <Typography variant={smDown ? 'h5' : mdDown ? 'h5' : 'h4'} noWrap component="div" sx={{ flexGrow: 1 }}>

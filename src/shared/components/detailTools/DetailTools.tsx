@@ -1,4 +1,5 @@
-import { Box, Button, Icon, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Delete, Edit, Info, Save } from '@mui/icons-material';
 
 interface IDetailToolsProps {
     mostrarBotaoSalvar?: boolean;
@@ -36,7 +37,7 @@ export const DetailTools = ({
                 <Button
                     color='primary'
                     variant='contained'
-                    startIcon={<Icon>save</Icon>}
+                    startIcon={<Save />}
                     onClick={aoClicaeEmSalvar}
                 >
                     <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
@@ -49,11 +50,11 @@ export const DetailTools = ({
                 <Button
                     color='primary'
                     variant='outlined'
-                    startIcon={!smDown ? <Icon>info</Icon> : ''}
+                    startIcon={!smDown ? <Info /> : ''}
                     onClick={aoClicaeEmDetalhar}
                 >
                     {smDown &&
-                        <Icon>info</Icon>
+                        <Info />
                     }
                     {!smDown &&
                         <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
@@ -67,11 +68,11 @@ export const DetailTools = ({
                 <Button
                     color='primary'
                     variant='outlined'
-                    startIcon={!smDown ? <Icon>edit</Icon> : ''}
+                    startIcon={!smDown ? <Edit /> : ''}
                     onClick={aoClicaeEmEditar}
                 >
                     {smDown &&
-                        <Icon>edit</Icon>
+                        <Edit />
                     }
                     {!smDown &&
                         <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
@@ -85,11 +86,11 @@ export const DetailTools = ({
                 <Button
                     color='error'
                     variant='contained'
-                    startIcon={!smDown ? <Icon>delete</Icon> : ''}
+                    startIcon={!smDown ? <Delete /> : ''}
                     onClick={aoClicaeEmApagar}
                 >
                     {smDown &&
-                        <Icon>delete</Icon>
+                        <Delete />
                     }
                     {!smDown &&
                         <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
