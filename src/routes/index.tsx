@@ -1,4 +1,4 @@
-import { Category, Dashboard as DashboardIcon, Person} from '@mui/icons-material';
+import { Category, LineAxis, Person } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Dashboard, DetalharUser, EditarUser, ListagemDeUsers } from '../pages';
@@ -16,7 +16,7 @@ export const AppRoutes = () => {
         setDrawerOptions([
             {
                 label: 'Dashboard',
-                icon: <DashboardIcon />,
+                icon: <LineAxis />,
                 path: '/dashboard'
             },
             {
