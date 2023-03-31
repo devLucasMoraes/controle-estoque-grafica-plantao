@@ -14,7 +14,7 @@ interface IAutoCompleteUserProps {
     isExternalLoading?: boolean;
 }
 
-export const AutoCompleteUser: React.FC<IAutoCompleteUserProps> = ({ isExternalLoading = false }) => {
+export const AutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUserProps) => {
 
     const { fieldName, clearError, defaultValue, error, registerField } = useField('user_id');
     console.log(`defaultValue: ${defaultValue}`);
@@ -73,7 +73,7 @@ export const AutoCompleteUser: React.FC<IAutoCompleteUserProps> = ({ isExternalL
             loadingText='Carregando...'
 
             disablePortal
-           
+
             disabled={isExternalLoading}
             value={autoCompleteSelectedOption}
             loading={isLoading}
