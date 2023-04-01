@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#mock
+mock/script.js
+mock/db-updated.json
