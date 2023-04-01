@@ -6,12 +6,12 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { MateriaisService, IListagemMateriais } from '../../shared/services/api/materiais/MateriaisService';
 
 
-export const DetalharMaterial = () => {
+export const DetalharMateriais = () => {
 
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [material, setMaterial] = useState<IListagemMateriais>();
+    const [materiais, setMateriais] = useState<IListagemMateriais>();
 
 
     const handleDelete = (id: number) => {
@@ -39,7 +39,7 @@ export const DetalharMaterial = () => {
                         navigate('/materiais');
                     } else {
                         console.log(result);
-                        setMaterial(result);
+                        setMateriais(result);
                     }
                 });
         }
@@ -81,7 +81,7 @@ export const DetalharMaterial = () => {
                         <Typography
                             noWrap
                         >
-                            {material?.id}
+                            {materiais?.id}
                         </Typography>
                     </Grid>
 
@@ -95,7 +95,7 @@ export const DetalharMaterial = () => {
                         <Typography
                             noWrap
                         >
-                            {material?.name}
+                            {materiais?.name}
                         </Typography>
                     </Grid>
 
@@ -108,7 +108,7 @@ export const DetalharMaterial = () => {
                             >
                                 Categoria
                             </Typography>
-                            <UnderlineLinkCategoria id={material?.categorias_id} />
+                            <UnderlineLinkCategoria id={materiais?.categorias_id} />
                         </Box>
                     </Grid>
 
@@ -121,7 +121,7 @@ export const DetalharMaterial = () => {
                             >
                                 Modificado por
                             </Typography>
-                            <UnderlineLinkUser id={material?.user_id} />
+                            <UnderlineLinkUser id={materiais?.user_id} />
                         </Box>
                     </Grid>
 
@@ -135,7 +135,7 @@ export const DetalharMaterial = () => {
                         <Typography
                             noWrap
                         >
-                            {material?.createdAt}
+                            {materiais?.createdAt}
                         </Typography>
                     </Grid>
 
@@ -149,7 +149,7 @@ export const DetalharMaterial = () => {
                         <Typography
                             noWrap
                         >
-                            {material?.updatedAt}
+                            {materiais?.updatedAt}
                         </Typography>
                     </Grid>
                 </Grid>

@@ -24,7 +24,7 @@ const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
     user_id: yup.number().required()
 });
 
-export const EditarMaterial = () => {
+export const EditarMateriais = () => {
 
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();

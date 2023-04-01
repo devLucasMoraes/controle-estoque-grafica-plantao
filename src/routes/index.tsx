@@ -1,7 +1,7 @@
 import { Category, Factory, Inventory, LineAxis, LocalShipping, Man, Person, Place } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalharCategoria, DetalharDestinos, DetalharFornecedores, DetalharMaterial, DetalharRequisitantes, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarDestinos, EditarFornecedores, EditarMaterial, EditarRequisitantes, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalharCategoria, DetalharDestinos, DetalharFornecedores, DetalharMateriais, DetalharRequisitantes, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarDestinos, EditarFornecedores, EditarMateriais, EditarRequisitantes, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -68,9 +68,9 @@ export const AppRoutes = () => {
             <Route path='/categorias/records/show/:id' element={<DetalharCategoria />} />
             <Route path='/categorias/records/:id' element={<EditarCategoria />} />
             <Route path="/materiais" element={<ListagemDeMateriais />} />
-            <Route path='/materiais/records/edit/:id' element={<EditarMaterial />} />
-            <Route path='/materiais/records/show/:id' element={<DetalharMaterial />} />
-            <Route path='/materiais/records/:id' element={<EditarMaterial />} />
+            <Route path='/materiais/records/edit/:id' element={<EditarMateriais />} />
+            <Route path='/materiais/records/show/:id' element={<DetalharMateriais />} />
+            <Route path='/materiais/records/:id' element={<EditarMateriais />} />
             <Route path="/fornecedores" element={<ListagemDeFornecedores />} />
             <Route path='/fornecedores/records/edit/:id' element={<EditarFornecedores />} />
             <Route path='/fornecedores/records/show/:id' element={<DetalharFornecedores />} />
