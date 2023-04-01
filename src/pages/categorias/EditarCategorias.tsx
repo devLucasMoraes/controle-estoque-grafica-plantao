@@ -106,7 +106,7 @@ export const EditarCategoria = () => {
         <LayoutBaseDePagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/categorias')}
-            titulo={id === 'new' ? 'Novo usuario' : 'Editar'}
+            titulo={id === 'new' ? 'Nova Categoria' : 'Editar'}
             tools={
                 <DetailTools
                     mostrarBotaoApagar={id !== 'new'}

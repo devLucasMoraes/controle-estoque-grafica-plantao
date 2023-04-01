@@ -105,7 +105,7 @@ export const EditarMaterial = () => {
         <LayoutBaseDePagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/materiais')}
-            titulo={id === 'new' ? 'Novo usuario' : 'Editar'}
+            titulo={id === 'new' ? 'Novo Material' : 'Editar'}
             tools={
                 <DetailTools
                     mostrarBotaoApagar={id !== 'new'}
