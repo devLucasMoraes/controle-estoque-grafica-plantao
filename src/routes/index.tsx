@@ -1,7 +1,7 @@
-import { Category, Factory, Inventory, LineAxis, LocalShipping, Person } from '@mui/icons-material';
+import { Category, Factory, Inventory, LineAxis, LocalShipping, Man, Person } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalharCategoria, DetalharFornecedores, DetalharMaterial, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarFornecedores, EditarMaterial, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalharCategoria, DetalharFornecedores, DetalharMaterial, DetalharRequisitantes, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarFornecedores, EditarMaterial, EditarRequisitantes, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -41,6 +41,11 @@ export const AppRoutes = () => {
                 label: 'Transportadoras',
                 icon: <LocalShipping />,
                 path: '/transportadoras'
+            },
+            {
+                label: 'Requisitante',
+                icon: <Man />,
+                path: '/requisitantes'
             }
         ]);
     }, []);
@@ -69,6 +74,10 @@ export const AppRoutes = () => {
             <Route path='/transportadoras/records/edit/:id' element={<EditarTransportadoras />} />
             <Route path='/transportadoras/records/show/:id' element={<DetalharTransportadoras />} />
             <Route path='/transportadoras/records/:id' element={<EditarTransportadoras />} />
+            <Route path="/requisitantes" element={<ListagemDeRequisitantes />} />
+            <Route path='/requisitantes/records/edit/:id' element={<EditarRequisitantes />} />
+            <Route path='/requisitantes/records/show/:id' element={<DetalharRequisitantes />} />
+            <Route path='/requisitantes/records/:id' element={<EditarRequisitantes />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
     );
