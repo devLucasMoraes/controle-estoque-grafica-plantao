@@ -4,7 +4,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList } from '../../shared/components';
+import { ToolsList, UnderlineLinkUser } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
@@ -141,7 +141,10 @@ export const ListagemDeCategorias = () => {
             field: 'user_id',
             headerName: 'Usuario',
             minWidth: 155,
-            flex: 0.1
+            flex: 0.1,
+            renderCell: (params) => (
+                <UnderlineLinkUser id={params.row.user_id} />
+            )
         },
         {
             field: 'createdAt',
