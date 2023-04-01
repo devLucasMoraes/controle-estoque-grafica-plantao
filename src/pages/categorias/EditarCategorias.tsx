@@ -4,11 +4,10 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { DetailTools } from '../../shared/components';
+import { AutoCompleteUser, DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
-import { AutoCompleteUser } from './components/AutoCompleteUser';
 
 
 interface IFormData {
