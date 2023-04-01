@@ -8,13 +8,13 @@ import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemUser, UsersService } from '../../shared/services/api/users/UsersService';
+import { IListagemUsers, UsersService } from '../../shared/services/api/users/UsersService';
 
 export const ListagemDeUsers = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemUser[]>([]);
+    const [rows, setRows] = useState<IListagemUsers[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -78,7 +78,7 @@ export const ListagemDeUsers = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemUser>[]>(() => [
+    const columns = useMemo<GridColDef<IListagemUsers>[]>(() => [
         {
             field: 'acitions',
             headerName: '',

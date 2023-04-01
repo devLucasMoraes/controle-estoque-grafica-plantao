@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools, UnderlineLinkUser } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { TransportadorasService, IListagemTransportadora } from '../../shared/services/api/transportadoras/TransportadorasService';
+import { TransportadorasService, IListagemTransportadoras } from '../../shared/services/api/transportadoras/TransportadorasService';
 
 
 export const DetalharTransportadoras = () => {
@@ -11,7 +11,7 @@ export const DetalharTransportadoras = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [transportadora, setTransportadora] = useState<IListagemTransportadora>();
+    const [transportadora, setTransportadora] = useState<IListagemTransportadoras>();
 
 
     const handleDelete = (id: number) => {

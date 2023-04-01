@@ -8,13 +8,13 @@ import { ToolsList, UnderlineLinkUser } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemCategoria, CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
+import { IListagemCategorias, CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
 
 export const ListagemDeCategorias = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemCategoria[]>([]);
+    const [rows, setRows] = useState<IListagemCategorias[]>([]);
     console.log(rows);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -79,7 +79,7 @@ export const ListagemDeCategorias = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemCategoria>[]>(() => [
+    const columns = useMemo<GridColDef<IListagemCategorias>[]>(() => [
         {
             field: 'acitions',
             headerName: '',

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { UsersService, IListagemUser } from '../../shared/services/api/users/UsersService';
+import { UsersService, IListagemUsers } from '../../shared/services/api/users/UsersService';
 
 
 export const DetalharUser = () => {
@@ -11,7 +11,7 @@ export const DetalharUser = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [user, setUser] = useState<IListagemUser>();
+    const [user, setUser] = useState<IListagemUsers>();
 
 
     const handleDelete = (id: number) => {

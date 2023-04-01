@@ -1,7 +1,7 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-export interface IListagemMaterial {
+export interface IListagemMateriais {
     id: number;
     name: string;
     categorias_id: number;
@@ -10,7 +10,7 @@ export interface IListagemMaterial {
     updatedAt: string;
 }
 
-export interface IDetalheMaterial {
+export interface IDetalheMateriais {
     id: number;
     name: string;
     categorias_id: number;
@@ -18,7 +18,7 @@ export interface IDetalheMaterial {
 }
 
 type TMateriaisComTotalCount = {
-    data: IListagemMaterial[];
+    data: IListagemMateriais[];
     totalCount: number;
 }
 
@@ -41,7 +41,7 @@ const getAll = async (page = 1, filter = ''): Promise<TMateriaisComTotalCount | 
     }
 };
 
-const getById = async (id: number): Promise<IListagemMaterial | Error> => {
+const getById = async (id: number): Promise<IListagemMateriais | Error> => {
     try {
         const { data } = await Api.get(`/materiais/${id}`);
 
@@ -56,9 +56,9 @@ const getById = async (id: number): Promise<IListagemMaterial | Error> => {
     }
 };
 
-const create = async (dados: Omit<IDetalheMaterial, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<IDetalheMateriais, 'id'>): Promise<number | Error> => {
     try {
-        const { data } = await Api.post<IDetalheMaterial>('/materiais', dados);
+        const { data } = await Api.post<IDetalheMateriais>('/materiais', dados);
 
         if (data) {
             return data.id;
@@ -71,7 +71,7 @@ const create = async (dados: Omit<IDetalheMaterial, 'id'>): Promise<number | Err
     }
 };
 
-const updateById = async (id: number, dados: IDetalheMaterial): Promise<void | Error> => {
+const updateById = async (id: number, dados: IDetalheMateriais): Promise<void | Error> => {
     try {
         await Api.put(`/materiais/${id}`, dados);
     } catch (error) {

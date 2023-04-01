@@ -8,13 +8,13 @@ import { ToolsList, UnderlineLinkUser } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemFornecedor, FornecedoresService } from '../../shared/services/api/fornecedores/FornecedoresService';
+import { IListagemFornecedores, FornecedoresService } from '../../shared/services/api/fornecedores/FornecedoresService';
 
 export const ListagemDeFornecedores = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemFornecedor[]>([]);
+    const [rows, setRows] = useState<IListagemFornecedores[]>([]);
     console.log(rows);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -79,7 +79,7 @@ export const ListagemDeFornecedores = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemFornecedor>[]>(() => [
+    const columns = useMemo<GridColDef<IListagemFornecedores>[]>(() => [
         {
             field: 'acitions',
             headerName: 'Ações',

@@ -1,7 +1,7 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-export interface IListagemUser {
+export interface IListagemUsers {
     id: number;
     name: string;
     email: string;
@@ -12,7 +12,7 @@ export interface IListagemUser {
     updatedAt: string;
 }
 
-export interface IDetalheUser {
+export interface IDetalheUsers {
     id: number;
     name: string;
     email: string;
@@ -21,7 +21,7 @@ export interface IDetalheUser {
 }
 
 type TUsersComTotalCount = {
-    data: IListagemUser[];
+    data: IListagemUsers[];
     totalCount: number;
 }
 
@@ -44,7 +44,7 @@ const getAll = async (page = 1, filter = ''): Promise<TUsersComTotalCount | Erro
     }
 };
 
-const getById = async (id: number): Promise<IListagemUser | Error> => {
+const getById = async (id: number): Promise<IListagemUsers | Error> => {
     try {
         const { data } = await Api.get(`/users/${id}`);
 
@@ -59,9 +59,9 @@ const getById = async (id: number): Promise<IListagemUser | Error> => {
     }
 };
 
-const create = async (dados: Omit<IDetalheUser, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<IDetalheUsers, 'id'>): Promise<number | Error> => {
     try {
-        const { data } = await Api.post<IDetalheUser>('/users', dados);
+        const { data } = await Api.post<IDetalheUsers>('/users', dados);
 
         if (data) {
             return data.id;
@@ -74,7 +74,7 @@ const create = async (dados: Omit<IDetalheUser, 'id'>): Promise<number | Error> 
     }
 };
 
-const updateById = async (id: number, dados: IDetalheUser): Promise<void | Error> => {
+const updateById = async (id: number, dados: IDetalheUsers): Promise<void | Error> => {
     try {
         await Api.put(`/users/${id}`, dados);
     } catch (error) {

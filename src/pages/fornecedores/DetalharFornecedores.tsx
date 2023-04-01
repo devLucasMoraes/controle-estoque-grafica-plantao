@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools, UnderlineLinkUser } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { FornecedoresService, IListagemFornecedor } from '../../shared/services/api/fornecedores/FornecedoresService';
+import { FornecedoresService, IListagemFornecedores } from '../../shared/services/api/fornecedores/FornecedoresService';
 
 
 export const DetalharFornecedores = () => {
@@ -11,7 +11,7 @@ export const DetalharFornecedores = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [fornecedor, setFornecedor] = useState<IListagemFornecedor>();
+    const [fornecedor, setFornecedor] = useState<IListagemFornecedores>();
 
 
     const handleDelete = (id: number) => {

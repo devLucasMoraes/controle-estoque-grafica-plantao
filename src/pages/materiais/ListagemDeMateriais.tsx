@@ -8,13 +8,13 @@ import { ToolsList, UnderlineLinkCategoria, UnderlineLinkUser } from '../../shar
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemMaterial, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
+import { IListagemMateriais, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
 
 export const ListagemDeMateriais = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemMaterial[]>([]);
+    const [rows, setRows] = useState<IListagemMateriais[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -78,7 +78,7 @@ export const ListagemDeMateriais = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemMaterial>[]>(() => [
+    const columns = useMemo<GridColDef<IListagemMateriais>[]>(() => [
         {
             field: 'acitions',
             headerName: '',

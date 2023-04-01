@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools, UnderlineLinkUser } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { CategoriasService, IListagemCategoria } from '../../shared/services/api/categorias/CategoriasService';
+import { CategoriasService, IListagemCategorias } from '../../shared/services/api/categorias/CategoriasService';
 
 
 export const DetalharCategoria = () => {
@@ -11,7 +11,7 @@ export const DetalharCategoria = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [categoria, setCategoria] = useState<IListagemCategoria>();
+    const [categoria, setCategoria] = useState<IListagemCategorias>();
 
 
     const handleDelete = (id: number) => {

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools, UnderlineLinkCategoria, UnderlineLinkUser } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { MateriaisService, IListagemMaterial } from '../../shared/services/api/materiais/MateriaisService';
+import { MateriaisService, IListagemMateriais } from '../../shared/services/api/materiais/MateriaisService';
 
 
 export const DetalharMaterial = () => {
@@ -11,7 +11,7 @@ export const DetalharMaterial = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [material, setMaterial] = useState<IListagemMaterial>();
+    const [material, setMaterial] = useState<IListagemMateriais>();
 
 
     const handleDelete = (id: number) => {
