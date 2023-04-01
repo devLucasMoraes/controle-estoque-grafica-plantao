@@ -1,10 +1,7 @@
-import { Category, LineAxis, Person } from '@mui/icons-material';
+import { Category, Inventory, LineAxis, Person } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalharUser, EditarUser, ListagemDeUsers } from '../pages';
-import { DetalharCategoria } from '../pages/categorias/DetalharCategorias';
-import { EditarCategoria } from '../pages/categorias/EditarCategorias';
-import { ListagemDeCategorias } from '../pages/categorias/ListagemDeCategorias';
+import { Dashboard, DetalharCategoria, DetalharMaterial, DetalharUser, EditarCategoria, EditarMaterial, EditarUser, ListagemDeCategorias, ListagemDeMateriais, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 export const AppRoutes = () => {
@@ -28,6 +25,11 @@ export const AppRoutes = () => {
                 label: 'Categorias',
                 icon: <Category />,
                 path: '/categorias'
+            },
+            {
+                label: 'Materiais',
+                icon: <Inventory />,
+                path: '/materiais'
             }
         ]);
     }, []);
@@ -44,6 +46,10 @@ export const AppRoutes = () => {
             <Route path='/categorias/records/edit/:id' element={<EditarCategoria />} />
             <Route path='/categorias/records/show/:id' element={<DetalharCategoria />} />
             <Route path='/categorias/records/:id' element={<EditarCategoria />} />
+            <Route path="/materiais" element={<ListagemDeMateriais />} />
+            <Route path='/materiais/records/edit/:id' element={<EditarMaterial />} />
+            <Route path='/materiais/records/show/:id' element={<DetalharMaterial />} />
+            <Route path='/materiais/records/:id' element={<EditarMaterial />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
     );
