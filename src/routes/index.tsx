@@ -1,7 +1,7 @@
-import { Category, Factory, Inventory, LineAxis, Person } from '@mui/icons-material';
+import { Category, Factory, Inventory, LineAxis, LocalShipping, Person } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalharCategoria, DetalharFornecedores, DetalharMaterial, DetalharUser, EditarCategoria, EditarFornecedores, EditarMaterial, EditarUser, ListagemDeCategorias, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalharCategoria, DetalharFornecedores, DetalharMaterial, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarFornecedores, EditarMaterial, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -36,6 +36,11 @@ export const AppRoutes = () => {
                 label: 'Fornecedores',
                 icon: <Factory />,
                 path: '/fornecedores'
+            },
+            {
+                label: 'Transportadoras',
+                icon: <LocalShipping />,
+                path: '/transportadoras'
             }
         ]);
     }, []);
@@ -60,6 +65,10 @@ export const AppRoutes = () => {
             <Route path='/fornecedores/records/edit/:id' element={<EditarFornecedores />} />
             <Route path='/fornecedores/records/show/:id' element={<DetalharFornecedores />} />
             <Route path='/fornecedores/records/:id' element={<EditarFornecedores />} />
+            <Route path="/transportadoras" element={<ListagemDeTransportadoras />} />
+            <Route path='/transportadoras/records/edit/:id' element={<EditarTransportadoras />} />
+            <Route path='/transportadoras/records/show/:id' element={<DetalharTransportadoras />} />
+            <Route path='/transportadoras/records/:id' element={<EditarTransportadoras />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
     );
