@@ -11,3 +11,6 @@ export * from './materiais/DetalharMateriais';
 export * from './fornecedores/ListagemDeFornecedores';
 export * from './fornecedores/EditarFornecedores';
 export * from './fornecedores/DetalharFornecedores';
+export * from './transportadoras/ListagemDeTransportadoras';
+export * from './transportadoras/EditarTransportadoras';
+export * from './transportadoras/DetalharTransportadoras';
