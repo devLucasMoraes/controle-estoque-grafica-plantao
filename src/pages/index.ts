@@ -8,3 +8,6 @@ export * from './categorias/DetalharCategorias';
 export * from './materiais/ListagemDeMateriais';
 export * from './materiais/EditarMateriais';
 export * from './materiais/DetalharMateriais';
+export * from './fornecedores/ListagemDeFornecedores';
+export * from './fornecedores/EditarFornecedores';
+export * from './fornecedores/DetalharFornecedores';
