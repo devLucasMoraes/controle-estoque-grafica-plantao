@@ -17,3 +17,6 @@ export * from './transportadoras/DetalharTransportadoras';
 export * from './requisitantes/ListagemDeRequisitantes';
 export * from './requisitantes/EditarRequisitantes';
 export * from './requisitantes/DetalharRequisitantes';
+export * from './destinos/ListagemDeDestinos';
+export * from './destinos/EditarDestinos';
+export * from './destinos/DetalharDestinos';
