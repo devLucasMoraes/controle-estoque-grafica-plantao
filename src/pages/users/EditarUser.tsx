@@ -75,7 +75,7 @@ export const EditarUser = () => {
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                navigate(`/users/records/show/${result}`);
+                                navigate(`/users/records/show/${Number(id)}`);
                             }
                         });
                 }

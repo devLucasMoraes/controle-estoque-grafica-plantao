@@ -62,8 +62,6 @@ export const EditarMaterial = () => {
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                console.log('result new');
-                                console.log(result);
                                 navigate(`/materiais/records/show/${result}`);
                             }
                         });
@@ -75,9 +73,7 @@ export const EditarMaterial = () => {
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                console.log('result update');
-                                console.log(result);
-                                navigate(`/materiais/records/show/${result}`);
+                                navigate(`/materiais/records/show/${Number(id)}`);
                             }
                         });
                 }

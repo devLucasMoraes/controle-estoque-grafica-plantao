@@ -74,7 +74,7 @@ export const EditarCategoria = () => {
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                navigate(`/categorias/records/show/${result}`);
+                                navigate(`/categorias/records/show/${Number(id)}`);
                             }
                         });
                 }
