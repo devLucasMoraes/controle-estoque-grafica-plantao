@@ -1,4 +1,4 @@
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { ChevronLeft } from '@mui/icons-material';
 import { Box, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { memo, ReactNode } from 'react';
 
@@ -23,7 +23,7 @@ const LayoutBaseDePaginaMemo = ({ children, titulo, tools, mostrarBotaoVoltar = 
                 <Box display='flex' gap={1} justifyContent='center' alignItems='center'>
                     {mostrarBotaoVoltar && (
                         <IconButton color='primary' size='small' onClick={aoClicaeEmVoltar}>
-                            <ChevronLeftIcon fontSize='large' />
+                            <ChevronLeft fontSize='large' />
                         </IconButton>
                     )}
 
