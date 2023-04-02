@@ -1,7 +1,7 @@
-import { Category, Factory, Inventory, LineAxis, LocalShipping, Man, Person, Place } from '@mui/icons-material';
+import { Category, Factory, ImportExport, Inventory, LineAxis, LocalShipping, Man, Person, Place } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalharCategoria, DetalharDestinos, DetalharFornecedores, DetalharMateriais, DetalharRequisitantes, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarDestinos, EditarFornecedores, EditarMateriais, EditarRequisitantes, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalharCategoria, DetalharDestinos, DetalharFornecedores, DetalharMateriais, DetalharRequisitantes, DetalharTransacoesEntrada, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarDestinos, EditarFornecedores, EditarMateriais, EditarRequisitantes, EditarTransacoesEntrada, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -51,6 +51,11 @@ export const AppRoutes = () => {
                 label: 'Destinos',
                 icon: <Place />,
                 path: '/destinos'
+            },
+            {
+                label: 'Transações de entrada',
+                icon: <ImportExport />,
+                path: '/transacoesEntrada'
             }
         ]);
     }, []);
@@ -87,6 +92,10 @@ export const AppRoutes = () => {
             <Route path='/destinos/records/edit/:id' element={<EditarDestinos />} />
             <Route path='/destinos/records/show/:id' element={<DetalharDestinos />} />
             <Route path='/destinos/records/:id' element={<EditarDestinos />} />
+            <Route path="/transacoesEntrada" element={<ListagemDeTransacoesEntrada />} />
+            <Route path='/transacoesEntrada/records/edit/:id' element={<EditarTransacoesEntrada />} />
+            <Route path='/transacoesEntrada/records/show/:id' element={<DetalharTransacoesEntrada />} />
+            <Route path='/transacoesEntrada/records/:id' element={<EditarTransacoesEntrada />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
     );
