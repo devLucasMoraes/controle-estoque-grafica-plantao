@@ -23,3 +23,6 @@ export * from './destinos/DetalharDestinos';
 export * from './transacoes-entrada/ListagemDeTransacoesEntrada';
 export * from './transacoes-entrada/EditarTransacoesEntrada';
 export * from './transacoes-entrada/DetalharTransacoesEntrada';
+export * from './transacoesSaida/ListagemDeTransacoesSaida';
+export * from './transacoesSaida/EditarTransacoesSaida';
+export * from './transacoesSaida/DetalharTransacoesSaida';
