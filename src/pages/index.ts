@@ -20,3 +20,6 @@ export * from './requisitantes/DetalharRequisitantes';
 export * from './destinos/ListagemDeDestinos';
 export * from './destinos/EditarDestinos';
 export * from './destinos/DetalharDestinos';
+export * from './transacoes-entrada/ListagemDeTransacoesEntrada';
+export * from './transacoes-entrada/EditarTransacoesEntrada';
+export * from './transacoes-entrada/DetalharTransacoesEntrada';
