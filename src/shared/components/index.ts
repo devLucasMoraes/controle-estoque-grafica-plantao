@@ -7,6 +7,8 @@ export * from './underLineLinks/UnderLineLinkCategoria';
 export * from './underLineLinks/UnderLineLinkTransportadoras';
 export * from './underLineLinks/UnderLineLinkFornecedores';
 export * from './underLineLinks/UnderLineLinkMateriais';
+export * from './underLineLinks/UnderLineLinkRequisitantes';
+export * from './underLineLinks/UnderLineLinkDestinos';
 export * from './autoCompletions/AutoCompleteUser';
 export * from './autoCompletions/AutoCompleteCategoria';
 export * from './autoCompletions/AutoCompleteTransportadoras';
