@@ -6,7 +6,7 @@ export const Dashboard = () => {
     return (
         <LayoutBaseDePagina
             titulo='Dashboard'
-            toolsList={<ToolsList />}
+            tools={<ToolsList />}
         >
             testando
         </LayoutBaseDePagina>

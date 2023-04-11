@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, IconButton, Link, List, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useAppThemeContext, useDrawerContext } from '../../contexts';
@@ -25,7 +25,7 @@ const ListItemLink = ({ icon, label, to, onClick }: IListItemLinkProps) => {
 
 
     return (
-        <ListItemButton selected={!!match} onClick={handleClick}>
+        <ListItemButton selected={!!match} onClick={handleClick} >
             <ListItemIcon>
                 {icon}
             </ListItemIcon>
@@ -61,12 +61,68 @@ const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
                     <Box flex={1}>
                         <List component='nav'>
                             {drawerOptions.map(drawerOption => (
+                                !drawerOption.group &&
                                 <ListItemLink
                                     key={drawerOption.path}
                                     label={drawerOption.label}
                                     icon={drawerOption.icon}
                                     to={drawerOption.path}
-                                    onClick={mdDown ? toggleDrawerOpen : undefined} />
+                                    onClick={mdDown ? toggleDrawerOpen : undefined}
+                                />
+                            ))}
+                            <Typography
+                                variant="h6"
+                                component={Link}
+                                underline="none"
+                                padding={2}
+                            >
+                                Cadastro de Materiais
+                            </Typography>
+                            {drawerOptions.map(drawerOption => (
+                                drawerOption.group === 'Cadastro de Materiais' &&
+                                <ListItemLink
+                                    key={drawerOption.path}
+                                    label={drawerOption.label}
+                                    icon={drawerOption.icon}
+                                    to={drawerOption.path}
+                                    onClick={mdDown ? toggleDrawerOpen : undefined}
+                                />
+                            ))}
+                            <Typography
+                                variant="h6"
+                                component={Link}
+                                underline="none"
+                                padding={2}
+                            >
+                                Entrada de Materiais
+                            </Typography>
+                            {drawerOptions.map(drawerOption => (
+                                drawerOption.group === 'Entrada de Materiais' &&
+                                <ListItemLink
+                                    key={drawerOption.path}
+                                    label={drawerOption.label}
+                                    icon={drawerOption.icon}
+                                    to={drawerOption.path}
+                                    onClick={mdDown ? toggleDrawerOpen : undefined}
+                                />
+                            ))}
+                            <Typography
+                                variant="h6"
+                                component={Link}
+                                underline="none"
+                                padding={2}
+                            >
+                                Saida de Materiais
+                            </Typography>
+                            {drawerOptions.map(drawerOption => (
+                                drawerOption.group === 'Saida de Materiais' &&
+                                <ListItemLink
+                                    key={drawerOption.path}
+                                    label={drawerOption.label}
+                                    icon={drawerOption.icon}
+                                    to={drawerOption.path}
+                                    onClick={mdDown ? toggleDrawerOpen : undefined}
+                                />
                             ))}
                         </List>
                     </Box>

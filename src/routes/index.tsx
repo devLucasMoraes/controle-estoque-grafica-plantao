@@ -15,52 +15,62 @@ export const AppRoutes = () => {
             {
                 label: 'Dashboard',
                 icon: <LineAxis />,
-                path: '/dashboard'
+                path: '/dashboard',
+                group: ''
             },
             {
                 label: 'Usuarios',
                 icon: <Person />,
-                path: '/users'
+                path: '/users',
+                group:''
             },
             {
                 label: 'Categorias',
                 icon: <Category />,
-                path: '/categorias'
+                path: '/categorias',
+                group: 'Cadastro de Materiais'
             },
             {
                 label: 'Materiais',
                 icon: <Inventory />,
-                path: '/materiais'
+                path: '/materiais',
+                group: 'Cadastro de Materiais'
             },
             {
                 label: 'Fornecedores',
                 icon: <Factory />,
-                path: '/fornecedores'
+                path: '/fornecedores',
+                group: 'Entrada de Materiais'
             },
             {
                 label: 'Transportadoras',
                 icon: <LocalShipping />,
-                path: '/transportadoras'
+                path: '/transportadoras',
+                group: 'Entrada de Materiais'
             },
             {
                 label: 'Requisitante',
                 icon: <Man />,
-                path: '/requisitantes'
+                path: '/requisitantes',
+                group: 'Saida de Materiais'
             },
             {
                 label: 'Destinos',
                 icon: <Place />,
-                path: '/destinos'
+                path: '/destinos',
+                group: 'Saida de Materiais'
             },
             {
                 label: 'Transações de entrada',
                 icon: <ImportExport />,
-                path: '/transacoesEntrada'
+                path: '/transacoesEntrada',
+                group: 'Entrada de Materiais'
             },
             {
                 label: 'Transações de saida',
                 icon: <ImportExport />,
-                path: '/transacoesSaida'
+                path: '/transacoesSaida',
+                group: 'Saida de Materiais'
             }
         ]);
     }, []);
