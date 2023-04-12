@@ -4,7 +4,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkDestinos, UnderlineLinkMateriais, UnderlineLinkRequisitantes, UnderlineLinkUser } from '../../shared/components';
+import { ToolsList, UnderlineLinkDestinos, UnderlineLinkMateriais, UnderlineLinkRequisitantes } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
@@ -113,38 +113,29 @@ export const ListagemDeTransacoesSaida= () => {
             ]
         },
         {
-            field: 'id',
-            headerName: 'ID',
-            flex: 0.1,
-            minWidth: 90
-        },
-        {
             field: 'qtd',
             headerName: 'Quantidade',
             minWidth: 155,
             flex: 0.3
         },
         {
-            field: 'data_de_recebimento',
-            headerName: 'Recebido em',
+            field: 'material_id',
+            headerName: 'Material',
+            minWidth: 220,
+            flex: 0.2,
+            renderCell: (params) => (
+                <UnderlineLinkMateriais id={params.row.material_id} />
+            )
+        },
+        {
+            field: 'data_de_retirada',
+            headerName: 'Entregue em',
             minWidth: 155,
             flex: 0.3
         },
         {
             field: 'valor',
             headerName: 'Valor do item',
-            minWidth: 155,
-            flex: 0.3
-        },
-        {
-            field: 'op',
-            headerName: 'Ordem de Produção',
-            minWidth: 155,
-            flex: 0.3
-        },
-        {
-            field: 'obs',
-            headerName: 'Observações',
             minWidth: 155,
             flex: 0.3
         },
@@ -165,34 +156,6 @@ export const ListagemDeTransacoesSaida= () => {
             renderCell: (params) => (
                 <UnderlineLinkDestinos id={params.row.destino_id} />
             )
-        },
-        {
-            field: 'material_id',
-            headerName: 'Material',
-            minWidth: 220,
-            flex: 0.2,
-            renderCell: (params) => (
-                <UnderlineLinkMateriais id={params.row.material_id} />
-            )
-        },
-        {
-            field: 'user_id',
-            headerName: 'Usuario',
-            minWidth: 155,
-            flex: 0.1,
-            renderCell: (params) => (
-                <UnderlineLinkUser id={params.row.user_id} />
-            )
-        },
-        {
-            field: 'createdAt',
-            headerName: 'Criado em',
-            width: 155
-        },
-        {
-            field: 'updatedAt',
-            headerName: 'Atualizado em',
-            width: 155
         }
     ], [handleDelete]);
 

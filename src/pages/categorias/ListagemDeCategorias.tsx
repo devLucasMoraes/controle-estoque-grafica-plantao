@@ -114,12 +114,6 @@ export const ListagemDeCategorias = () => {
             ]
         },
         {
-            field: 'id',
-            headerName: 'ID',
-            flex: 0.1,
-            minWidth: 90
-        },
-        {
             field: 'name',
             headerName: 'Nome',
             minWidth: 155,
@@ -136,25 +130,6 @@ export const ListagemDeCategorias = () => {
             headerName: 'Estoque minimo',
             minWidth: 155,
             flex: 0.1
-        },
-        {
-            field: 'user_id',
-            headerName: 'Usuario',
-            minWidth: 155,
-            flex: 0.1,
-            renderCell: (params) => (
-                <UnderlineLinkUser id={params.row.user_id} />
-            )
-        },
-        {
-            field: 'createdAt',
-            headerName: 'Criado em',
-            width: 155
-        },
-        {
-            field: 'updatedAt',
-            headerName: 'Atualizado em',
-            width: 155
         }
     ], [handleDelete]);
 

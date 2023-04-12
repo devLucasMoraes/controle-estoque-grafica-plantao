@@ -113,12 +113,6 @@ export const ListagemDeRequisitantes = () => {
             ]
         },
         {
-            field: 'id',
-            headerName: 'ID',
-            flex: 0.1,
-            minWidth: 90
-        },
-        {
             field: 'name',
             headerName: 'Nome',
             minWidth: 155,
@@ -129,25 +123,6 @@ export const ListagemDeRequisitantes = () => {
             headerName: 'Celular',
             minWidth: 220,
             flex: 0.2
-        },
-        {
-            field: 'user_id',
-            headerName: 'Usuario',
-            minWidth: 155,
-            flex: 0.1,
-            renderCell: (params) => (
-                <UnderlineLinkUser id={params.row.user_id} />
-            )
-        },
-        {
-            field: 'createdAt',
-            headerName: 'Criado em',
-            width: 155
-        },
-        {
-            field: 'updatedAt',
-            headerName: 'Atualizado em',
-            width: 155
         }
     ], [handleDelete]);
 
