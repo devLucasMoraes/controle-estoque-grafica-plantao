@@ -146,6 +146,7 @@ export const EditarUser = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
+                                type="password"
                                 label='Senha'
                                 fullWidth
                                 placeholder='senha'
