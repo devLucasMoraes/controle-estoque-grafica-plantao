@@ -137,10 +137,10 @@ export const EditarTransacoesEntrada = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
-                                label='Quantidade'
+                                label='NFe'
                                 fullWidth
-                                placeholder='quantidade'
-                                name='qtd'
+                                placeholder='NFe'
+                                name='nfe'
                             />
                         </Grid>
 
@@ -148,15 +148,6 @@ export const EditarTransacoesEntrada = () => {
                             <VDatePicker
                                 label='Recebido em'
                                 name='data_de_recebimento'
-                            />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <VTextField
-                                label='Valor do item'
-                                fullWidth
-                                placeholder='valor do item'
-                                name='valor'
                             />
                         </Grid>
 
@@ -171,13 +162,26 @@ export const EditarTransacoesEntrada = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
-                                label='NFe'
+                                label='Quantidade'
                                 fullWidth
-                                placeholder='NFe'
-                                name='nfe'
+                                placeholder='quantidade'
+                                name='qtd'
                             />
                         </Grid>
 
+                        <Grid item marginBottom={2}>
+                            <VTextField
+                                label='Valor do item'
+                                fullWidth
+                                placeholder='valor do item'
+                                name='valor'
+                            />
+                        </Grid>
+
+                        <Grid item marginBottom={2}>
+                            <AutoCompleteMateriais isExternalLoading={isLoading} />
+                        </Grid>
+                        
                         <Grid item marginBottom={2}>
                             <VTextField
                                 label='Observações'
@@ -195,9 +199,7 @@ export const EditarTransacoesEntrada = () => {
                             <AutoCompleteFornecedores isExternalLoading={isLoading} />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteMateriais isExternalLoading={isLoading} />
-                        </Grid>
+
                         
                         <Grid item marginBottom={2}>
                             <AutoCompleteUser isExternalLoading={isLoading} />
