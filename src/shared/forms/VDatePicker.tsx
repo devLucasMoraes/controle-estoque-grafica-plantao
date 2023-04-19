@@ -5,13 +5,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 
-type TVDatePickerProps = DatePickerProps<Dayjs> & {
+interface IVDatePickerProps extends DatePickerProps<Dayjs> {
     name: string;
 }
 
 
 
-export const VDatePicker = ({ name, ...rest }: TVDatePickerProps) => {
+export const VDatePicker = ({ name, ...rest }: IVDatePickerProps) => {
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
     const { clearError, defaultValue, fieldName, registerField } = useField(name);
@@ -40,7 +40,7 @@ export const VDatePicker = ({ name, ...rest }: TVDatePickerProps) => {
         registerField({
             name: fieldName,
             getValue: () => value,
-            setValue: (_, newValue) => setValue(newValue)
+            setValue: (_, newValue) => setValue(dayjs(newValue))
         });
     }, [registerField, fieldName, value]);
 
