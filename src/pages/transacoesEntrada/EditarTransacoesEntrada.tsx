@@ -1,6 +1,7 @@
 import { Box, Grid, LinearProgress, Paper } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
+import {XMLParser} from 'fast-xml-parser';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
@@ -54,6 +55,8 @@ export const EditarTransacoesEntrada = () => {
                         navigate('/transacoesEntrada');
                     } else {
                         formRef.current?.setData(result);
+                        console.log('@@@@@@@Result@@@@@@');
+                        console.log(result);
                     }
                 });
         }
@@ -111,6 +114,18 @@ export const EditarTransacoesEntrada = () => {
                 });
         }
     };
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const parser = new XMLParser();
+        const reader = new FileReader();
+        reader.onload = () => {
+            const xmlString = reader.result?.toString() ?? '';
+            const jsonObj = parser.parse(xmlString);
+            console.log(jsonObj.nfeProc);
+        };
+        reader.readAsText(file);
+    };
 
     return (
         <LayoutBaseDePagina
@@ -121,8 +136,10 @@ export const EditarTransacoesEntrada = () => {
                 <DetailTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
+                    mostrarBotaoImportarXML={id === 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
                     aoClicaeEmDetalhar={() => navigate(`/transacoesEntrada/records/show/${id}`)}
+                    aoAlternarArquivo={handleFileChange}
                 />
             }
         >
