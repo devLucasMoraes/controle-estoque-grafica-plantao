@@ -113,16 +113,19 @@ export const ListagemDeTransacoesEntrada = () => {
             ]
         },
         {
-            field: 'id',
-            headerName: 'ID',
-            flex: 0.1,
-            minWidth: 90
-        },
-        {
             field: 'qtd',
             headerName: 'Quantidade',
             minWidth: 155,
             flex: 0.3
+        },
+        {
+            field: 'material_id',
+            headerName: 'Material',
+            minWidth: 220,
+            flex: 0.2,
+            renderCell: (params) => (
+                <UnderlineLinkMateriais id={params.row.material_id} />
+            )
         },
         {
             field: 'data_de_recebimento',
@@ -137,20 +140,17 @@ export const ListagemDeTransacoesEntrada = () => {
             flex: 0.3
         },
         {
+            field: 'fornecedora_id',
+            headerName: 'Fornecedora',
+            minWidth: 220,
+            flex: 0.2,
+            renderCell: (params) => (
+                <UnderlineLinkFornecedores id={params.row.fornecedora_id} />
+            )
+        },
+        {
             field: 'valor_frete',
             headerName: 'Valor do frete',
-            minWidth: 155,
-            flex: 0.3
-        },
-        {
-            field: 'nfe',
-            headerName: 'NFe',
-            minWidth: 155,
-            flex: 0.3
-        },
-        {
-            field: 'obs',
-            headerName: 'Observações',
             minWidth: 155,
             flex: 0.3
         },
@@ -162,43 +162,6 @@ export const ListagemDeTransacoesEntrada = () => {
             renderCell: (params) => (
                 <UnderlineLinkTransportadoras id={params.row.transportadora_id} />
             )
-        },
-        {
-            field: 'fornecedora_id',
-            headerName: 'Fornecedora',
-            minWidth: 220,
-            flex: 0.2,
-            renderCell: (params) => (
-                <UnderlineLinkFornecedores id={params.row.fornecedora_id} />
-            )
-        },
-        {
-            field: 'material_id',
-            headerName: 'Material',
-            minWidth: 220,
-            flex: 0.2,
-            renderCell: (params) => (
-                <UnderlineLinkMateriais id={params.row.material_id} />
-            )
-        },
-        {
-            field: 'user_id',
-            headerName: 'Usuario',
-            minWidth: 155,
-            flex: 0.1,
-            renderCell: (params) => (
-                <UnderlineLinkUser id={params.row.user_id} />
-            )
-        },
-        {
-            field: 'createdAt',
-            headerName: 'Criado em',
-            width: 155
-        },
-        {
-            field: 'updatedAt',
-            headerName: 'Atualizado em',
-            width: 155
         }
     ], [handleDelete]);
 

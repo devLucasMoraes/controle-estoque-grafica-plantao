@@ -113,12 +113,6 @@ export const ListagemDeMateriais = () => {
             ]
         },
         {
-            field: 'id',
-            headerName: 'ID',
-            flex: 0.1,
-            minWidth: 90
-        },
-        {
             field: 'name',
             headerName: 'Nome',
             minWidth: 155,
@@ -132,25 +126,6 @@ export const ListagemDeMateriais = () => {
             renderCell: (params) => (
                 <UnderlineLinkCategoria id={params.row.categorias_id} />
             )
-        },
-        {
-            field: 'user_id',
-            headerName: 'Usuario',
-            minWidth: 155,
-            flex: 0.1,
-            renderCell: (params) => (
-                <UnderlineLinkUser id={params.row.user_id} />
-            )
-        },
-        {
-            field: 'createdAt',
-            headerName: 'Criado em',
-            width: 155
-        },
-        {
-            field: 'updatedAt',
-            headerName: 'Atualizado em',
-            width: 155
         }
     ], [handleDelete]);
 

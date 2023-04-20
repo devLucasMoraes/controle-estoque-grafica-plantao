@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { AutoCompleteFornecedores, AutoCompleteMateriais, AutoCompleteTransportadoras, AutoCompleteUser, DetailTools } from '../../shared/components';
-import { IVFormErros, VTextField } from '../../shared/forms';
+import { IVFormErros, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 
@@ -137,28 +137,17 @@ export const EditarTransacoesEntrada = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
-                                label='Quantidade'
+                                label='NFe'
                                 fullWidth
-                                placeholder='quantidade'
-                                name='qtd'
+                                placeholder='NFe'
+                                name='nfe'
                             />
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <VDatePicker
                                 label='Recebido em'
-                                fullWidth
-                                placeholder='recebido em'
                                 name='data_de_recebimento'
-                            />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <VTextField
-                                label='Valor do item'
-                                fullWidth
-                                placeholder='valor do item'
-                                name='valor'
                             />
                         </Grid>
 
@@ -173,13 +162,26 @@ export const EditarTransacoesEntrada = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
-                                label='NFe'
+                                label='Quantidade'
                                 fullWidth
-                                placeholder='NFe'
-                                name='nfe'
+                                placeholder='quantidade'
+                                name='qtd'
                             />
                         </Grid>
 
+                        <Grid item marginBottom={2}>
+                            <VTextField
+                                label='Valor do item'
+                                fullWidth
+                                placeholder='valor do item'
+                                name='valor'
+                            />
+                        </Grid>
+
+                        <Grid item marginBottom={2}>
+                            <AutoCompleteMateriais isExternalLoading={isLoading} />
+                        </Grid>
+                        
                         <Grid item marginBottom={2}>
                             <VTextField
                                 label='Observações'
@@ -197,9 +199,7 @@ export const EditarTransacoesEntrada = () => {
                             <AutoCompleteFornecedores isExternalLoading={isLoading} />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteMateriais isExternalLoading={isLoading} />
-                        </Grid>
+
                         
                         <Grid item marginBottom={2}>
                             <AutoCompleteUser isExternalLoading={isLoading} />

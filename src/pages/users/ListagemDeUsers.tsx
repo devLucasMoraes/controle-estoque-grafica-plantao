@@ -113,12 +113,6 @@ export const ListagemDeUsers = () => {
             ]
         },
         {
-            field: 'id',
-            headerName: 'ID',
-            flex: 0.1,
-            minWidth: 90
-        },
-        {
             field: 'name',
             headerName: 'Nome',
             minWidth: 155,
@@ -131,12 +125,6 @@ export const ListagemDeUsers = () => {
             flex: 0.2
         },
         {
-            field: 'password_hash',
-            headerName: 'Senha',
-            minWidth: 155,
-            flex: 0.1
-        },
-        {
             field: 'role',
             headerName: 'Cargo',
             minWidth: 155,
@@ -147,16 +135,6 @@ export const ListagemDeUsers = () => {
             headerName: 'Status',
             minWidth: 110,
             flex: 0.1
-        },
-        {
-            field: 'createdAt',
-            headerName: 'Criado em',
-            width: 155
-        },
-        {
-            field: 'updatedAt',
-            headerName: 'Atualizado em',
-            width: 155
         }
     ], [handleDelete]);
 
