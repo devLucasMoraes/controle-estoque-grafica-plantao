@@ -5,16 +5,16 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 
-type TVDatePickerProps = DatePickerProps<Dayjs> & {
+interface IVDatePickerProps extends DatePickerProps<Dayjs> {
     name: string;
 }
 
 
 
-export const VDatePicker = ({ name, ...rest }: TVDatePickerProps) => {
+export const VDatePicker = ({ name, ...rest }: IVDatePickerProps) => {
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
-    const { clearError, defaultValue, fieldName, registerField } = useField(name);
+    const { defaultValue, fieldName, registerField } = useField(name);
     const [value, setValue] = useState<Dayjs | null>(dayjs(today) || '');
     const [error, setError] = useState<DateValidationError | null>(null);
 
@@ -40,7 +40,7 @@ export const VDatePicker = ({ name, ...rest }: TVDatePickerProps) => {
         registerField({
             name: fieldName,
             getValue: () => value,
-            setValue: (_, newValue) => setValue(newValue)
+            setValue: (_, newValue) => setValue(dayjs(newValue))
         });
     }, [registerField, fieldName, value]);
 
@@ -51,9 +51,9 @@ export const VDatePicker = ({ name, ...rest }: TVDatePickerProps) => {
                 {...rest}
                 onError={(newError) => setError(newError)}
                 defaultValue={defaultValue}
-                onChange={e => setValue(e) }
+                onChange={e => setValue(e)}
                 value={value}
-              
+
                 slotProps={{
                     textField: {
                         helperText: errorMessage,
