@@ -145,14 +145,14 @@ export const EditarTransacoesEntrada = () => {
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
-                    <Grid container direction='column' spacing={2} padding={4}>
+                    <Grid container spacing={2} padding={4}>
                         {isLoading && (
                             <Grid item>
                                 <LinearProgress variant='indeterminate' />
                             </Grid>
                         )}
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={6} >
                             <VTextField
                                 label='NFe'
                                 fullWidth
@@ -161,14 +161,14 @@ export const EditarTransacoesEntrada = () => {
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={6}>
                             <VDatePicker
                                 label='Recebido em'
                                 name='data_de_recebimento'
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={4}>
                             <VTextField
                                 label='Valor do frete'
                                 fullWidth
@@ -177,7 +177,15 @@ export const EditarTransacoesEntrada = () => {
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={4}>
+                            <AutoCompleteTransportadoras isExternalLoading={isLoading} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <AutoCompleteFornecedores isExternalLoading={isLoading} />
+                        </Grid>
+
+                        <Grid item xs={2}>
                             <VTextField
                                 label='Quantidade'
                                 fullWidth
@@ -186,7 +194,7 @@ export const EditarTransacoesEntrada = () => {
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={2}>
                             <VTextField
                                 label='Valor do item'
                                 fullWidth
@@ -195,32 +203,19 @@ export const EditarTransacoesEntrada = () => {
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={2}>
                             <AutoCompleteMateriais isExternalLoading={isLoading} />
                         </Grid>
-                        
-                        <Grid item marginBottom={2}>
+
+                        <Grid item xs={6}>
                             <VTextField
                                 label='Observações'
                                 fullWidth
                                 placeholder='observações'
                                 name='obs'
                             />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteTransportadoras isExternalLoading={isLoading} />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteFornecedores isExternalLoading={isLoading} />
-                        </Grid>
-
-
-                        
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
-                        </Grid>
+                        </Grid>        
+                   
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>
