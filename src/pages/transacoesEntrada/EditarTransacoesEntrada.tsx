@@ -1,6 +1,7 @@
 import { Box, Grid, LinearProgress, Paper } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
+import {XMLParser} from 'fast-xml-parser';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
@@ -54,6 +55,8 @@ export const EditarTransacoesEntrada = () => {
                         navigate('/transacoesEntrada');
                     } else {
                         formRef.current?.setData(result);
+                        console.log('@@@@@@@Result@@@@@@');
+                        console.log(result);
                     }
                 });
         }
@@ -111,6 +114,18 @@ export const EditarTransacoesEntrada = () => {
                 });
         }
     };
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const parser = new XMLParser();
+        const reader = new FileReader();
+        reader.onload = () => {
+            const xmlString = reader.result?.toString() ?? '';
+            const jsonObj = parser.parse(xmlString);
+            console.log(jsonObj.nfeProc);
+        };
+        reader.readAsText(file);
+    };
 
     return (
         <LayoutBaseDePagina
@@ -121,21 +136,23 @@ export const EditarTransacoesEntrada = () => {
                 <DetailTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
+                    mostrarBotaoImportarXML={id === 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
                     aoClicaeEmDetalhar={() => navigate(`/transacoesEntrada/records/show/${id}`)}
+                    aoAlternarArquivo={handleFileChange}
                 />
             }
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
-                    <Grid container direction='column' spacing={2} padding={4}>
+                    <Grid container spacing={2} padding={4}>
                         {isLoading && (
                             <Grid item>
                                 <LinearProgress variant='indeterminate' />
                             </Grid>
                         )}
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={6} >
                             <VTextField
                                 label='NFe'
                                 fullWidth
@@ -144,14 +161,14 @@ export const EditarTransacoesEntrada = () => {
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={6}>
                             <VDatePicker
                                 label='Recebido em'
                                 name='data_de_recebimento'
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={4}>
                             <VTextField
                                 label='Valor do frete'
                                 fullWidth
@@ -160,7 +177,15 @@ export const EditarTransacoesEntrada = () => {
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={4}>
+                            <AutoCompleteTransportadoras isExternalLoading={isLoading} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <AutoCompleteFornecedores isExternalLoading={isLoading} />
+                        </Grid>
+
+                        <Grid item xs={2}>
                             <VTextField
                                 label='Quantidade'
                                 fullWidth
@@ -169,7 +194,7 @@ export const EditarTransacoesEntrada = () => {
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={2}>
                             <VTextField
                                 label='Valor do item'
                                 fullWidth
@@ -178,32 +203,19 @@ export const EditarTransacoesEntrada = () => {
                             />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
+                        <Grid item xs={2}>
                             <AutoCompleteMateriais isExternalLoading={isLoading} />
                         </Grid>
-                        
-                        <Grid item marginBottom={2}>
+
+                        <Grid item xs={6}>
                             <VTextField
                                 label='Observações'
                                 fullWidth
                                 placeholder='observações'
                                 name='obs'
                             />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteTransportadoras isExternalLoading={isLoading} />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteFornecedores isExternalLoading={isLoading} />
-                        </Grid>
-
-
-                        
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
-                        </Grid>
+                        </Grid>        
+                   
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>

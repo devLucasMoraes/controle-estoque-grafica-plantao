@@ -14,7 +14,7 @@ interface IVDatePickerProps extends DatePickerProps<Dayjs> {
 export const VDatePicker = ({ name, ...rest }: IVDatePickerProps) => {
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
-    const { clearError, defaultValue, fieldName, registerField } = useField(name);
+    const { defaultValue, fieldName, registerField } = useField(name);
     const [value, setValue] = useState<Dayjs | null>(dayjs(today) || '');
     const [error, setError] = useState<DateValidationError | null>(null);
 
@@ -51,9 +51,9 @@ export const VDatePicker = ({ name, ...rest }: IVDatePickerProps) => {
                 {...rest}
                 onError={(newError) => setError(newError)}
                 defaultValue={defaultValue}
-                onChange={e => setValue(e) }
+                onChange={e => setValue(e)}
                 value={value}
-              
+
                 slotProps={{
                     textField: {
                         helperText: errorMessage,

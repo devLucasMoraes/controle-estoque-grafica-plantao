@@ -1,15 +1,17 @@
-import { Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { Delete, Edit, Info, Save } from '@mui/icons-material';
+import { Box, Button, Input, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Delete, Download, Edit, Info, Save } from '@mui/icons-material';
 
 interface IDetailToolsProps {
     mostrarBotaoSalvar?: boolean;
     mostrarBotaoDetalhar?: boolean;
     mostrarBotaoEditar?: boolean;
     mostrarBotaoApagar?: boolean;
+    mostrarBotaoImportarXML?: boolean;
     aoClicaeEmSalvar?: () => void;
     aoClicaeEmDetalhar?: () => void;
     aoClicaeEmEditar?: () => void;
     aoClicaeEmApagar?: () => void;
+    aoAlternarArquivo?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const DetailTools = ({
@@ -17,10 +19,12 @@ export const DetailTools = ({
     mostrarBotaoDetalhar = false,
     mostrarBotaoEditar = false,
     mostrarBotaoApagar = false,
+    mostrarBotaoImportarXML = false,
     aoClicaeEmSalvar,
     aoClicaeEmDetalhar,
     aoClicaeEmEditar,
-    aoClicaeEmApagar
+    aoClicaeEmApagar,
+    aoAlternarArquivo
 }: IDetailToolsProps) => {
 
     const theme = useTheme();
@@ -61,6 +65,25 @@ export const DetailTools = ({
                             DETALHAR
                         </Typography>
                     }
+                </Button>
+            }
+
+            {mostrarBotaoImportarXML &&
+                <Button
+                    color='primary'
+                    variant='outlined'
+                    component='label'
+                    startIcon={!smDown ? <Download /> : ''}
+                >
+                    {smDown &&
+                        <Download />
+                    }
+                    {!smDown &&
+                        <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+                            IMPORTAR XML
+                        </Typography>
+                    }
+                    <Input inputProps={{ accept: '.xml' }} type='file' sx={{ display: 'none' }} onChange={aoAlternarArquivo}/>
                 </Button>
             }
 
