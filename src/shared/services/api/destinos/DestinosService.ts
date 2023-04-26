@@ -1,30 +1,26 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-export interface IListagemDestinos {
+export interface IDetalhamentoDestino {
     id: number;
-    name: string;
+    nome: string;
     fone: string;
-    user_id: number;
-    createdAt: string;
-    updatedAt: string;
 }
 
-export interface IDetalheDestinos {
+export interface IDestinoFormData {
     id: number;
-    name: string;
+    nome: string;
     fone: string;
-    user_id: number;
 }
 
 type TDestinosComTotalCount = {
-    data: IListagemDestinos[];
+    data: IDetalhamentoDestino[];
     totalCount: number;
 }
 
 const getAll = async (page = 1, filter = ''): Promise<TDestinosComTotalCount | Error> => {
     try {
-        const urlRelativa = `/destinos?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+        const urlRelativa = `/destinos?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
 
         if (data) {
@@ -41,7 +37,7 @@ const getAll = async (page = 1, filter = ''): Promise<TDestinosComTotalCount | E
     }
 };
 
-const getById = async (id: number): Promise<IListagemDestinos | Error> => {
+const getById = async (id: number): Promise<IDetalhamentoDestino | Error> => {
     try {
         const { data } = await Api.get(`/destinos/${id}`);
 
@@ -56,9 +52,9 @@ const getById = async (id: number): Promise<IListagemDestinos | Error> => {
     }
 };
 
-const create = async (dados: Omit<IDetalheDestinos, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<IDestinoFormData, 'id'>): Promise<number | Error> => {
     try {
-        const { data } = await Api.post<IDetalheDestinos>('/destinos', dados);
+        const { data } = await Api.post<IDestinoFormData>('/destinos', dados);
 
         if (data) {
             return data.id;
@@ -71,7 +67,7 @@ const create = async (dados: Omit<IDetalheDestinos, 'id'>): Promise<number | Err
     }
 };
 
-const updateById = async (id: number, dados: IDetalheDestinos): Promise<void | Error> => {
+const updateById = async (id: number, dados: IDestinoFormData): Promise<void | Error> => {
     try {
         await Api.put(`/destinos/${id}`, dados);
     } catch (error) {

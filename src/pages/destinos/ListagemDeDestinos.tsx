@@ -4,17 +4,17 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkUser } from '../../shared/components';
+import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemDestinos, DestinosService } from '../../shared/services/api/destinos/DestinosService';
+import { IDetalhamentoDestino, DestinosService } from '../../shared/services/api/destinos/DestinosService';
 
 export const ListagemDeDestinos = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemDestinos[]>([]);
+    const [rows, setRows] = useState<IDetalhamentoDestino[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -78,7 +78,7 @@ export const ListagemDeDestinos = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemDestinos>[]>(() => [
+    const columns = useMemo<GridColDef<IDetalhamentoDestino>[]>(() => [
         {
             field: 'acitions',
             headerName: '',
@@ -113,7 +113,7 @@ export const ListagemDeDestinos = () => {
             ]
         },
         {
-            field: 'name',
+            field: 'nome',
             headerName: 'Nome',
             minWidth: 155,
             flex: 0.3

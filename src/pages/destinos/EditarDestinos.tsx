@@ -4,24 +4,16 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteUser, DetailTools } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { DestinosService } from '../../shared/services/api/destinos/DestinosService';
+import { DestinosService, IDestinoFormData } from '../../shared/services/api/destinos/DestinosService';
 
 
-interface IFormData {
-    name: string;
-    destinos_id: number;
-    fone: string;
-    user_id: number;
-}
 
-const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
-    name: yup.string().required(),
+const formValidationSchema: yup.ObjectSchema<Omit<IDestinoFormData, 'id'>> = yup.object().shape({
+    nome: yup.string().required(),
     fone: yup.string().required(),
-    destinos_id: yup.number().required(),
-    user_id: yup.number().required()
 });
 
 export const EditarDestinos = () => {
@@ -48,7 +40,7 @@ export const EditarDestinos = () => {
     }, [id]);
 
 
-    const handleSave = (dados: IFormData) => {
+    const handleSave = (dados: Omit<IDestinoFormData, 'id'>) => {
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -128,7 +120,7 @@ export const EditarDestinos = () => {
                                 label='Nome'
                                 fullWidth
                                 placeholder='Nome'
-                                name='name'
+                                name='nome'
                             />
                         </Grid>
 
@@ -139,10 +131,6 @@ export const EditarDestinos = () => {
                                 placeholder='celular'
                                 name='fone'
                             />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>

@@ -1,9 +1,9 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkUser } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { DestinosService, IListagemDestinos } from '../../shared/services/api/destinos/DestinosService';
+import { DestinosService, IDetalhamentoDestino } from '../../shared/services/api/destinos/DestinosService';
 
 
 export const DetalharDestinos = () => {
@@ -11,7 +11,7 @@ export const DetalharDestinos = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [destinos, setDestinos] = useState<IListagemDestinos>();
+    const [destinos, setDestinos] = useState<IDetalhamentoDestino>();
 
 
     const handleDelete = (id: number) => {
@@ -95,7 +95,7 @@ export const DetalharDestinos = () => {
                         <Typography
                             noWrap
                         >
-                            {destinos?.name}
+                            {destinos?.nome}
                         </Typography>
                     </Grid>
 
@@ -113,47 +113,6 @@ export const DetalharDestinos = () => {
                         </Typography>
                     </Grid>
 
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Modificado por
-                            </Typography>
-                            <UnderlineLinkUser id={destinos?.user_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Criado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {destinos?.createdAt}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Atualizado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {destinos?.updatedAt}
-                        </Typography>
-                    </Grid>
                 </Grid>
             </Box>
         </LayoutBaseDePagina>
