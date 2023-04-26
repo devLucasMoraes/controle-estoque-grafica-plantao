@@ -1,36 +1,30 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-export interface IListagemTransportadoras {
+export interface IDetalhamentoTransportadora {
     id: number;
-    name: string;
+    nome_fantasia: string;
     razao_social: string;
     cnpj: string;
-    fone1: string;
-    fone2: string;
-    user_id: number;
-    createdAt: string;
-    updatedAt: string;
+    fone: string;
 }
 
-export interface IDetalheTransportadoras {
+export interface ITransportadoraFormData {
     id: number;
-    name: string;
+    nome_fantasia: string;
     razao_social: string;
     cnpj: string;
-    fone1: string;
-    fone2: string;
-    user_id: number;
+    fone: string;
 }
 
 type TTransportadorasComTotalCount = {
-    data: IListagemTransportadoras[];
+    data: IDetalhamentoTransportadora[];
     totalCount: number;
 }
 
 const getAll = async (page = 1, filter = ''): Promise<TTransportadorasComTotalCount | Error> => {
     try {
-        const urlRelativa = `/transportadoras?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+        const urlRelativa = `/transportadoras?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_fantasia_like=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
         
         if (data) {
@@ -47,7 +41,7 @@ const getAll = async (page = 1, filter = ''): Promise<TTransportadorasComTotalCo
     }
 };
 
-const getById = async (id: number): Promise<IListagemTransportadoras | Error> => {
+const getById = async (id: number): Promise<IDetalhamentoTransportadora | Error> => {
     try {
         const { data } = await Api.get(`/transportadoras/${id}`);
 
@@ -62,9 +56,9 @@ const getById = async (id: number): Promise<IListagemTransportadoras | Error> =>
     }
 };
 
-const create = async (dados: Omit<IDetalheTransportadoras, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<ITransportadoraFormData, 'id'>): Promise<number | Error> => {
     try {
-        const { data } = await Api.post<IDetalheTransportadoras>('/transportadoras', dados);
+        const { data } = await Api.post<ITransportadoraFormData>('/transportadoras', dados);
 
         if (data) {
             return data.id;
@@ -77,7 +71,7 @@ const create = async (dados: Omit<IDetalheTransportadoras, 'id'>): Promise<numbe
     }
 };
 
-const updateById = async (id: number, dados: IDetalheTransportadoras): Promise<void | Error> => {
+const updateById = async (id: number, dados: ITransportadoraFormData): Promise<void | Error> => {
     try {
         await Api.put(`/transportadoras/${id}`, dados);
     } catch (error) {

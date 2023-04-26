@@ -4,28 +4,18 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteUser, DetailTools } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
+import { ITransportadoraFormData, TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 
 
-interface IFormData {
-    name: string;
-    razao_social: string;
-    cnpj: string;
-    fone1: string;
-    fone2: string;
-    user_id: number;
-}
 
-const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
-    name: yup.string().required(),
+const formValidationSchema: yup.ObjectSchema<Omit<ITransportadoraFormData, 'id'>> = yup.object().shape({
+    nome_fantasia: yup.string().required(),
     razao_social: yup.string().required(),
     cnpj: yup.string().required(),
-    fone1: yup.string().required(),
-    fone2: yup.string().required(),
-    user_id: yup.number().required()
+    fone: yup.string().required(),
 });
 
 export const EditarTransportadoras= () => {
@@ -53,7 +43,7 @@ export const EditarTransportadoras= () => {
     }, [id]);
 
 
-    const handleSave = (dados: IFormData) => {
+    const handleSave = (dados: Omit<ITransportadoraFormData, 'id'>) => {
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -133,7 +123,7 @@ export const EditarTransportadoras= () => {
                                 label='Nome'
                                 fullWidth
                                 placeholder='Nome'
-                                name='name'
+                                name='nome_fantasia'
                             />
                         </Grid>
 
@@ -160,21 +150,8 @@ export const EditarTransportadoras= () => {
                                 label='Telefone'
                                 fullWidth
                                 placeholder='telefone'
-                                name='fone1'
+                                name='fone'
                             />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <VTextField
-                                label='Celular'
-                                fullWidth
-                                placeholder='celular'
-                                name='fone2'
-                            />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>

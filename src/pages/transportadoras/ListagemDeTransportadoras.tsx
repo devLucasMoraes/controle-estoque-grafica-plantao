@@ -4,17 +4,17 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkUser } from '../../shared/components';
+import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemTransportadoras, TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
+import { IDetalhamentoTransportadora, TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 
 export const ListagemDeTransportadoras = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemTransportadoras[]>([]);
+    const [rows, setRows] = useState<IDetalhamentoTransportadora[]>([]);
     console.log(rows);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -79,7 +79,7 @@ export const ListagemDeTransportadoras = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemTransportadoras>[]>(() => [
+    const columns = useMemo<GridColDef<IDetalhamentoTransportadora>[]>(() => [
         {
             field: 'acitions',
             headerName: 'Ações',
@@ -114,8 +114,8 @@ export const ListagemDeTransportadoras = () => {
             ]
         },
         {
-            field: 'name',
-            headerName: 'Nome',
+            field: 'nome_fantasia',
+            headerName: 'Nome fantasia',
             minWidth: 155,
             flex: 0.3
         },
@@ -132,14 +132,8 @@ export const ListagemDeTransportadoras = () => {
             flex: 0.1
         },
         {
-            field: 'fone1',
+            field: 'fone',
             headerName: 'Telefone',
-            minWidth: 155,
-            flex: 0.1
-        },
-        {
-            field: 'fone2',
-            headerName: 'Celular',
             minWidth: 155,
             flex: 0.1
         }

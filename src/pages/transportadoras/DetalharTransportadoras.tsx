@@ -1,9 +1,9 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkUser } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { TransportadorasService, IListagemTransportadoras } from '../../shared/services/api/transportadoras/TransportadorasService';
+import { TransportadorasService, IDetalhamentoTransportadora } from '../../shared/services/api/transportadoras/TransportadorasService';
 
 
 export const DetalharTransportadoras = () => {
@@ -11,7 +11,7 @@ export const DetalharTransportadoras = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [transportadora, setTransportadora] = useState<IListagemTransportadoras>();
+    const [transportadora, setTransportadora] = useState<IDetalhamentoTransportadora>();
 
 
     const handleDelete = (id: number) => {
@@ -90,12 +90,12 @@ export const DetalharTransportadoras = () => {
                             variant='caption'
                             noWrap
                         >
-                            Nome
+                            Nome fantasia
                         </Typography>
                         <Typography
                             noWrap
                         >
-                            {transportadora?.name}
+                            {transportadora?.nome_fantasia}
                         </Typography>
                     </Grid>
 
@@ -127,46 +127,21 @@ export const DetalharTransportadoras = () => {
                         </Typography>
                     </Grid>
 
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Modificado por
-                            </Typography>
-                            <UnderlineLinkUser id={transportadora?.user_id} />
-                        </Box>
-                    </Grid>
-
                     <Grid item>
                         <Typography
                             variant='caption'
                             noWrap
                         >
-                            Criado em
+                            Telefone
                         </Typography>
                         <Typography
                             noWrap
                         >
-                            {transportadora?.createdAt}
+                            {transportadora?.fone}
                         </Typography>
                     </Grid>
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Atualizado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transportadora?.updatedAt}
-                        </Typography>
-                    </Grid>
+       
                 </Grid>
             </Box>
         </LayoutBaseDePagina>
