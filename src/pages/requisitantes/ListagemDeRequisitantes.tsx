@@ -4,17 +4,17 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkUser } from '../../shared/components';
+import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemRequisitantes, RequisitantesService } from '../../shared/services/api/requisitantes/RequisitantesService';
+import { IDetalhamentoRequisitantes, RequisitantesService } from '../../shared/services/api/requisitantes/RequisitantesService';
 
 export const ListagemDeRequisitantes = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemRequisitantes[]>([]);
+    const [rows, setRows] = useState<IDetalhamentoRequisitantes[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -78,7 +78,7 @@ export const ListagemDeRequisitantes = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemRequisitantes>[]>(() => [
+    const columns = useMemo<GridColDef<IDetalhamentoRequisitantes>[]>(() => [
         {
             field: 'acitions',
             headerName: '',
@@ -113,7 +113,7 @@ export const ListagemDeRequisitantes = () => {
             ]
         },
         {
-            field: 'name',
+            field: 'nome',
             headerName: 'Nome',
             minWidth: 155,
             flex: 0.3

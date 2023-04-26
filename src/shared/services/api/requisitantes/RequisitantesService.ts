@@ -1,30 +1,26 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-export interface IListagemRequisitantes {
+export interface IDetalhamentoRequisitantes {
     id: number;
-    name: string;
+    nome: string;
     fone: string;
-    user_id: number;
-    createdAt: string;
-    updatedAt: string;
 }
 
-export interface IDetalheRequisitantes {
+export interface IRequisitantesFormData {
     id: number;
-    name: string;
+    nome: string;
     fone: string;
-    user_id: number;
 }
 
 type TRequisitantesComTotalCount = {
-    data: IListagemRequisitantes[];
+    data: IDetalhamentoRequisitantes[];
     totalCount: number;
 }
 
 const getAll = async (page = 1, filter = ''): Promise<TRequisitantesComTotalCount | Error> => {
     try {
-        const urlRelativa = `/requisitantes?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+        const urlRelativa = `/requisitantes?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
 
         if (data) {
@@ -41,7 +37,7 @@ const getAll = async (page = 1, filter = ''): Promise<TRequisitantesComTotalCoun
     }
 };
 
-const getById = async (id: number): Promise<IListagemRequisitantes | Error> => {
+const getById = async (id: number): Promise<IDetalhamentoRequisitantes | Error> => {
     try {
         const { data } = await Api.get(`/requisitantes/${id}`);
 
@@ -56,9 +52,9 @@ const getById = async (id: number): Promise<IListagemRequisitantes | Error> => {
     }
 };
 
-const create = async (dados: Omit<IDetalheRequisitantes, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<IRequisitantesFormData, 'id'>): Promise<number | Error> => {
     try {
-        const { data } = await Api.post<IDetalheRequisitantes>('/requisitantes', dados);
+        const { data } = await Api.post<IRequisitantesFormData>('/requisitantes', dados);
 
         if (data) {
             return data.id;
@@ -71,7 +67,7 @@ const create = async (dados: Omit<IDetalheRequisitantes, 'id'>): Promise<number 
     }
 };
 
-const updateById = async (id: number, dados: IDetalheRequisitantes): Promise<void | Error> => {
+const updateById = async (id: number, dados: IRequisitantesFormData): Promise<void | Error> => {
     try {
         await Api.put(`/requisitantes/${id}`, dados);
     } catch (error) {

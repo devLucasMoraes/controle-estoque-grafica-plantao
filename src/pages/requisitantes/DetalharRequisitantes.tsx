@@ -1,9 +1,9 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkUser } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { RequisitantesService, IListagemRequisitantes } from '../../shared/services/api/requisitantes/RequisitantesService';
+import { RequisitantesService, IDetalhamentoRequisitantes } from '../../shared/services/api/requisitantes/RequisitantesService';
 
 
 export const DetalharRequisitantes = () => {
@@ -11,7 +11,7 @@ export const DetalharRequisitantes = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [requisitantes, setRequisitantes] = useState<IListagemRequisitantes>();
+    const [requisitantes, setRequisitantes] = useState<IDetalhamentoRequisitantes>();
 
 
     const handleDelete = (id: number) => {
@@ -95,7 +95,7 @@ export const DetalharRequisitantes = () => {
                         <Typography
                             noWrap
                         >
-                            {requisitantes?.name}
+                            {requisitantes?.nome}
                         </Typography>
                     </Grid>
 
@@ -113,47 +113,6 @@ export const DetalharRequisitantes = () => {
                         </Typography>
                     </Grid>
 
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Modificado por
-                            </Typography>
-                            <UnderlineLinkUser id={requisitantes?.user_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Criado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {requisitantes?.createdAt}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Atualizado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {requisitantes?.updatedAt}
-                        </Typography>
-                    </Grid>
                 </Grid>
             </Box>
         </LayoutBaseDePagina>
