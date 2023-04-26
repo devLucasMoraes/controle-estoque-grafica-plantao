@@ -555,14 +555,14 @@
       "cnpj": "35.653.525.0001-00",
       "razao_social": "ADRIANA DIMITROV TRANSPORTES - ME",
       "nome_fantasia": "SORA TRANSPORTES",
-      "fone1": "11 4063-8826"
+      "fone": "11 4063-8826"
     },
     {
       "id": 2,
       "cnpj": "",
       "razao_social": "MARINALVA ROCHA AMORIM",
       "nome_fantasia": "ESTOPA ROCHA",
-      "fone1": ""
+      "fone": ""
     },
     {
       "id": 3,
