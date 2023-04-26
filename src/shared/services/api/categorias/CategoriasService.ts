@@ -1,32 +1,28 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-export interface IListagemCategorias {
+export interface IDetalhamentoCategoria {
     id: number;
-    name: string;
-    und_medida: string;
-    estoque_min: number;
-    user_id: number;
-    createdAt: string;
-    updatedAt: string;
+    nome: string;
+    und_padrao: string;
+    estoque_minimo: number;
 }
 
-export interface IDetalheCategorias {
+export interface ICategoriaFormData {
     id: number;
-    name: string;
-    und_medida: string;
-    estoque_min: number;
-    user_id: number;
+    nome: string;
+    und_padrao: string;
+    estoque_minimo: number;
 }
 
 type TCategoriasComTotalCount = {
-    data: IListagemCategorias[];
+    data: IDetalhamentoCategoria[];
     totalCount: number;
 }
 
 const getAll = async (page = 1, filter = ''): Promise<TCategoriasComTotalCount | Error> => {
     try {
-        const urlRelativa = `/categorias?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+        const urlRelativa = `/categorias?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
         
         if (data) {
@@ -43,7 +39,7 @@ const getAll = async (page = 1, filter = ''): Promise<TCategoriasComTotalCount |
     }
 };
 
-const getById = async (id: number): Promise<IListagemCategorias | Error> => {
+const getById = async (id: number): Promise<IDetalhamentoCategoria | Error> => {
     try {
         const { data } = await Api.get(`/categorias/${id}`);
 
@@ -58,9 +54,9 @@ const getById = async (id: number): Promise<IListagemCategorias | Error> => {
     }
 };
 
-const create = async (dados: Omit<IDetalheCategorias, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<ICategoriaFormData, 'id'>): Promise<number | Error> => {
     try {
-        const { data } = await Api.post<IDetalheCategorias>('/categorias', dados);
+        const { data } = await Api.post<ICategoriaFormData>('/categorias', dados);
 
         if (data) {
             return data.id;
@@ -73,7 +69,7 @@ const create = async (dados: Omit<IDetalheCategorias, 'id'>): Promise<number | E
     }
 };
 
-const updateById = async (id: number, dados: IDetalheCategorias): Promise<void | Error> => {
+const updateById = async (id: number, dados: ICategoriaFormData): Promise<void | Error> => {
     try {
         await Api.put(`/categorias/${id}`, dados);
     } catch (error) {

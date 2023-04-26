@@ -1,9 +1,9 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkUser } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { CategoriasService, IListagemCategorias } from '../../shared/services/api/categorias/CategoriasService';
+import { CategoriasService, IDetalhamentoCategoria } from '../../shared/services/api/categorias/CategoriasService';
 
 
 export const DetalharCategoria = () => {
@@ -11,7 +11,7 @@ export const DetalharCategoria = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [categoria, setCategoria] = useState<IListagemCategorias>();
+    const [categoria, setCategoria] = useState<IDetalhamentoCategoria>();
 
 
     const handleDelete = (id: number) => {
@@ -95,7 +95,7 @@ export const DetalharCategoria = () => {
                         <Typography
                             noWrap
                         >
-                            {categoria?.name}
+                            {categoria?.nome}
                         </Typography>
                     </Grid>
 
@@ -109,7 +109,7 @@ export const DetalharCategoria = () => {
                         <Typography
                             noWrap
                         >
-                            {categoria?.und_medida}
+                            {categoria?.und_padrao}
                         </Typography>
                     </Grid>
 
@@ -123,50 +123,10 @@ export const DetalharCategoria = () => {
                         <Typography
                             noWrap
                         >
-                            {categoria?.estoque_min}
+                            {categoria?.estoque_minimo}
                         </Typography>
                     </Grid>
 
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Modificado por
-                            </Typography>
-                            <UnderlineLinkUser id={categoria?.user_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Criado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {categoria?.createdAt}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Atualizado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {categoria?.updatedAt}
-                        </Typography>
-                    </Grid>
                 </Grid>
             </Box>
         </LayoutBaseDePagina>

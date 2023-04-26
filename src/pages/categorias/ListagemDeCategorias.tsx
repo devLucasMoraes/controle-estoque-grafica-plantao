@@ -4,17 +4,17 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkUser } from '../../shared/components';
+import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemCategorias, CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
+import { IDetalhamentoCategoria, CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
 
 export const ListagemDeCategorias = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemCategorias[]>([]);
+    const [rows, setRows] = useState<IDetalhamentoCategoria[]>([]);
     console.log(rows);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -79,7 +79,7 @@ export const ListagemDeCategorias = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemCategorias>[]>(() => [
+    const columns = useMemo<GridColDef<IDetalhamentoCategoria>[]>(() => [
         {
             field: 'acitions',
             headerName: '',
@@ -114,22 +114,22 @@ export const ListagemDeCategorias = () => {
             ]
         },
         {
-            field: 'name',
+            field: 'nome',
             headerName: 'Nome',
             minWidth: 155,
             flex: 0.3
         },
         {
-            field: 'und_medida',
-            headerName: 'Unidade de medida',
-            minWidth: 220,
-            flex: 0.2
-        },
-        {
-            field: 'estoque_min',
+            field: 'estoque_minimo',
             headerName: 'Estoque minimo',
             minWidth: 155,
             flex: 0.1
+        },
+        {
+            field: 'und_padrao',
+            headerName: 'Unidade de medida',
+            minWidth: 220,
+            flex: 0.2
         }
     ], [handleDelete]);
 

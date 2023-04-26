@@ -4,24 +4,16 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteUser, DetailTools } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
+import { CategoriasService, ICategoriaFormData } from '../../shared/services/api/categorias/CategoriasService';
 
 
-interface IFormData {
-    name: string;
-    und_medida: string;
-    estoque_min: number;
-    user_id: number;
-}
-
-const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
-    name: yup.string().required(),
-    und_medida: yup.string().required(),
-    estoque_min: yup.number().required(),
-    user_id: yup.number().required()
+const formValidationSchema: yup.ObjectSchema<Omit<ICategoriaFormData, 'id'>> = yup.object().shape({
+    nome: yup.string().required(),
+    und_padrao: yup.string().required(),
+    estoque_minimo: yup.number().required(),
 });
 
 export const EditarCategoria = () => {
@@ -49,7 +41,7 @@ export const EditarCategoria = () => {
     }, [id]);
 
 
-    const handleSave = (dados: IFormData) => {
+    const handleSave = (dados: Omit<ICategoriaFormData, 'id'>) => {
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -129,7 +121,7 @@ export const EditarCategoria = () => {
                                 label='Nome'
                                 fullWidth
                                 placeholder='Nome'
-                                name='name'
+                                name='nome'
                             />
                         </Grid>
 
@@ -138,7 +130,7 @@ export const EditarCategoria = () => {
                                 label='Unidade de medida'
                                 fullWidth
                                 placeholder='unidade de medida'
-                                name='und_medida'
+                                name='und_padrao'
                             />
                         </Grid>
 
@@ -147,12 +139,8 @@ export const EditarCategoria = () => {
                                 label='Estoque minimo'
                                 fullWidth
                                 placeholder='estoque minimo'
-                                name='estoque_min'
+                                name='estoque_minimo'
                             />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>
