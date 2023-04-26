@@ -8,5 +8,5 @@ const port = 3333;
 server.use(middlewares);
 server.use(router);
 server.listen(port, () => {
-    console.log(`O servidor está rodando em http://192.168.25.77:${port}/`);
+    console.log(`O servidor está rodando em http://192.168.1.3:${port}/`);
 });
