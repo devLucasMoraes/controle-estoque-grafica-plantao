@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
-import { FornecedoresService } from '../../services/api/fornecedores/FornecedoresService';
+import { FornecedorasService } from '../../services/api/fornecedoras/FornecedorasService';
 
 
 type TAutoCompleteOption = {
@@ -35,7 +35,7 @@ export const AutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCom
     useEffect(() => {
         setIsLoading(true);
         if (selectedId) {
-            FornecedoresService.getById(selectedId)
+            FornecedorasService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
@@ -53,7 +53,7 @@ export const AutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCom
         } else {
             debouce(() => {
                 console.log(`busca: ${busca}`);
-                FornecedoresService.getAll(1, busca)
+                FornecedorasService.getAll(1, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {

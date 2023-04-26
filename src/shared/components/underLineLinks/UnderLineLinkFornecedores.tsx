@@ -1,7 +1,7 @@
 import { CircularProgress, Link } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FornecedoresService } from '../../services/api/fornecedores/FornecedoresService';
+import { FornecedorasService } from '../../services/api/fornecedoras/FornecedorasService';
 
 interface IUnderlineLinkUserProps {
     id?: number;
@@ -14,7 +14,7 @@ export const UnderlineLinkFornecedores = ({ id = 1 }: IUnderlineLinkUserProps) =
 
     useEffect(() => {
         setIsLoading(true);
-        FornecedoresService.getById(id)
+        FornecedorasService.getById(id)
             .then(result => {
                 setIsLoading(false);
                 if (result instanceof Error) {

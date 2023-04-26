@@ -4,17 +4,17 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkUser } from '../../shared/components';
+import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemFornecedores, FornecedoresService } from '../../shared/services/api/fornecedores/FornecedoresService';
+import { IDetalhamentoFornecedora, FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
-export const ListagemDeFornecedores = () => {
+export const ListagemDeFornecedoras = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemFornecedores[]>([]);
+    const [rows, setRows] = useState<IDetalhamentoFornecedora[]>([]);
     console.log(rows);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +36,7 @@ export const ListagemDeFornecedores = () => {
 
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
-            FornecedoresService.deleteById(id)
+            FornecedorasService.deleteById(id)
                 .then(result => {
                     if (result instanceof Error) {
                         alert(result.message);
@@ -56,7 +56,7 @@ export const ListagemDeFornecedores = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        FornecedoresService.getAll(pagina, buscaMemo)
+        FornecedorasService.getAll(pagina, buscaMemo)
             .then((result) => {
                 setIsLoading(false);
                 if (result instanceof Error) {
@@ -79,7 +79,7 @@ export const ListagemDeFornecedores = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemFornecedores>[]>(() => [
+    const columns = useMemo<GridColDef<IDetalhamentoFornecedora>[]>(() => [
         {
             field: 'acitions',
             headerName: 'Ações',
@@ -92,30 +92,30 @@ export const ListagemDeFornecedores = () => {
             disableExport: true,
             renderCell: (params) => [
                 <GridActionsCellItem
-                    key={`fornecedoresDelete${params.row.id}`}
+                    key={`fornecedorasDelete${params.row.id}`}
                     icon={<Delete />}
                     label="Delete"
                     onClick={() => handleDelete(params.row.id)}
 
                 />,
                 <GridActionsCellItem
-                    key={`fornecedoresEdit${params.row.id}`}
+                    key={`fornecedorasEdit${params.row.id}`}
                     icon={<Edit />}
                     label="Edit"
-                    onClick={() => navigate(`/fornecedores/records/edit/${params.row.id}`)}
+                    onClick={() => navigate(`/fornecedoras/records/edit/${params.row.id}`)}
 
                 />,
                 <GridActionsCellItem
-                    key={`fornecedoresInfo${params.row.id}`}
+                    key={`fornecedorasInfo${params.row.id}`}
                     icon={<Info />}
                     label="info"
-                    onClick={() => navigate(`/fornecedores/records/show/${params.row.id}`)}
+                    onClick={() => navigate(`/fornecedoras/records/show/${params.row.id}`)}
                 />
             ]
         },
         {
-            field: 'name',
-            headerName: 'Nome',
+            field: 'nome_fantasia',
+            headerName: 'Nome fantasia',
             minWidth: 155,
             flex: 0.3
         },
@@ -132,14 +132,8 @@ export const ListagemDeFornecedores = () => {
             flex: 0.1
         },
         {
-            field: 'fone1',
+            field: 'fone',
             headerName: 'Telefone',
-            minWidth: 155,
-            flex: 0.1
-        },
-        {
-            field: 'fone2',
-            headerName: 'Celular',
             minWidth: 155,
             flex: 0.1
         }
@@ -151,7 +145,7 @@ export const ListagemDeFornecedores = () => {
             totalCount={totalCount}
             tools={
                 <ToolsList
-                    aoClicarEmNovo={() => navigate('/fornecedores/records/new')}
+                    aoClicarEmNovo={() => navigate('/fornecedoras/records/new')}
                     mostrarInputBusca
                     textoDaBusca={busca}
                     aoMudarTextDeBusca={texto => setBuscaDebouce(texto)}

@@ -1,7 +1,7 @@
 import { Category, Factory, ImportExport, Inventory, LineAxis, LocalShipping, Man, Person, Place } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalharCategoria, DetalharDestinos, DetalharFornecedores, DetalharMateriais, DetalharRequisitantes, DetalharTransacoesEntrada, DetalharTransacoesSaida, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarDestinos, EditarFornecedores, EditarMateriais, EditarRequisitantes, EditarTransacoesEntrada, EditarTransacoesSaida, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedores, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalharCategoria, DetalharDestinos, DetalharFornecedoras, DetalharMateriais, DetalharRequisitantes, DetalharTransacoesEntrada, DetalharTransacoesSaida, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarDestinos, EditarFornecedoras, EditarMateriais, EditarRequisitantes, EditarTransacoesEntrada, EditarTransacoesSaida, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -37,9 +37,9 @@ export const AppRoutes = () => {
                 group: 'Cadastro de Materiais'
             },
             {
-                label: 'Fornecedores',
+                label: 'Fornecedoras',
                 icon: <Factory />,
-                path: '/fornecedores',
+                path: '/fornecedoras',
                 group: 'Entrada de Materiais'
             },
             {
@@ -91,10 +91,10 @@ export const AppRoutes = () => {
             <Route path='/materiais/records/edit/:id' element={<EditarMateriais />} />
             <Route path='/materiais/records/show/:id' element={<DetalharMateriais />} />
             <Route path='/materiais/records/:id' element={<EditarMateriais />} />
-            <Route path="/fornecedores" element={<ListagemDeFornecedores />} />
-            <Route path='/fornecedores/records/edit/:id' element={<EditarFornecedores />} />
-            <Route path='/fornecedores/records/show/:id' element={<DetalharFornecedores />} />
-            <Route path='/fornecedores/records/:id' element={<EditarFornecedores />} />
+            <Route path="/fornecedoras" element={<ListagemDeFornecedoras />} />
+            <Route path='/fornecedoras/records/edit/:id' element={<EditarFornecedoras />} />
+            <Route path='/fornecedoras/records/show/:id' element={<DetalharFornecedoras />} />
+            <Route path='/fornecedoras/records/:id' element={<EditarFornecedoras />} />
             <Route path="/transportadoras" element={<ListagemDeTransportadoras />} />
             <Route path='/transportadoras/records/edit/:id' element={<EditarTransportadoras />} />
             <Route path='/transportadoras/records/show/:id' element={<DetalharTransportadoras />} />

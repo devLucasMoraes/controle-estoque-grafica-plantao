@@ -4,31 +4,22 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteUser, DetailTools } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { FornecedoresService } from '../../shared/services/api/fornecedores/FornecedoresService';
+import { FornecedorasService, IFornecedorasFormData } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
 
-interface IFormData {
-    name: string;
-    razao_social: string;
-    cnpj: string;
-    fone1: string;
-    fone2: string;
-    user_id: number;
-}
 
-const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
-    name: yup.string().required(),
+
+const formValidationSchema: yup.ObjectSchema<Omit<IFornecedorasFormData, 'id'>> = yup.object().shape({
+    nome_fantasia: yup.string().required(),
     razao_social: yup.string().required(),
     cnpj: yup.string().required(),
-    fone1: yup.string().required(),
-    fone2: yup.string().required(),
-    user_id: yup.number().required()
+    fone: yup.string().required(),
 });
 
-export const EditarFornecedores= () => {
+export const EditarFornecedoras= () => {
 
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();
@@ -38,12 +29,12 @@ export const EditarFornecedores= () => {
     useEffect(() => {
         if (id !== 'new') {
             setIsLoading(true);
-            FornecedoresService.getById(Number(id))
+            FornecedorasService.getById(Number(id))
                 .then(result => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         alert(result.message);
-                        navigate('/fornecedores');
+                        navigate('/fornecedoras');
                     } else {
                         console.log(result);
                         formRef.current?.setData(result);
@@ -53,31 +44,31 @@ export const EditarFornecedores= () => {
     }, [id]);
 
 
-    const handleSave = (dados: IFormData) => {
+    const handleSave = (dados: Omit<IFornecedorasFormData, 'id'>) => {
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
                 setIsLoading(true);
                 if (id === 'new') {
-                    FornecedoresService
+                    FornecedorasService
                         .create(dadosValidados)
                         .then(result => {
                             setIsLoading(false);
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                navigate(`/fornecedores/records/show/${result}`);
+                                navigate(`/fornecedoras/records/show/${result}`);
                             }
                         });
                 } else {
-                    FornecedoresService
+                    FornecedorasService
                         .updateById(Number(id), { id: Number(id), ...dadosValidados })
                         .then(result => {
                             setIsLoading(false);
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                navigate(`/fornecedores/records/show/${Number(id)}`);
+                                navigate(`/fornecedoras/records/show/${Number(id)}`);
                             }
                         });
                 }
@@ -93,13 +84,13 @@ export const EditarFornecedores= () => {
     };
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
-            FornecedoresService.deleteById(id)
+            FornecedorasService.deleteById(id)
                 .then(result => {
                     if (result instanceof Error) {
                         alert(result.message);
                     } else {
                         alert('Registro apagado com sucesso!');
-                        navigate('/fornecedores');
+                        navigate('/fornecedoras');
                     }
                 });
         }
@@ -108,14 +99,14 @@ export const EditarFornecedores= () => {
     return (
         <LayoutBaseDePagina
             mostrarBotaoVoltar
-            aoClicaeEmVoltar={() => navigate('/fornecedores')}
+            aoClicaeEmVoltar={() => navigate('/fornecedoras')}
             titulo={id === 'new' ? 'Novo Fornecedor' : 'Editar'}
             tools={
                 <DetailTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
-                    aoClicaeEmDetalhar={() => navigate(`/fornecedores/records/show/${id}`)}
+                    aoClicaeEmDetalhar={() => navigate(`/fornecedoras/records/show/${id}`)}
                 />
             }
         >
@@ -133,7 +124,7 @@ export const EditarFornecedores= () => {
                                 label='Nome'
                                 fullWidth
                                 placeholder='Nome'
-                                name='name'
+                                name='nome_fantasia'
                             />
                         </Grid>
 
@@ -160,21 +151,8 @@ export const EditarFornecedores= () => {
                                 label='Telefone'
                                 fullWidth
                                 placeholder='telefone'
-                                name='fone1'
+                                name='fone'
                             />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <VTextField
-                                label='Celular'
-                                fullWidth
-                                placeholder='celular'
-                                name='fone2'
-                            />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>

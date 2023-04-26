@@ -1,28 +1,28 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkUser } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { FornecedoresService, IListagemFornecedores } from '../../shared/services/api/fornecedores/FornecedoresService';
+import { FornecedorasService, IDetalhamentoFornecedora } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
 
-export const DetalharFornecedores = () => {
+export const DetalharFornecedoras = () => {
 
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [fornecedor, setFornecedor] = useState<IListagemFornecedores>();
+    const [fornecedor, setFornecedor] = useState<IDetalhamentoFornecedora>();
 
 
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
-            FornecedoresService.deleteById(id)
+            FornecedorasService.deleteById(id)
                 .then(result => {
                     if (result instanceof Error) {
                         alert(result.message);
                     } else {
                         alert('Registro apagado com sucesso!');
-                        navigate('/fornecedores');
+                        navigate('/fornecedoras');
                     }
                 });
         }
@@ -31,12 +31,12 @@ export const DetalharFornecedores = () => {
     useEffect(() => {
         if (id !== 'new') {
             setIsLoading(true);
-            FornecedoresService.getById(Number(id))
+            FornecedorasService.getById(Number(id))
                 .then(result => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         alert(result.message);
-                        navigate('/fornecedores');
+                        navigate('/fornecedoras');
                     } else {
                         console.log(result);
                         setFornecedor(result);
@@ -48,14 +48,14 @@ export const DetalharFornecedores = () => {
     return (
         <LayoutBaseDePagina
             mostrarBotaoVoltar
-            aoClicaeEmVoltar={() => navigate('/fornecedores')}
+            aoClicaeEmVoltar={() => navigate('/fornecedoras')}
             titulo='Detalhar'
             tools={
                 <DetailTools
                     mostrarBotaoApagar
                     mostrarBotaoEditar
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
-                    aoClicaeEmEditar={() => navigate(`/fornecedores/records/edit/${id}`)}
+                    aoClicaeEmEditar={() => navigate(`/fornecedoras/records/edit/${id}`)}
                 />
             }
         >
@@ -95,7 +95,7 @@ export const DetalharFornecedores = () => {
                         <Typography
                             noWrap
                         >
-                            {fornecedor?.name}
+                            {fornecedor?.nome_fantasia}
                         </Typography>
                     </Grid>
 
@@ -127,46 +127,20 @@ export const DetalharFornecedores = () => {
                         </Typography>
                     </Grid>
 
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Modificado por
-                            </Typography>
-                            <UnderlineLinkUser id={fornecedor?.user_id} />
-                        </Box>
-                    </Grid>
-
                     <Grid item>
                         <Typography
                             variant='caption'
                             noWrap
                         >
-                            Criado em
+                            Telefone
                         </Typography>
                         <Typography
                             noWrap
                         >
-                            {fornecedor?.createdAt}
+                            {fornecedor?.fone}
                         </Typography>
                     </Grid>
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Atualizado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {fornecedor?.updatedAt}
-                        </Typography>
-                    </Grid>
                 </Grid>
             </Box>
         </LayoutBaseDePagina>
