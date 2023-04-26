@@ -255,266 +255,266 @@
     {
       "cod_prod": "",
       "descricao": "ALCOOL ISOPROPILICO",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 22,
       "id": 1
     },
     {
       "cod_prod": "",
       "descricao": "ALPHA PLATE PLUS 5LT",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 1,
       "id": 2
     },
     {
       "cod_prod": "",
       "descricao": "ARAME 22",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 23,
       "id": 3
     },
     {
       "cod_prod": "",
       "descricao": "ARAME 24 0.60MM 2.2KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 23,
       "id": 4
     },
     {
       "cod_prod": "",
       "descricao": "ARAME 26",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 23,
       "id": 5
     },
     {
       "cod_prod": "",
       "descricao": "BOBINA PICOTADA 35X50CM 1.87KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 20,
       "id": 6
     },
     {
       "cod_prod": "",
       "descricao": "COLA BRANCA ALMAFLEX 50KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 24,
       "id": 7
     },
     {
       "cod_prod": "",
       "descricao": "CROMOS AMARELO EUROPA 2.5KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 7,
       "id": 8
     },
     {
       "cod_prod": "",
       "descricao": "CROMOS LARANJA MEDIO 2KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 4,
       "id": 9
     },
     {
       "cod_prod": "",
       "descricao": "CROMOS PRETO EUROPA 2KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 5,
       "id": 10
     },
     {
       "cod_prod": "",
       "descricao": "CROMOS PRETO SENEGAL 2.5KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 6,
       "id": 11
     },
     {
       "cod_prod": "",
       "descricao": "CROMOS VERMELHO REGAL 2KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 4,
       "id": 12
     },
     {
       "cod_prod": "",
       "descricao": "DUPLIFONT 1203 20LT",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 17,
       "id": 13
     },
     {
       "cod_prod": "",
       "descricao": "DUPLISOLV  2007 5LT",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 16,
       "id": 14
     },
     {
       "cod_prod": "",
       "descricao": "ENV SACO 24X34 BR CX/250 VIA BRASIL",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 3,
       "id": 15
     },
     {
       "cod_prod": "",
       "descricao": "ESTOPA",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 25,
       "id": 16
     },
     {
       "cod_prod": "",
       "descricao": "FINISHER 4 BAUME 2037 5LT",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 2,
       "id": 17
     },
     {
       "cod_prod": "",
       "descricao": "GLOBALCOR PRETO SENEGAL",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 6,
       "id": 18
     },
     {
       "cod_prod": "",
       "descricao": "Hxe 129 HXPOWDER 1KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 18,
       "id": 19
     },
     {
       "cod_prod": "",
       "descricao": "SUNCHEMICAL PRATA PANTONE",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 4,
       "id": 20
     },
     {
       "cod_prod": "",
       "descricao": "TOYO KING AMARELO 2.5KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 7,
       "id": 21
     },
     {
       "cod_prod": "",
       "descricao": "TOYO KING CIANO 2.5KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 8,
       "id": 22
     },
     {
       "cod_prod": "",
       "descricao": "TOYO KING CIANO 20KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 8,
       "id": 23
     },
     {
       "cod_prod": "",
       "descricao": "TOYO KING MAGENTA 2.5KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 9,
       "id": 24
     },
     {
       "cod_prod": "",
       "descricao": "TOYO KING PRETO 2.5KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 5,
       "id": 25
     },
     {
       "cod_prod": "",
       "descricao": "TRANFER G&A AMARELO 2KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 10,
       "id": 26
     },
     {
       "cod_prod": "",
       "descricao": "TRANSFER G&A MAGENTA 2KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 12,
       "id": 27
     },
     {
       "cod_prod": "",
       "descricao": "TRANSFER INOVARRE AZUL 2KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 11,
       "id": 28
     },
     {
       "cod_prod": "",
       "descricao": "TRAPO",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 26,
       "id": 29
     },
     {
       "cod_prod": "",
       "descricao": "UV 7301 CALANDRA FOSCO 1KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 19,
       "id": 30
     },
     {
       "cod_prod": "",
       "descricao": "VERNIZ UV-8073 CALANDRA BRILHO 5KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 19,
       "id": 31
     },
     {
       "cod_prod": "",
       "descricao": "DUPLISTAUR 2208 18LT",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 16,
       "id": 32
     },
     {
       "cod_prod": "",
       "descricao": "AQUAFONT 2013 20LT",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 17,
       "id": 33
     },
     {
       "cod_prod": "",
       "descricao": "DUPLIBLOCK 1219 5KG",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 24,
       "id": 34
     },
     {
       "cod_prod": "",
       "descricao": "WATERFAST BECA 20LT",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 17,
       "id": 35
     },
     {
       "cod_prod": "",
       "descricao": "DUPLIPLATE CLEANER 1212 5LT",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 1,
       "id": 36
     },
     {
       "cod_prod": "",
       "descricao": "FITA ADES 48X100 QUALITAPE 520 PT/05",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 27,
       "id": 37
     },
     {
       "cod_prod": "",
       "descricao": "FITA DUPLAFACE 16X30 TR 430 PT/06",
-      "valor_unt": "",
+      "valor_unt": 0,
       "categorias_id": 28,
       "id": 38
     }
