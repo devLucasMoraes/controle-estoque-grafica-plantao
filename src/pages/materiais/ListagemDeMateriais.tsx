@@ -4,17 +4,17 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkCategoria, UnderlineLinkUser } from '../../shared/components';
+import { ToolsList, UnderlineLinkCategoria } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemMateriais, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
+import { IDetalhamentoMaterial, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
 
 export const ListagemDeMateriais = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemMateriais[]>([]);
+    const [rows, setRows] = useState<IDetalhamentoMaterial[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -78,7 +78,7 @@ export const ListagemDeMateriais = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemMateriais>[]>(() => [
+    const columns = useMemo<GridColDef<IDetalhamentoMaterial>[]>(() => [
         {
             field: 'acitions',
             headerName: '',
@@ -113,8 +113,14 @@ export const ListagemDeMateriais = () => {
             ]
         },
         {
-            field: 'name',
+            field: 'descricao',
             headerName: 'Nome',
+            minWidth: 155,
+            flex: 0.3
+        },
+        {
+            field: 'valor_unt',
+            headerName: 'Valor unitario',
             minWidth: 155,
             flex: 0.3
         },

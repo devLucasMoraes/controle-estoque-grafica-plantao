@@ -1,9 +1,9 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkCategoria, UnderlineLinkUser } from '../../shared/components';
+import { DetailTools, UnderlineLinkCategoria } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { MateriaisService, IListagemMateriais } from '../../shared/services/api/materiais/MateriaisService';
+import { MateriaisService, IDetalhamentoMaterial } from '../../shared/services/api/materiais/MateriaisService';
 
 
 export const DetalharMateriais = () => {
@@ -11,7 +11,7 @@ export const DetalharMateriais = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [materiais, setMateriais] = useState<IListagemMateriais>();
+    const [materiais, setMateriais] = useState<IDetalhamentoMaterial>();
 
 
     const handleDelete = (id: number) => {
@@ -90,12 +90,40 @@ export const DetalharMateriais = () => {
                             variant='caption'
                             noWrap
                         >
+                            Codigo do produto
+                        </Typography>
+                        <Typography
+                            noWrap
+                        >
+                            {materiais?.cod_prod}
+                        </Typography>
+                    </Grid>
+
+                    <Grid item>
+                        <Typography
+                            variant='caption'
+                            noWrap
+                        >
                             Nome
                         </Typography>
                         <Typography
                             noWrap
                         >
-                            {materiais?.name}
+                            {materiais?.descricao}
+                        </Typography>
+                    </Grid>
+
+                    <Grid item>
+                        <Typography
+                            variant='caption'
+                            noWrap
+                        >
+                            Valor unitario
+                        </Typography>
+                        <Typography
+                            noWrap
+                        >
+                            {materiais?.valor_unt}
                         </Typography>
                     </Grid>
 
@@ -112,46 +140,6 @@ export const DetalharMateriais = () => {
                         </Box>
                     </Grid>
 
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Modificado por
-                            </Typography>
-                            <UnderlineLinkUser id={materiais?.user_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Criado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {materiais?.createdAt}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Atualizado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {materiais?.updatedAt}
-                        </Typography>
-                    </Grid>
                 </Grid>
             </Box>
         </LayoutBaseDePagina>

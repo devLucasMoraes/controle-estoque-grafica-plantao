@@ -21,7 +21,7 @@ export const UnderlineLinkCategoria = ({ id = 1 }: IUnderlineLinkUserProps) => {
                     alert(result.message);
                 } else {
                     console.log(result);
-                    setName(result.name);
+                    setName(result.nome);
                 }
             });
 

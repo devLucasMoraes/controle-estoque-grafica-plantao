@@ -4,24 +4,16 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteCategoria, AutoCompleteUser, DetailTools } from '../../shared/components';
+import { AutoCompleteCategoria, DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
+import { IMaterialFormData, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
 
 
-interface IFormData {
-    name: string;
-    materiais_id: number;
-    categorias_id: number;
-    user_id: number;
-}
-
-const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
-    name: yup.string().required(),
+const formValidationSchema: yup.ObjectSchema<Omit<IMaterialFormData, 'id'>> = yup.object().shape({
+    descricao: yup.string().required(),
     categorias_id: yup.number().required(),
-    materiais_id: yup.number().required(),
-    user_id: yup.number().required()
+    valor_unt: yup.number().required(),
 });
 
 export const EditarMateriais = () => {
@@ -48,7 +40,7 @@ export const EditarMateriais = () => {
     }, [id]);
 
 
-    const handleSave = (dados: IFormData) => {
+    const handleSave = (dados: Omit<IMaterialFormData, 'id'>) => {
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -125,19 +117,15 @@ export const EditarMateriais = () => {
 
                         <Grid item marginBottom={2}>
                             <VTextField
-                                label='Nome'
+                                label='Descriçao'
                                 fullWidth
-                                placeholder='Nome'
-                                name='name'
+                                placeholder='Descriçao'
+                                name='descricao'
                             />
                         </Grid>
 
                         <Grid item marginBottom={2}>
                             <AutoCompleteCategoria isExternalLoading={isLoading} />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>

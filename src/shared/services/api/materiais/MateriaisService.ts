@@ -1,30 +1,29 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-export interface IListagemMateriais {
+export interface IDetalhamentoMaterial {
     id: number;
-    name: string;
+    cod_prod: string;
+    descricao: string;
+    valor_unt: number;
     categorias_id: number;
-    user_id: number;
-    createdAt: string;
-    updatedAt: string;
 }
 
-export interface IDetalheMateriais {
+export interface IMaterialFormData {
     id: number;
-    name: string;
+    descricao: string;
+    valor_unt: number;
     categorias_id: number;
-    user_id: number;
 }
 
 type TMateriaisComTotalCount = {
-    data: IListagemMateriais[];
+    data: IDetalhamentoMaterial[];
     totalCount: number;
 }
 
 const getAll = async (page = 1, filter = ''): Promise<TMateriaisComTotalCount | Error> => {
     try {
-        const urlRelativa = `/materiais?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+        const urlRelativa = `/materiais?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&descricao_like=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
 
         if (data) {
@@ -41,7 +40,7 @@ const getAll = async (page = 1, filter = ''): Promise<TMateriaisComTotalCount | 
     }
 };
 
-const getById = async (id: number): Promise<IListagemMateriais | Error> => {
+const getById = async (id: number): Promise<IDetalhamentoMaterial | Error> => {
     try {
         const { data } = await Api.get(`/materiais/${id}`);
 
@@ -56,9 +55,9 @@ const getById = async (id: number): Promise<IListagemMateriais | Error> => {
     }
 };
 
-const create = async (dados: Omit<IDetalheMateriais, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<IMaterialFormData, 'id'>): Promise<number | Error> => {
     try {
-        const { data } = await Api.post<IDetalheMateriais>('/materiais', dados);
+        const { data } = await Api.post<IMaterialFormData>('/materiais', dados);
 
         if (data) {
             return data.id;
@@ -71,7 +70,7 @@ const create = async (dados: Omit<IDetalheMateriais, 'id'>): Promise<number | Er
     }
 };
 
-const updateById = async (id: number, dados: IDetalheMateriais): Promise<void | Error> => {
+const updateById = async (id: number, dados: IMaterialFormData): Promise<void | Error> => {
     try {
         await Api.put(`/materiais/${id}`, dados);
     } catch (error) {

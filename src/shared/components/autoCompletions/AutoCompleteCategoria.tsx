@@ -45,7 +45,7 @@ export const AutoCompleteCategoria = ({ isExternalLoading = false }: IAutoComple
                         console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(categoria => ({ id: categoria.id, label: categoria.name })));
+                        setOpcoes(data.map(categoria => ({ id: categoria.id, label: categoria.nome })));
 
                         
                     }
@@ -60,7 +60,7 @@ export const AutoCompleteCategoria = ({ isExternalLoading = false }: IAutoComple
                             //alert(result.message);
                         } else {
                             console.log(result);
-                            setOpcoes(result.data.map(categoria => ({ id: categoria.id, label: categoria.name })));
+                            setOpcoes(result.data.map(categoria => ({ id: categoria.id, label: categoria.nome })));
                         }
                     });
             });
