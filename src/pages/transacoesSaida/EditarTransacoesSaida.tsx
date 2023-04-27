@@ -7,33 +7,19 @@ import * as yup from 'yup';
 import { AutoCompleteMateriais, AutoCompleteUser, DetailTools } from '../../shared/components';
 import { IVFormErros, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
+import { ITransacoesSaidaFormData, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
 import { AutoCompleteRequisitantes } from '../../shared/components/autoCompletions/AutoCompleteRequisitantes';
 import { AutoCompleteDestinos } from '../../shared/components/autoCompletions/AutoCompleteDestinos';
 
 
-interface IFormData {
-    data_de_retirada: string;
-    qtd: number;
-    valor: number;
-    op: string;
-    obs: string;
-    user_id: number;
-    requisitante_id: number;
-    destino_id: number;
-    material_id: number;
-}
 
-const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
-    qtd: yup.number().required(),
-    data_de_retirada: yup.string().required(),
-    valor: yup.number().required(),
+const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesSaidaFormData, 'id'>> = yup.object().shape({
+    data_retirada: yup.string().required(),
+    valor_total: yup.number().required(),
     op: yup.string().required(),
     obs: yup.string().required(),
-    requisitante_id: yup.number().required(),
-    destino_id: yup.number().required(),
-    material_id: yup.number().required(),
-    user_id: yup.number().required()
+    requisitantes_id: yup.number().required(),
+    destinos_id: yup.number().required(),
 });
 
 export const EditarTransacoesSaida = () => {
@@ -51,7 +37,7 @@ export const EditarTransacoesSaida = () => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         alert(result.message);
-                        navigate('/transacoesSaida');
+                        navigate('/transacoes_saida');
                     } else {
                         formRef.current?.setData(result);
                     }
@@ -60,7 +46,7 @@ export const EditarTransacoesSaida = () => {
     }, [id]);
 
 
-    const handleSave = (dados: IFormData) => {
+    const handleSave = (dados: Omit<ITransacoesSaidaFormData, 'id'>) => {
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -73,7 +59,7 @@ export const EditarTransacoesSaida = () => {
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                navigate(`/transacoesSaida/records/show/${result}`);
+                                navigate(`/transacoes_saida/records/show/${result}`);
                             }
                         });
                 } else {
@@ -84,7 +70,7 @@ export const EditarTransacoesSaida = () => {
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                navigate(`/transacoesSaida/records/show/${Number(id)}`);
+                                navigate(`/transacoes_saida/records/show/${Number(id)}`);
                             }
                         });
                 }
@@ -106,7 +92,7 @@ export const EditarTransacoesSaida = () => {
                         alert(result.message);
                     } else {
                         alert('Registro apagado com sucesso!');
-                        navigate('/transacoesSaida');
+                        navigate('/transacoes_saida');
                     }
                 });
         }
@@ -115,14 +101,14 @@ export const EditarTransacoesSaida = () => {
     return (
         <LayoutBaseDePagina
             mostrarBotaoVoltar
-            aoClicaeEmVoltar={() => navigate('/transacoesSaida')}
+            aoClicaeEmVoltar={() => navigate('/transacoes_saida')}
             titulo={id === 'new' ? 'Nova Transação' : 'Editar'}
             tools={
                 <DetailTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
-                    aoClicaeEmDetalhar={() => navigate(`/transacoesSaida/records/show/${id}`)}
+                    aoClicaeEmDetalhar={() => navigate(`/transacoes_saida/records/show/${id}`)}
                 />
             }
         >
@@ -136,27 +122,18 @@ export const EditarTransacoesSaida = () => {
                         )}
 
                         <Grid item marginBottom={2}>
-                            <VTextField
-                                label='Quantidade'
-                                fullWidth
-                                placeholder='quantidade'
-                                name='qtd'
-                            />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
                             <VDatePicker
                                 label='Entregue em'
-                                name='data_de_retirada'
+                                name='data_retirada'
                             />
                         </Grid>
 
                         <Grid item marginBottom={2}>
                             <VTextField
-                                label='Valor do item'
+                                label='Valor total'
                                 fullWidth
-                                placeholder='valor do item'
-                                name='valor'
+                                placeholder='valor total'
+                                name='valor_total'
                             />
                         </Grid>
 
@@ -188,10 +165,6 @@ export const EditarTransacoesSaida = () => {
 
                         <Grid item marginBottom={2}>
                             <AutoCompleteMateriais isExternalLoading={isLoading} />
-                        </Grid>
-                        
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>

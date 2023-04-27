@@ -69,7 +69,7 @@ export const AppRoutes = () => {
             {
                 label: 'Transações de saida',
                 icon: <ImportExport />,
-                path: '/transacoesSaida',
+                path: '/transacoes_saida',
                 group: 'Saida de Materiais'
             }
         ]);
@@ -111,10 +111,10 @@ export const AppRoutes = () => {
             <Route path='/transacoes_entrada/records/edit/:id' element={<EditarTransacoesEntrada />} />
             <Route path='/transacoes_entrada/records/show/:id' element={<DetalharTransacoesEntrada />} />
             <Route path='/transacoes_entrada/records/:id' element={<EditarTransacoesEntrada />} />
-            <Route path="/transacoesSaida" element={<ListagemDeTransacoesSaida />} />
-            <Route path='/transacoesSaida/records/edit/:id' element={<EditarTransacoesSaida />} />
-            <Route path='/transacoesSaida/records/show/:id' element={<DetalharTransacoesSaida />} />
-            <Route path='/transacoesSaida/records/:id' element={<EditarTransacoesSaida />} />
+            <Route path="/transacoes_saida" element={<ListagemDeTransacoesSaida />} />
+            <Route path='/transacoes_saida/records/edit/:id' element={<EditarTransacoesSaida />} />
+            <Route path='/transacoes_saida/records/show/:id' element={<DetalharTransacoesSaida />} />
+            <Route path='/transacoes_saida/records/:id' element={<EditarTransacoesSaida />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
     );

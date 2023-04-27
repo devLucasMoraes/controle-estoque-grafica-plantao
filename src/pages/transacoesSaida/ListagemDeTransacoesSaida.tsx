@@ -4,17 +4,17 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkDestinos, UnderlineLinkMateriais, UnderlineLinkRequisitantes } from '../../shared/components';
+import { ToolsList, UnderlineLinkDestinos, UnderlineLinkRequisitantes } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemTransacoesSaida, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
+import { IDetalhamentoTransacoesSaida, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
 
 export const ListagemDeTransacoesSaida= () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemTransacoesSaida[]>([]);
+    const [rows, setRows] = useState<IDetalhamentoTransacoesSaida[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -78,7 +78,7 @@ export const ListagemDeTransacoesSaida= () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemTransacoesSaida>[]>(() => [
+    const columns = useMemo<GridColDef<IDetalhamentoTransacoesSaida>[]>(() => [
         {
             field: 'acitions',
             headerName: '',
@@ -101,61 +101,58 @@ export const ListagemDeTransacoesSaida= () => {
                     key={`transacoesSaidaEdit${params.row.id}`}
                     icon={<Edit />}
                     label="Edit"
-                    onClick={() => navigate(`/transacoesSaida/records/edit/${params.row.id}`)}
+                    onClick={() => navigate(`/transacoes_saida/records/edit/${params.row.id}`)}
 
                 />,
                 <GridActionsCellItem
                     key={`transacoesSaidaInfo${params.row.id}`}
                     icon={<Info />}
                     label="info"
-                    onClick={() => navigate(`/transacoesSaida/records/show/${params.row.id}`)}
+                    onClick={() => navigate(`/transacoes_saida/records/show/${params.row.id}`)}
                 />
             ]
         },
         {
-            field: 'qtd',
-            headerName: 'Quantidade',
-            minWidth: 155,
-            flex: 0.3
-        },
-        {
-            field: 'material_id',
-            headerName: 'Material',
-            minWidth: 220,
-            flex: 0.2,
-            renderCell: (params) => (
-                <UnderlineLinkMateriais id={params.row.material_id} />
-            )
-        },
-        {
-            field: 'data_de_retirada',
+            field: 'data_retirada',
             headerName: 'Entregue em',
             minWidth: 155,
             flex: 0.3
         },
         {
-            field: 'valor',
-            headerName: 'Valor do item',
-            minWidth: 155,
-            flex: 0.3
-        },
-        {
-            field: 'requisitante_id',
+            field: 'requisitantes_id',
             headerName: 'Requisitante',
             minWidth: 220,
             flex: 0.2,
             renderCell: (params) => (
-                <UnderlineLinkRequisitantes id={params.row.requisitante_id} />
+                <UnderlineLinkRequisitantes id={params.row.requisitantes_id} />
             )
         },
         {
-            field: 'destino_id',
+            field: 'destinos_id',
             headerName: 'Destino',
             minWidth: 220,
             flex: 0.2,
             renderCell: (params) => (
-                <UnderlineLinkDestinos id={params.row.destino_id} />
+                <UnderlineLinkDestinos id={params.row.destinos_id} />
             )
+        },
+        {
+            field: 'valor_total',
+            headerName: 'Valor total',
+            minWidth: 155,
+            flex: 0.3
+        },
+        {
+            field: 'op',
+            headerName: 'Ordem de produçao',
+            minWidth: 155,
+            flex: 0.3
+        },
+        {
+            field: 'obs',
+            headerName: 'Observaçao',
+            minWidth: 155,
+            flex: 0.3
         }
     ], [handleDelete]);
 

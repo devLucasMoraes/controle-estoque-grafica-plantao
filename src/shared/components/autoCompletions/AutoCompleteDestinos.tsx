@@ -16,7 +16,7 @@ interface IAutoCompleteCategoriaProps {
 
 export const AutoCompleteDestinos = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('destino_id');
+    const { fieldName, clearError, defaultValue, error, registerField } = useField('destinos_id');
     const [selectedId, setSelectedId] = useState<number | undefined>();
 
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
@@ -45,7 +45,7 @@ export const AutoCompleteDestinos = ({ isExternalLoading = false }: IAutoComplet
                         console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.name })));
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
 
                         
                     }
@@ -60,7 +60,7 @@ export const AutoCompleteDestinos = ({ isExternalLoading = false }: IAutoComplet
                             //alert(result.message);
                         } else {
                             console.log(result);
-                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.name })));
+                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
                         }
                     });
             });

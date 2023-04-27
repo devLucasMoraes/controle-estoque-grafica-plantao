@@ -1,9 +1,9 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkDestinos, UnderlineLinkMateriais, UnderlineLinkRequisitantes, UnderlineLinkUser } from '../../shared/components';
+import { DetailTools, UnderlineLinkDestinos, UnderlineLinkRequisitantes } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { TransacoesSaidaService, IListagemTransacoesSaida } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
+import { TransacoesSaidaService, IDetalhamentoTransacoesSaida } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
 
 
 export const DetalharTransacoesSaida = () => {
@@ -11,7 +11,7 @@ export const DetalharTransacoesSaida = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [transacoesSaida, setTransacoesSaida] = useState<IListagemTransacoesSaida>();
+    const [transacoesSaida, setTransacoesSaida] = useState<IDetalhamentoTransacoesSaida>();
 
 
     const handleDelete = (id: number) => {
@@ -22,7 +22,7 @@ export const DetalharTransacoesSaida = () => {
                         alert(result.message);
                     } else {
                         alert('Registro apagado com sucesso!');
-                        navigate('/transacoesSaida');
+                        navigate('/transacoes_saida');
                     }
                 });
         }
@@ -36,7 +36,7 @@ export const DetalharTransacoesSaida = () => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         alert(result.message);
-                        navigate('/transacoesSaida');
+                        navigate('/transacoes_saida');
                     } else {
                         console.log('result');
                         console.log(result);
@@ -49,14 +49,14 @@ export const DetalharTransacoesSaida = () => {
     return (
         <LayoutBaseDePagina
             mostrarBotaoVoltar
-            aoClicaeEmVoltar={() => navigate('/transacoesSaida')}
+            aoClicaeEmVoltar={() => navigate('/transacoes_saida')}
             titulo='Detalhar'
             tools={
                 <DetailTools
                     mostrarBotaoApagar
                     mostrarBotaoEditar
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
-                    aoClicaeEmEditar={() => navigate(`/transacoesSaida/records/edit/${id}`)}
+                    aoClicaeEmEditar={() => navigate(`/transacoes_saida/records/edit/${id}`)}
                 />
             }
         >
@@ -91,27 +91,39 @@ export const DetalharTransacoesSaida = () => {
                             variant='caption'
                             noWrap
                         >
-                            Quantidade
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesSaida?.qtd}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
                             Entregue em
                         </Typography>
                         <Typography
                             noWrap
                         >
-                            {transacoesSaida?.data_de_retirada}
+                            {transacoesSaida?.data_retirada}
                         </Typography>
+                    </Grid>
+
+                    <Grid item >
+                        <Box display='flex' flexDirection='column'>
+                            <Typography
+                                component={Box}
+                                variant='caption'
+                                noWrap
+                            >
+                                Requisitante
+                            </Typography>
+                            <UnderlineLinkRequisitantes id={transacoesSaida?.requisitantes_id} />
+                        </Box>
+                    </Grid>
+
+                    <Grid item >
+                        <Box display='flex' flexDirection='column'>
+                            <Typography
+                                component={Box}
+                                variant='caption'
+                                noWrap
+                            >
+                                Destino
+                            </Typography>
+                            <UnderlineLinkDestinos id={transacoesSaida?.destinos_id} />
+                        </Box>
                     </Grid>
 
                     <Grid item>
@@ -119,12 +131,12 @@ export const DetalharTransacoesSaida = () => {
                             variant='caption'
                             noWrap
                         >
-                            Valor
+                            Valor total
                         </Typography>
                         <Typography
                             noWrap
                         >
-                            {transacoesSaida?.valor}
+                            {transacoesSaida?.valor_total}
                         </Typography>
                     </Grid>
 
@@ -156,85 +168,6 @@ export const DetalharTransacoesSaida = () => {
                         </Typography>
                     </Grid>
 
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Requisitante
-                            </Typography>
-                            <UnderlineLinkRequisitantes id={transacoesSaida?.requisitante_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Destino
-                            </Typography>
-                            <UnderlineLinkDestinos id={transacoesSaida?.destino_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Material
-                            </Typography>
-                            <UnderlineLinkMateriais id={transacoesSaida?.material_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Modificado por
-                            </Typography>
-                            <UnderlineLinkUser id={transacoesSaida?.user_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Criado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesSaida?.createdAt}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Atualizado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesSaida?.updatedAt}
-                        </Typography>
-                    </Grid>
                 </Grid>
             </Box>
         </LayoutBaseDePagina>
