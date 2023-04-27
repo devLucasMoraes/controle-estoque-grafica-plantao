@@ -45,7 +45,7 @@ export const AutoCompleteTransportadoras = ({ isExternalLoading = false }: IAuto
                         console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.name })));
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
 
                         
                     }
@@ -60,7 +60,7 @@ export const AutoCompleteTransportadoras = ({ isExternalLoading = false }: IAuto
                             //alert(result.message);
                         } else {
                             console.log(result);
-                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.name })));
+                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
                         }
                     });
             });

@@ -5,36 +5,23 @@ import {XMLParser} from 'fast-xml-parser';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteFornecedores, AutoCompleteMateriais, AutoCompleteTransportadoras, AutoCompleteUser, DetailTools } from '../../shared/components';
+import { AutoCompleteFornecedores, AutoCompleteMateriais, AutoCompleteTransportadoras, DetailTools } from '../../shared/components';
 import { IVFormErros, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
+import { ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 
 
-interface IFormData {
-    qtd: number;
-    data_de_recebimento: string;
-    valor: number;
-    valor_frete: number;
-    nfe: string;
-    obs: string;
-    transportadora_id: number;
-    fornecedora_id: number;
-    material_id: number;
-    user_id: number;
-}
 
-const formValidationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
-    qtd: yup.number().required(),
-    data_de_recebimento: yup.string().required(),
-    valor: yup.number().required(),
-    valor_frete: yup.number().required(),
+const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'id'>> = yup.object().shape({
     nfe: yup.string().required(),
+    data_de_emissao: yup.string().required(),
+    data_de_recebimento: yup.string().required(),
+    valor_total: yup.number().required(),
+    valor_frete: yup.number().required(),
+    valor_ipi_total: yup.number().required(),
     obs: yup.string().required(),
     transportadora_id: yup.number().required(),
     fornecedora_id: yup.number().required(),
-    material_id: yup.number().required(),
-    user_id: yup.number().required()
 });
 
 export const EditarTransacoesEntrada = () => {
@@ -52,7 +39,7 @@ export const EditarTransacoesEntrada = () => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         alert(result.message);
-                        navigate('/transacoesEntrada');
+                        navigate('/transacoes_entrada');
                     } else {
                         formRef.current?.setData(result);
                         console.log('@@@@@@@Result@@@@@@');
@@ -63,7 +50,7 @@ export const EditarTransacoesEntrada = () => {
     }, [id]);
 
 
-    const handleSave = (dados: IFormData) => {
+    const handleSave = (dados: Omit<ITransacoesEntradaFormData, 'id'>) => {
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -76,7 +63,7 @@ export const EditarTransacoesEntrada = () => {
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                navigate(`/transacoesEntrada/records/show/${result}`);
+                                navigate(`/transacoes_entrada/records/show/${result}`);
                             }
                         });
                 } else {
@@ -87,7 +74,7 @@ export const EditarTransacoesEntrada = () => {
                             if (result instanceof Error) {
                                 alert(result.message);
                             } else {
-                                navigate(`/transacoesEntrada/records/show/${Number(id)}`);
+                                navigate(`/transacoes_entrada/records/show/${Number(id)}`);
                             }
                         });
                 }
@@ -109,7 +96,7 @@ export const EditarTransacoesEntrada = () => {
                         alert(result.message);
                     } else {
                         alert('Registro apagado com sucesso!');
-                        navigate('/transacoesEntrada');
+                        navigate('/transacoes_entrada');
                     }
                 });
         }
@@ -130,7 +117,7 @@ export const EditarTransacoesEntrada = () => {
     return (
         <LayoutBaseDePagina
             mostrarBotaoVoltar
-            aoClicaeEmVoltar={() => navigate('/transacoesEntrada')}
+            aoClicaeEmVoltar={() => navigate('/transacoes_entrada')}
             titulo={id === 'new' ? 'Nova Transação' : 'Editar'}
             tools={
                 <DetailTools
@@ -138,7 +125,7 @@ export const EditarTransacoesEntrada = () => {
                     mostrarBotaoDetalhar={id !== 'new'}
                     mostrarBotaoImportarXML={id === 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
-                    aoClicaeEmDetalhar={() => navigate(`/transacoesEntrada/records/show/${id}`)}
+                    aoClicaeEmDetalhar={() => navigate(`/transacoes_entrada/records/show/${id}`)}
                     aoAlternarArquivo={handleFileChange}
                 />
             }

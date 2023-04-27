@@ -1,44 +1,40 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-export interface IListagemTransacoesEntrada {
+export interface IDetalhamentoTransacoesEntrada {
     id: number;
-    qtd: number;
-    data_de_recebimento: string;
-    valor: number;
-    valor_frete: number;
     nfe: string;
+    data_de_emissao: string;
+    data_de_recebimento: string;
+    valor_total: number;
+    valor_frete: number;
+    valor_ipi_total: number;
     obs: string;
     transportadora_id: number;
     fornecedora_id: number;
-    material_id: number;
-    user_id: number;
-    createdAt: string;
-    updatedAt: string;
 }
 
-export interface IDetalheTransacoesEntrada {
+export interface ITransacoesEntradaFormData {
     id: number;
-    qtd: number;
-    data_de_recebimento: string;
-    valor: number;
-    valor_frete: number;
     nfe: string;
+    data_de_emissao: string;
+    data_de_recebimento: string;
+    valor_total: number;
+    valor_frete: number;
+    valor_ipi_total: number;
     obs: string;
     transportadora_id: number;
     fornecedora_id: number;
-    material_id: number;
-    user_id: number;
 }
 
 type TTransacoesEntradaComTotalCount = {
-    data: IListagemTransacoesEntrada[];
+    data: IDetalhamentoTransacoesEntrada[];
     totalCount: number;
 }
 
 const getAll = async (page = 1, filter = ''): Promise<TTransacoesEntradaComTotalCount | Error> => {
     try {
-        const urlRelativa = `/transacoesEntrada?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nfe_like=${filter}`;
+        const urlRelativa = `/transacoes_entrada?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nfe_like=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
 
         if (data) {
@@ -55,9 +51,9 @@ const getAll = async (page = 1, filter = ''): Promise<TTransacoesEntradaComTotal
     }
 };
 
-const getById = async (id: number): Promise<IListagemTransacoesEntrada | Error> => {
+const getById = async (id: number): Promise<IDetalhamentoTransacoesEntrada | Error> => {
     try {
-        const { data } = await Api.get(`/transacoesEntrada/${id}`);
+        const { data } = await Api.get(`/transacoes_entrada/${id}`);
 
         if (data) {
             return data;
@@ -70,9 +66,9 @@ const getById = async (id: number): Promise<IListagemTransacoesEntrada | Error> 
     }
 };
 
-const create = async (dados: Omit<IDetalheTransacoesEntrada, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<ITransacoesEntradaFormData, 'id'>): Promise<number | Error> => {
     try {
-        const { data } = await Api.post<IDetalheTransacoesEntrada>('/transacoesEntrada', dados);
+        const { data } = await Api.post<ITransacoesEntradaFormData>('/transacoes_entrada', dados);
 
         if (data) {
             return data.id;
@@ -85,9 +81,9 @@ const create = async (dados: Omit<IDetalheTransacoesEntrada, 'id'>): Promise<num
     }
 };
 
-const updateById = async (id: number, dados: IDetalheTransacoesEntrada): Promise<void | Error> => {
+const updateById = async (id: number, dados: ITransacoesEntradaFormData): Promise<void | Error> => {
     try {
-        await Api.put(`/transacoesEntrada/${id}`, dados);
+        await Api.put(`/transacoes_entrada/${id}`, dados);
     } catch (error) {
         console.error(error);
         return new Error((error as { message: string }).message || 'Erro ao atualizar o registro.');
@@ -96,7 +92,7 @@ const updateById = async (id: number, dados: IDetalheTransacoesEntrada): Promise
 
 const deleteById = async (id: number): Promise<void | Error> => {
     try {
-        await Api.delete(`/transacoesEntrada/${id}`);
+        await Api.delete(`/transacoes_entrada/${id}`);
     } catch (error) {
         console.error(error);
         return new Error((error as { message: string }).message || 'Erro ao deletar o registro.');

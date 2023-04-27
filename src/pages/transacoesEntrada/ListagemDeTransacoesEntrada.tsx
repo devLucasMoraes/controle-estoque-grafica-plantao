@@ -4,17 +4,17 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkFornecedores, UnderlineLinkMateriais, UnderlineLinkTransportadoras, UnderlineLinkUser } from '../../shared/components';
+import { ToolsList, UnderlineLinkFornecedores, UnderlineLinkTransportadoras } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IListagemTransacoesEntrada, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
+import { IDetalhamentoTransacoesEntrada, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 
 export const ListagemDeTransacoesEntrada = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [rows, setRows] = useState<IListagemTransacoesEntrada[]>([]);
+    const [rows, setRows] = useState<IDetalhamentoTransacoesEntrada[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -78,7 +78,7 @@ export const ListagemDeTransacoesEntrada = () => {
         debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
     };
 
-    const columns = useMemo<GridColDef<IListagemTransacoesEntrada>[]>(() => [
+    const columns = useMemo<GridColDef<IDetalhamentoTransacoesEntrada>[]>(() => [
         {
             field: 'acitions',
             headerName: '',
@@ -101,31 +101,22 @@ export const ListagemDeTransacoesEntrada = () => {
                     key={`transacoesEntradaEdit${params.row.id}`}
                     icon={<Edit />}
                     label="Edit"
-                    onClick={() => navigate(`/transacoesEntrada/records/edit/${params.row.id}`)}
+                    onClick={() => navigate(`/transacoes_entrada/records/edit/${params.row.id}`)}
 
                 />,
                 <GridActionsCellItem
                     key={`transacoesEntradaInfo${params.row.id}`}
                     icon={<Info />}
                     label="info"
-                    onClick={() => navigate(`/transacoesEntrada/records/show/${params.row.id}`)}
+                    onClick={() => navigate(`/transacoes_entrada/records/show/${params.row.id}`)}
                 />
             ]
         },
         {
-            field: 'qtd',
-            headerName: 'Quantidade',
+            field: 'data_de_emissao',
+            headerName: 'Emitido em',
             minWidth: 155,
             flex: 0.3
-        },
-        {
-            field: 'material_id',
-            headerName: 'Material',
-            minWidth: 220,
-            flex: 0.2,
-            renderCell: (params) => (
-                <UnderlineLinkMateriais id={params.row.material_id} />
-            )
         },
         {
             field: 'data_de_recebimento',
@@ -134,8 +125,14 @@ export const ListagemDeTransacoesEntrada = () => {
             flex: 0.3
         },
         {
-            field: 'valor',
-            headerName: 'Valor do item',
+            field: 'valor_ipi_total',
+            headerName: 'Taxa IPI',
+            minWidth: 155,
+            flex: 0.3
+        },
+        {
+            field: 'valor_total',
+            headerName: 'Valor total',
             minWidth: 155,
             flex: 0.3
         },
@@ -171,7 +168,7 @@ export const ListagemDeTransacoesEntrada = () => {
             totalCount={totalCount}
             tools={
                 <ToolsList
-                    aoClicarEmNovo={() => navigate('/transacoesEntrada/records/new')}
+                    aoClicarEmNovo={() => navigate('/transacoes_entrada/records/new')}
                     mostrarInputBusca
                     textoDaBusca={busca}
                     aoMudarTextDeBusca={texto => setBuscaDebouce(texto)}

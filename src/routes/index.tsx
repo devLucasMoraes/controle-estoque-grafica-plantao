@@ -63,7 +63,7 @@ export const AppRoutes = () => {
             {
                 label: 'Transações de entrada',
                 icon: <ImportExport />,
-                path: '/transacoesEntrada',
+                path: '/transacoes_entrada',
                 group: 'Entrada de Materiais'
             },
             {
@@ -107,10 +107,10 @@ export const AppRoutes = () => {
             <Route path='/destinos/records/edit/:id' element={<EditarDestinos />} />
             <Route path='/destinos/records/show/:id' element={<DetalharDestinos />} />
             <Route path='/destinos/records/:id' element={<EditarDestinos />} />
-            <Route path="/transacoesEntrada" element={<ListagemDeTransacoesEntrada />} />
-            <Route path='/transacoesEntrada/records/edit/:id' element={<EditarTransacoesEntrada />} />
-            <Route path='/transacoesEntrada/records/show/:id' element={<DetalharTransacoesEntrada />} />
-            <Route path='/transacoesEntrada/records/:id' element={<EditarTransacoesEntrada />} />
+            <Route path="/transacoes_entrada" element={<ListagemDeTransacoesEntrada />} />
+            <Route path='/transacoes_entrada/records/edit/:id' element={<EditarTransacoesEntrada />} />
+            <Route path='/transacoes_entrada/records/show/:id' element={<DetalharTransacoesEntrada />} />
+            <Route path='/transacoes_entrada/records/:id' element={<EditarTransacoesEntrada />} />
             <Route path="/transacoesSaida" element={<ListagemDeTransacoesSaida />} />
             <Route path='/transacoesSaida/records/edit/:id' element={<EditarTransacoesSaida />} />
             <Route path='/transacoesSaida/records/show/:id' element={<DetalharTransacoesSaida />} />

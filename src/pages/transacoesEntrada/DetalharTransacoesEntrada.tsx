@@ -1,9 +1,9 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkFornecedores, UnderlineLinkMateriais, UnderlineLinkTransportadoras, UnderlineLinkUser } from '../../shared/components';
+import { DetailTools, UnderlineLinkFornecedores, UnderlineLinkTransportadoras } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { TransacoesEntradaService, IListagemTransacoesEntrada } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
+import { TransacoesEntradaService, IDetalhamentoTransacoesEntrada } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 
 
 export const DetalharTransacoesEntrada = () => {
@@ -11,7 +11,7 @@ export const DetalharTransacoesEntrada = () => {
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
     const [isLoading, setIsLoading] = useState(false);
-    const [transacoesEntrada, setTransacoesEntrada] = useState<IListagemTransacoesEntrada>();
+    const [transacoesEntrada, setTransacoesEntrada] = useState<IDetalhamentoTransacoesEntrada>();
 
 
     const handleDelete = (id: number) => {
@@ -22,7 +22,7 @@ export const DetalharTransacoesEntrada = () => {
                         alert(result.message);
                     } else {
                         alert('Registro apagado com sucesso!');
-                        navigate('/transacoesEntrada');
+                        navigate('/transacoes_entrada');
                     }
                 });
         }
@@ -36,7 +36,7 @@ export const DetalharTransacoesEntrada = () => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         alert(result.message);
-                        navigate('/transacoesEntrada');
+                        navigate('/transacoes_entrada');
                     } else {
                         console.log('result');
                         console.log(result);
@@ -49,14 +49,14 @@ export const DetalharTransacoesEntrada = () => {
     return (
         <LayoutBaseDePagina
             mostrarBotaoVoltar
-            aoClicaeEmVoltar={() => navigate('/transacoesEntrada')}
+            aoClicaeEmVoltar={() => navigate('/transacoes_entrada')}
             titulo='Detalhar'
             tools={
                 <DetailTools
                     mostrarBotaoApagar
                     mostrarBotaoEditar
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
-                    aoClicaeEmEditar={() => navigate(`/transacoesEntrada/records/edit/${id}`)}
+                    aoClicaeEmEditar={() => navigate(`/transacoes_entrada/records/edit/${id}`)}
                 />
             }
         >
@@ -91,12 +91,26 @@ export const DetalharTransacoesEntrada = () => {
                             variant='caption'
                             noWrap
                         >
-                            Quantidade
+                            NFe
                         </Typography>
                         <Typography
                             noWrap
                         >
-                            {transacoesEntrada?.qtd}
+                            {transacoesEntrada?.nfe}
+                        </Typography>
+                    </Grid>
+
+                    <Grid item>
+                        <Typography
+                            variant='caption'
+                            noWrap
+                        >
+                            Emitido em
+                        </Typography>
+                        <Typography
+                            noWrap
+                        >
+                            {transacoesEntrada?.data_de_emissao}
                         </Typography>
                     </Grid>
 
@@ -119,13 +133,40 @@ export const DetalharTransacoesEntrada = () => {
                             variant='caption'
                             noWrap
                         >
-                            Valor
+                            Taxa IPI
                         </Typography>
                         <Typography
                             noWrap
                         >
-                            {transacoesEntrada?.valor}
+                            {transacoesEntrada?.valor_ipi_total}
                         </Typography>
+                    </Grid>
+
+                    <Grid item>
+                        <Typography
+                            variant='caption'
+                            noWrap
+                        >
+                            Valor total
+                        </Typography>
+                        <Typography
+                            noWrap
+                        >
+                            {transacoesEntrada?.valor_total}
+                        </Typography>
+                    </Grid>
+
+                    <Grid item >
+                        <Box display='flex' flexDirection='column'>
+                            <Typography
+                                component={Box}
+                                variant='caption'
+                                noWrap
+                            >
+                                Fornecedora
+                            </Typography>
+                            <UnderlineLinkFornecedores id={transacoesEntrada?.fornecedora_id} />
+                        </Box>
                     </Grid>
 
                     <Grid item>
@@ -142,18 +183,17 @@ export const DetalharTransacoesEntrada = () => {
                         </Typography>
                     </Grid>
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            NFe
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.nfe}
-                        </Typography>
+                    <Grid item >
+                        <Box display='flex' flexDirection='column'>
+                            <Typography
+                                component={Box}
+                                variant='caption'
+                                noWrap
+                            >
+                                Transportadora
+                            </Typography>
+                            <UnderlineLinkTransportadoras id={transacoesEntrada?.transportadora_id} />
+                        </Box>
                     </Grid>
 
                     <Grid item>
@@ -170,85 +210,6 @@ export const DetalharTransacoesEntrada = () => {
                         </Typography>
                     </Grid>
 
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Transportadora
-                            </Typography>
-                            <UnderlineLinkTransportadoras id={transacoesEntrada?.transportadora_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Fornecedora
-                            </Typography>
-                            <UnderlineLinkFornecedores id={transacoesEntrada?.fornecedora_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Material
-                            </Typography>
-                            <UnderlineLinkMateriais id={transacoesEntrada?.material_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
-                            <Typography
-                                component={Box}
-                                variant='caption'
-                                noWrap
-                            >
-                                Modificado por
-                            </Typography>
-                            <UnderlineLinkUser id={transacoesEntrada?.user_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Criado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.createdAt}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Atualizado em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.updatedAt}
-                        </Typography>
-                    </Grid>
                 </Grid>
             </Box>
         </LayoutBaseDePagina>

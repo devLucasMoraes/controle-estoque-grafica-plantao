@@ -45,7 +45,7 @@ export const AutoCompleteMateriais = ({ isExternalLoading = false }: IAutoComple
                         console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.name })));
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.descricao })));
 
                         
                     }
@@ -60,7 +60,7 @@ export const AutoCompleteMateriais = ({ isExternalLoading = false }: IAutoComple
                             //alert(result.message);
                         } else {
                             console.log(result);
-                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.name })));
+                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.descricao })));
                         }
                     });
             });
