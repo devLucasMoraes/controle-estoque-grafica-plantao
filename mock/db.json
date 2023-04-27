@@ -713,7 +713,7 @@
       "obs": "",
       "transportadora_id": 1,
       "fornecedora_id": 2,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": ""
     },
     {
@@ -724,7 +724,7 @@
       "obs": "",
       "transportadora_id": 1,
       "fornecedora_id": 2,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "",
       "id": 3
     },
@@ -736,7 +736,7 @@
       "obs": "",
       "transportadora_id": 1,
       "fornecedora_id": 2,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "",
       "id": 4
     },
@@ -748,7 +748,7 @@
       "obs": "",
       "transportadora_id": 1,
       "fornecedora_id": 2,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "",
       "id": 5
     },
@@ -760,7 +760,7 @@
       "obs": "",
       "transportadora_id": 1,
       "fornecedora_id": 2,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "",
       "id": 6
     },
@@ -772,7 +772,7 @@
       "obs": "",
       "transportadora_id": 1,
       "fornecedora_id": 2,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "",
       "id": 7
     },
@@ -784,7 +784,7 @@
       "obs": "",
       "transportadora_id": 1,
       "fornecedora_id": 2,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "",
       "id": 8
     },
@@ -796,7 +796,7 @@
       "obs": "",
       "transportadora_id": 2,
       "fornecedora_id": 3,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "2022-07-05 11:00:00",
       "id": 9
     },
@@ -808,7 +808,7 @@
       "obs": "",
       "transportadora_id": 2,
       "fornecedora_id": 3,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "2022-07-08 11:00:00",
       "id": 10
     },
@@ -820,7 +820,7 @@
       "obs": "",
       "transportadora_id": 3,
       "fornecedora_id": 4,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "2022-07-08 17:00:00",
       "id": 11
     },
@@ -832,21 +832,9 @@
       "obs": "",
       "transportadora_id": 3,
       "fornecedora_id": 4,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "2022-07-08 11:00:00",
       "id": 12
-    },
-    {
-      "valor_total": 29.11,
-      "valor_frete": 0,
-      "valor_ipi_total": 0,
-      "nfe": "",
-      "obs": "",
-      "transportadora_id": 3,
-      "fornecedora_id": 4,
-      "data_de_emissao":"2022-06-23 11:00:00",
-      "data_de_recebimento": "2022-07-08 11:00:00",
-      "id": 13
     },
     {
       "fornecedora_id": 1,
@@ -856,7 +844,7 @@
       "valor_frete": 100,
       "valor_ipi_total": 0,
       "valor_total": 100,
-      "data_de_emissao":"2022-06-23 11:00:00",
+      "data_de_emissao": "2022-06-23 11:00:00",
       "data_de_recebimento": "Wed, 19 Apr 2023 15:37:25 GMT",
       "id": 14
     }
@@ -867,8 +855,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 1,
-      "destino_id": 1,
+      "requisitantes_id": 1,
+      "destinos_id": 1,
       "data_retirada": "2022-06-27 12:00:00"
     },
     {
@@ -876,8 +864,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "FOI ADICIONADO 100LT DE AGUA NA BANHEIRA",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -885,8 +873,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "MATERIAS IMPRESSOS APRESENTARAM VELAMENTOS POR ISSO FOI ADICIONADO MAIS 1LT DE SOLU�AO DE FONTE",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-06-27 13:00:00"
     },
     {
@@ -894,8 +882,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "colocado 40 litros de agua na banheira",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-28 11:00:00"
     },
     {
@@ -903,8 +891,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "MATERIAS IMPRESSOS APRESENTARAM VELAMENTOS POR ISSO FOI ADICIONADO MAIS 0.4LT DE SOLU�AO DE FONTE",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-28 17:00:00"
     },
     {
@@ -912,8 +900,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-29 11:00:00"
     },
     {
@@ -921,8 +909,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-30 11:00:00"
     },
     {
@@ -930,8 +918,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-01 11:00:00"
     },
     {
@@ -939,8 +927,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-06-30 11:00:00"
     },
     {
@@ -948,8 +936,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 6,
+      "requisitantes_id": 2,
+      "destinos_id": 6,
       "data_retirada": "2022-07-01 17:00:00"
     },
     {
@@ -957,17 +945,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 3,
-      "destino_id": 2,
-      "data_retirada": "2022-06-27 11:00:00"
-    },
-    {
-      "id": 12,
-      "valor_total": 0,
-      "op": "",
-      "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 3,
+      "destinos_id": 2,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -975,8 +954,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -984,8 +963,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "REQUISITADO PARA LIMPEZA DA MAQUINA DE CORTE E VINCO",
-      "requisitante_id": 7,
-      "destino_id": 9,
+      "requisitantes_id": 7,
+      "destinos_id": 9,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -993,8 +972,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "REQUISITADO PARA LIMPEZA DA MAQUINA DE CORTE E VINCO",
-      "requisitante_id": 7,
-      "destino_id": 9,
+      "requisitantes_id": 7,
+      "destinos_id": 9,
       "data_retirada": "2022-06-28 11:00:00"
     },
     {
@@ -1002,8 +981,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-06-29 11:00:00"
     },
     {
@@ -1011,8 +990,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "foi colocado 60 litros de agua na banheira",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1020,8 +999,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1029,8 +1008,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "Limpar rolo de �gua",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1038,8 +1017,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-04 03:00:00"
     },
     {
@@ -1047,8 +1026,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1056,8 +1035,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1065,8 +1044,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1074,8 +1053,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1083,8 +1062,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1092,8 +1071,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-07-04 11:00:00"
     },
     {
@@ -1101,8 +1080,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-07-04 17:00:00"
     },
     {
@@ -1110,8 +1089,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-07-04 17:00:00"
     },
     {
@@ -1119,8 +1098,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "FOI ADICIONADO 100LT DE AGUA NA BANHEIRA",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -1128,8 +1107,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-28 11:00:00"
     },
     {
@@ -1137,8 +1116,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-28 17:00:00"
     },
     {
@@ -1146,8 +1125,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-28 11:00:00"
     },
     {
@@ -1155,8 +1134,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-06-30 11:00:00"
     },
     {
@@ -1164,8 +1143,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-01 11:00:00"
     },
     {
@@ -1173,8 +1152,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 6,
+      "requisitantes_id": 2,
+      "destinos_id": 6,
       "data_retirada": "2022-07-01 17:00:00"
     },
     {
@@ -1182,8 +1161,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1191,8 +1170,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1200,8 +1179,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 6,
+      "requisitantes_id": 2,
+      "destinos_id": 6,
       "data_retirada": "2022-07-05 12:00:00"
     },
     {
@@ -1209,8 +1188,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 2,
+      "requisitantes_id": 2,
+      "destinos_id": 2,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1218,8 +1197,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 2,
+      "requisitantes_id": 2,
+      "destinos_id": 2,
       "data_retirada": "2022-07-05 12:00:00"
     },
     {
@@ -1227,8 +1206,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 2,
+      "requisitantes_id": 2,
+      "destinos_id": 2,
       "data_retirada": "2022-07-05 12:00:00"
     },
     {
@@ -1236,8 +1215,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 2,
+      "requisitantes_id": 2,
+      "destinos_id": 2,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1245,8 +1224,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-05 17:00:00"
     },
     {
@@ -1254,8 +1233,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "MATERIAS IMPRESSOS APRESENTARAM VELAMENTOS POR ISSO FOI ADICIONADO MAIS 1LT DE SOLU�AO DE FONTE",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-05 17:00:00"
     },
     {
@@ -1263,8 +1242,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -1272,8 +1251,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -1281,8 +1260,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -1290,8 +1269,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -1299,8 +1278,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-27 11:00:00"
     },
     {
@@ -1308,8 +1287,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-28 11:00:00"
     },
     {
@@ -1317,8 +1296,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-29 11:00:00"
     },
     {
@@ -1326,8 +1305,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 4,
-      "destino_id": 4,
+      "requisitantes_id": 4,
+      "destinos_id": 4,
       "data_retirada": "2022-06-29 11:00:00"
     },
     {
@@ -1335,8 +1314,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 9,
-      "destino_id": 10,
+      "requisitantes_id": 9,
+      "destinos_id": 10,
       "data_retirada": "2022-06-23 11:00:00"
     },
     {
@@ -1344,8 +1323,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-06-30 11:00:00"
     },
     {
@@ -1353,8 +1332,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1362,8 +1341,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1371,8 +1350,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1380,8 +1359,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1389,8 +1368,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 10,
-      "destino_id": 11,
+      "requisitantes_id": 10,
+      "destinos_id": 11,
       "data_retirada": "2022-07-05 11:00:00"
     },
     {
@@ -1398,8 +1377,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "Foi colocado 40 litros de �gua na banheira",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1407,8 +1386,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "Foi colocado 40 litros de �gua na banheira",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1416,8 +1395,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1425,8 +1404,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1434,8 +1413,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1443,8 +1422,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "tinta amarela que estava no estoque do compressorantiga estava ensebando demais os rolos",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1452,8 +1431,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1461,8 +1440,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1470,8 +1449,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1479,8 +1458,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-06 11:00:00"
     },
     {
@@ -1488,8 +1467,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 7,
-      "destino_id": 9,
+      "requisitantes_id": 7,
+      "destinos_id": 9,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1497,8 +1476,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1506,8 +1485,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1515,8 +1494,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1524,8 +1503,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 7,
+      "requisitantes_id": 2,
+      "destinos_id": 7,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1533,8 +1512,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1542,8 +1521,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1551,8 +1530,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1560,8 +1539,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 2,
-      "destino_id": 3,
+      "requisitantes_id": 2,
+      "destinos_id": 3,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1569,8 +1548,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 11,
-      "destino_id": 12,
+      "requisitantes_id": 11,
+      "destinos_id": 12,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1578,8 +1557,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-07-07 11:00:00"
     },
     {
@@ -1587,8 +1566,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1596,8 +1575,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "HOUVE UM VAZAMENTO MARLON DISSE QUE COLOCOU 40LT DE AGUA NA BANHEIRA",
-      "requisitante_id": 6,
-      "destino_id": 8,
+      "requisitantes_id": 6,
+      "destinos_id": 8,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1605,8 +1584,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 6,
-      "destino_id": 5,
+      "requisitantes_id": 6,
+      "destinos_id": 5,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1614,8 +1593,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1623,8 +1602,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1632,8 +1611,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1641,8 +1620,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1650,8 +1629,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "PARA LIMPEZA DOS ROLOS",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-08 11:00:00"
     },
     {
@@ -1659,8 +1638,8 @@
       "valor_total": 0,
       "op": "",
       "obs": "",
-      "requisitante_id": 8,
-      "destino_id": 4,
+      "requisitantes_id": 8,
+      "destinos_id": 4,
       "data_retirada": "2022-07-08 11:00:00"
     }
   ]
