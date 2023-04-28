@@ -109,7 +109,23 @@ export const EditarTransacoesEntrada = () => {
         reader.onload = () => {
             const xmlString = reader.result?.toString() ?? '';
             const jsonObj = parser.parse(xmlString);
-            console.log(jsonObj.nfeProc);
+            console.log(jsonObj);
+
+            const chave = jsonObj.nfeProc.protNFe.infProt.chNFe;
+
+            const dataEmissao = jsonObj.nfeProc.NFe.infNFe.ide.dhEmi;
+
+            const cnpjFornecedora = jsonObj.nfeProc.NFe.infNFe.emit.CNPJ;
+            const nomeFantasiafornecedora = jsonObj.nfeProc.NFe.infNFe.emit.xFant;
+            const razaoSocialfornecedora = jsonObj.nfeProc.NFe.infNFe.emit.xNome;
+            const fonefornecedora = jsonObj.nfeProc.NFe.infNFe.emit.enderEmit.fone;
+
+            const modalidadeFrete = jsonObj.nfeProc.NFe.infNFe.transp.modFrete;
+            const cnpjTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta.CNPJ;
+            const razaoSocialTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta.xNome;
+
+            console.log(razaoSocialTransportadora);
+            
         };
         reader.readAsText(file);
     };
@@ -132,76 +148,83 @@ export const EditarTransacoesEntrada = () => {
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
-                    <Grid container spacing={2} padding={4}>
+                    <Grid container padding={4} rowGap={2}>
                         {isLoading && (
                             <Grid item>
                                 <LinearProgress variant='indeterminate' />
                             </Grid>
                         )}
 
-                        <Grid item xs={6} >
-                            <VTextField
-                                label='NFe'
-                                fullWidth
-                                placeholder='NFe'
-                                name='nfe'
-                            />
+                        <Grid container justifyContent="space-between" spacing={2}>
+                            <Grid item xs={12} lg={6}>
+                                <VTextField
+                                    label='NFe'
+                                    fullWidth
+                                    placeholder='NFe'
+                                    name='nfe'
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} lg={2}>
+                                <VDatePicker
+                                    label='Recebido em'
+                                    name='data_de_recebimento'
+                                />
+                            </Grid>
                         </Grid>
 
-                        <Grid item xs={6}>
-                            <VDatePicker
-                                label='Recebido em'
-                                name='data_de_recebimento'
-                            />
-                        </Grid>
+                        <Grid container columnSpacing={2} spacing={2}>
+                            <Grid item xs={12} lg={4}>
+                                <VTextField
+                                    label='Valor do frete'
+                                    fullWidth
+                                    placeholder='valor do frete'
+                                    name='valor_frete'
+                                />
+                            </Grid>
 
-                        <Grid item xs={4}>
-                            <VTextField
-                                label='Valor do frete'
-                                fullWidth
-                                placeholder='valor do frete'
-                                name='valor_frete'
-                            />
-                        </Grid>
+                            <Grid item xs={12} lg={4}>
+                                <AutoCompleteTransportadoras isExternalLoading={isLoading} />
+                            </Grid>
 
-                        <Grid item xs={4}>
-                            <AutoCompleteTransportadoras isExternalLoading={isLoading} />
-                        </Grid>
+                            <Grid item xs={12} lg={4}>
+                                <AutoCompleteFornecedores isExternalLoading={isLoading} />
+                            </Grid>
 
-                        <Grid item xs={4}>
-                            <AutoCompleteFornecedores isExternalLoading={isLoading} />
                         </Grid>
+                        
+                        <Grid container spacing={2}>
+                            <Grid item xs={2}>
+                                <VTextField
+                                    label='Quantidade'
+                                    fullWidth
+                                    placeholder='quantidade'
+                                    name='qtd'
+                                />
+                            </Grid>
 
-                        <Grid item xs={2}>
-                            <VTextField
-                                label='Quantidade'
-                                fullWidth
-                                placeholder='quantidade'
-                                name='qtd'
-                            />
+                            <Grid item xs={2}>
+                                <VTextField
+                                    label='Valor do item'
+                                    fullWidth
+                                    placeholder='valor do item'
+                                    name='valor'
+                                />
+                            </Grid>
+
+                            <Grid item xs={2}>
+                                <AutoCompleteMateriais isExternalLoading={isLoading} />
+                            </Grid>
+
+                            <Grid item xs={6}>
+                                <VTextField
+                                    label='Observações'
+                                    fullWidth
+                                    placeholder='observações'
+                                    name='obs'
+                                />
+                            </Grid>        
                         </Grid>
-
-                        <Grid item xs={2}>
-                            <VTextField
-                                label='Valor do item'
-                                fullWidth
-                                placeholder='valor do item'
-                                name='valor'
-                            />
-                        </Grid>
-
-                        <Grid item xs={2}>
-                            <AutoCompleteMateriais isExternalLoading={isLoading} />
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <VTextField
-                                label='Observações'
-                                fullWidth
-                                placeholder='observações'
-                                name='obs'
-                            />
-                        </Grid>        
                    
 
                     </Grid>
