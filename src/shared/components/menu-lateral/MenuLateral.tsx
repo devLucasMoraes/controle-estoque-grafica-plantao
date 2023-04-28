@@ -52,7 +52,8 @@ const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
                     <Box width='100%' height={theme.spacing(20)} display='flex' alignItems='center' justifyContent='center'>
                         <Avatar
                             sx={{ height: theme.spacing(12), width: theme.spacing(12) }}
-
+                            alt="Logo Plantao"
+                            src="/logo.png"
                         />
                     </Box>
 
