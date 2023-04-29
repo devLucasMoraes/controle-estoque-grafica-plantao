@@ -14,5 +14,5 @@ export const Environment = {
     /* 
     * Url base de consultado dos dados dessa aplicação
     */
-    URL_BASE: 'http://192.168.1.3:3333'
+    URL_BASE: process.env.REACT_APP_URL_BASE
 };
