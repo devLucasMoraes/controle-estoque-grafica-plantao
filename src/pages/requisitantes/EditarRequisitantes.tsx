@@ -4,8 +4,8 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteUser, DetailTools } from '../../shared/components';
-import { IVFormErros, VTextField } from '../../shared/forms';
+import { DetailTools } from '../../shared/components';
+import { IVFormErros, VAutoCompleteUser, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IRequisitantesFormData, RequisitantesService } from '../../shared/services/api/requisitantes/RequisitantesService';
 
@@ -134,7 +134,7 @@ export const EditarRequisitantes = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <AutoCompleteUser isExternalLoading={isLoading} />
+                            <VAutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>

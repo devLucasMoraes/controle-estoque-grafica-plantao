@@ -4,12 +4,11 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteMateriais, AutoCompleteUser, DetailTools } from '../../shared/components';
-import { IVFormErros, VDatePicker, VTextField } from '../../shared/forms';
+import { IVFormErros, VAutoCompleteDestinos, VAutoCompleteMateriais, VAutoCompleteRequisitantes, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { ITransacoesSaidaFormData, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
-import { AutoCompleteRequisitantes } from '../../shared/components/autoCompletions/AutoCompleteRequisitantes';
-import { AutoCompleteDestinos } from '../../shared/components/autoCompletions/AutoCompleteDestinos';
+import { DetailTools } from '../../shared/components';
+
 
 
 
@@ -156,16 +155,14 @@ export const EditarTransacoesSaida = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <AutoCompleteRequisitantes isExternalLoading={isLoading} />
+                            <VAutoCompleteRequisitantes isExternalLoading={isLoading} />
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <AutoCompleteDestinos isExternalLoading={isLoading} />
+                            <VAutoCompleteDestinos isExternalLoading={isLoading} />
                         </Grid>
 
-                        <Grid item marginBottom={2}>
-                            <AutoCompleteMateriais isExternalLoading={isLoading} />
-                        </Grid>
+                        
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>

@@ -11,11 +11,11 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IDetalhamentoCategoria, CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
 
 export const ListagemDeCategorias = () => {
+    console.log('renderizou ListagemDeCategorias');
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const [rows, setRows] = useState<IDetalhamentoCategoria[]>([]);
-    console.log(rows);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -41,6 +41,7 @@ export const ListagemDeCategorias = () => {
                     if (result instanceof Error) {
                         alert(result.message);
                     } else {
+                        setTotalCount(totalCount - 1);
                         setRows(oldRows => {
                             return [
                                 ...oldRows.filter(oldRow => oldRow.id !== id)
@@ -55,6 +56,8 @@ export const ListagemDeCategorias = () => {
     const { debouce } = useDebouce(1000);
 
     useEffect(() => {
+        console.log('renderizou useEffect ListagemDeCategorias');
+
         setIsLoading(true);
         CategoriasService.getAll(pagina, buscaMemo)
             .then((result) => {
@@ -63,7 +66,8 @@ export const ListagemDeCategorias = () => {
                     alert(result.message);
                 } else {
                     setTotalCount(result.totalCount);
-                    setRows(result.data);
+                    setRows(result.data.content);
+                    console.log(result.data.content);
                 }
             });
     }, [buscaMemo, pagina]);

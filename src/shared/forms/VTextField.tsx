@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react';
 
 type TVTextFieldProps = TextFieldProps & {
     name: string;
+    initialValue?: any;
 }
 
-export const VTextField = ({ name, ...rest }: TVTextFieldProps) => {
+export const VTextField = ({ initialValue, name, ...rest }: TVTextFieldProps) => {
+    //console.log(`renderizou VTextField ${name}`);
 
     const { clearError, defaultValue, error, fieldName, registerField } = useField(name);
-    const [value, setValue] = useState(defaultValue || '');
+    const [value, setValue] = useState(initialValue || '');
 
     useEffect(() => {
         registerField({

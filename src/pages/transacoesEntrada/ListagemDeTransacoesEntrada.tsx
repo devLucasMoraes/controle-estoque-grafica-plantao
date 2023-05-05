@@ -62,7 +62,7 @@ export const ListagemDeTransacoesEntrada = () => {
                     alert(result.message);
                 } else {
                     setTotalCount(result.totalCount);
-                    setRows(result.data);
+                    setRows(result.data.content);
                 }
             });
     }, [buscaMemo, pagina]);

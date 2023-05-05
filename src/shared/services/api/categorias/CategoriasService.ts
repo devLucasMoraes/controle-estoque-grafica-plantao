@@ -1,6 +1,35 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
+interface ISpringPageData {
+    content: IDetalhamentoCategoria[];
+    pageable: {
+        sort: {
+            empty: boolean;
+            sorted: boolean;
+            unsorted: boolean;
+        };
+        offset: number;
+        pageNumber: number;
+        pageSize: number;
+        paged: boolean;
+        unpaged: boolean;
+    };
+    last: boolean;
+    totalPages: number;
+    totalElements: number;
+    size: number;
+    number: number;
+    sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+    };
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
+}
+
 export interface IDetalhamentoCategoria {
     id: number;
     nome: string;
@@ -16,7 +45,7 @@ export interface ICategoriaFormData {
 }
 
 type TCategoriasComTotalCount = {
-    data: IDetalhamentoCategoria[];
+    data: ISpringPageData;
     totalCount: number;
 }
 
@@ -28,7 +57,8 @@ const getAll = async (page = 1, filter = ''): Promise<TCategoriasComTotalCount |
         if (data) {
             return {
                 data,
-                totalCount: Number(headers['x-total-count'] || Environment.LIMITE_DE_LINHAS)
+                //totalCount: Number(headers['x-total-count'] || Environment.LIMITE_DE_LINHAS)
+                totalCount: data.totalElements
             };
         }
 

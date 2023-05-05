@@ -1,6 +1,35 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
+interface ISpringPageData {
+    content: IDetalhamentoFornecedora[];
+    pageable: {
+        sort: {
+            empty: boolean;
+            sorted: boolean;
+            unsorted: boolean;
+        };
+        offset: number;
+        pageNumber: number;
+        pageSize: number;
+        paged: boolean;
+        unpaged: boolean;
+    };
+    last: boolean;
+    totalPages: number;
+    totalElements: number;
+    size: number;
+    number: number;
+    sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+    };
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
+}
+
 export interface IDetalhamentoFornecedora {
     id: number;
     nome_fantasia: string;
@@ -18,7 +47,7 @@ export interface IFornecedorasFormData {
 }
 
 type TFornecedoresComTotalCount = {
-    data: IDetalhamentoFornecedora[];
+    data: ISpringPageData;
     totalCount: number;
 }
 
@@ -30,7 +59,8 @@ const getAll = async (page = 1, filter = ''): Promise<TFornecedoresComTotalCount
         if (data) {
             return {
                 data,
-                totalCount: Number(headers['x-total-count'] || Environment.LIMITE_DE_LINHAS)
+                //totalCount: Number(headers['x-total-count'] || Environment.LIMITE_DE_LINHAS)
+                totalCount: data.totalElements
             };
         }
 

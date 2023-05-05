@@ -4,8 +4,8 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteCategoria, DetailTools } from '../../shared/components';
-import { IVFormErros, VTextField } from '../../shared/forms';
+import { DetailTools } from '../../shared/components';
+import { IVFormErros, VAutoCompleteCategoria, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IMaterialFormData, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
 
@@ -17,6 +17,7 @@ const formValidationSchema: yup.ObjectSchema<Omit<IMaterialFormData, 'id'>> = yu
 });
 
 export const EditarMateriais = () => {
+    console.log('renderizou EditarMateriais');
 
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ export const EditarMateriais = () => {
     const formRef = useRef<FormHandles>(null);
 
     useEffect(() => {
+        console.log('renderizou useEffect MateriaisService EditarMateriais');
         if (id !== 'new') {
             setIsLoading(true);
             MateriaisService.getById(Number(id))
@@ -41,11 +43,14 @@ export const EditarMateriais = () => {
 
 
     const handleSave = (dados: Omit<IMaterialFormData, 'id'>) => {
+        console.log('handleSave EditarMateriais');
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
                 setIsLoading(true);
+                console.log('handleSave dadosValidados EditarMateriais');
                 if (id === 'new') {
+                    console.log('handleSave if new EditarMateriais');
                     MateriaisService
                         .create(dadosValidados)
                         .then(result => {
@@ -57,6 +62,7 @@ export const EditarMateriais = () => {
                             }
                         });
                 } else {
+                    console.log('handleSave else EditarMateriais');
                     MateriaisService
                         .updateById(Number(id), { id: Number(id), ...dadosValidados })
                         .then(result => {
@@ -70,10 +76,12 @@ export const EditarMateriais = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
+                console.log('handleSave catch EditarMateriais');
                 const validationErrors: IVFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
+                    console.log(validationErrors);
                 });
                 formRef.current?.setErrors(validationErrors);
             });
@@ -125,7 +133,19 @@ export const EditarMateriais = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <AutoCompleteCategoria isExternalLoading={isLoading} />
+                            <VTextField
+                                label='Valor unitário'
+                                fullWidth
+                                placeholder='valor unitário'
+                                name='valor_unt'
+                            />
+                        </Grid>
+
+                        <Grid item marginBottom={2}>
+                            <VAutoCompleteCategoria
+                                isExternalLoading={isLoading}
+                                name='categorias_id'
+                            />
                         </Grid>
 
                     </Grid>

@@ -1,8 +1,8 @@
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
-import { useDebouce } from '../../../shared/hooks';
-import { UsersService } from '../../../shared/services/api/users/UsersService';
+import { useDebouce } from '../../hooks';
+import { DestinosService } from '../../services/api/destinos/DestinosService';
 
 
 type TAutoCompleteOption = {
@@ -10,14 +10,13 @@ type TAutoCompleteOption = {
     label: string;
 }
 
-interface IAutoCompleteUserProps {
+interface IAutoCompleteCategoriaProps {
     isExternalLoading?: boolean;
 }
 
-export const AutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUserProps) => {
+export const VAutoCompleteDestinos = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('user_id');
-    console.log(`defaultValue: ${defaultValue}`);
+    const { fieldName, clearError, defaultValue, error, registerField } = useField('destinos_id');
     const [selectedId, setSelectedId] = useState<number | undefined>();
 
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
@@ -35,23 +34,39 @@ export const AutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUse
 
     useEffect(() => {
         setIsLoading(true);
-
-        debouce(() => {
-            console.log(`busca: ${busca}`);
-            UsersService.getAll(1, busca)
+        if (selectedId) {
+            DestinosService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         //alert(result.message);
                     } else {
+                        console.log('isFirstTime');
                         console.log(result);
-                        setOpcoes(result.data.map(user => ({ id: user.id, label: user.name })));
+                        const data = [];
+                        data.push(result);
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
+
+                        
                     }
                 });
+        } else {
+            debouce(() => {
+                console.log(`busca: ${busca}`);
+                DestinosService.getAll(1, busca)
+                    .then((result) => {
+                        setIsLoading(false);
+                        if (result instanceof Error) {
+                            //alert(result.message);
+                        } else {
+                            console.log(result);
+                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
+                        }
+                    });
+            });
+        }
 
-        });
-
-    }, [busca]);
+    }, [busca, selectedId]);
 
 
 
@@ -84,7 +99,7 @@ export const AutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUse
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Usuario"
+                    label="Destino"
                     error={!!error}
                     helperText={error}
                 />

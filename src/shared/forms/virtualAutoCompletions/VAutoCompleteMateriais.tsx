@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
-import { DestinosService } from '../../services/api/destinos/DestinosService';
+import { MateriaisService } from '../../services/api/materiais/MateriaisService';
 
 
 type TAutoCompleteOption = {
@@ -12,12 +12,15 @@ type TAutoCompleteOption = {
 
 interface IAutoCompleteCategoriaProps {
     isExternalLoading?: boolean;
+    initialSelectedIdValue?: number;
+    name: string;
 }
 
-export const AutoCompleteDestinos = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+export const VAutoCompleteMateriais = ({ isExternalLoading = false, name, initialSelectedIdValue }: IAutoCompleteCategoriaProps) => {
+    console.log('renderizou AutoCompleteMateriais');
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('destinos_id');
-    const [selectedId, setSelectedId] = useState<number | undefined>();
+    const { fieldName, clearError, error, registerField } = useField(name);
+    const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
 
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -35,32 +38,26 @@ export const AutoCompleteDestinos = ({ isExternalLoading = false }: IAutoComplet
     useEffect(() => {
         setIsLoading(true);
         if (selectedId) {
-            DestinosService.getById(selectedId)
+            MateriaisService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         //alert(result.message);
                     } else {
-                        console.log('isFirstTime');
-                        console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
-
-                        
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.descricao })));
                     }
                 });
         } else {
             debouce(() => {
-                console.log(`busca: ${busca}`);
-                DestinosService.getAll(1, busca)
+                MateriaisService.getAll(1, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
                             //alert(result.message);
                         } else {
-                            console.log(result);
-                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
+                            setOpcoes(result.data.content.map(opcao => ({ id: opcao.id, label: opcao.descricao })));
                         }
                     });
             });
@@ -72,9 +69,7 @@ export const AutoCompleteDestinos = ({ isExternalLoading = false }: IAutoComplet
 
     const autoCompleteSelectedOption = useMemo(() => {
         if (!selectedId) return null;
-        console.log(`selectedId: ${selectedId}`);
         const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        console.log(`selectedOption: ${selectedOption}`);
         if (!selectedOption) return null;
 
         return selectedOption;
@@ -99,7 +94,7 @@ export const AutoCompleteDestinos = ({ isExternalLoading = false }: IAutoComplet
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Destino"
+                    label="Material"
                     error={!!error}
                     helperText={error}
                 />

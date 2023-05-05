@@ -14,5 +14,5 @@ export const Environment = {
     /* 
     * Url base de consultado dos dados dessa aplicação
     */
-    URL_BASE: process.env.REACT_APP_URL_BASE
+    URL_BASE: import.meta.env.VITE_REACT_APP_URL_BASE
 };

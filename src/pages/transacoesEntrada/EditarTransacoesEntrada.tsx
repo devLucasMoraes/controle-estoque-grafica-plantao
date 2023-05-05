@@ -1,30 +1,42 @@
-import { Box, Grid, LinearProgress, Paper } from '@mui/material';
+import { Box, Chip, Divider, Grid, LinearProgress, Paper } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import {XMLParser} from 'fast-xml-parser';
+import { XMLParser } from 'fast-xml-parser';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { AutoCompleteFornecedores, AutoCompleteMateriais, AutoCompleteTransportadoras, DetailTools } from '../../shared/components';
-import { IVFormErros, VDatePicker, VTextField } from '../../shared/forms';
+import { IVFormErros, VAutoCompleteFornecedores, VAutoCompleteTransportadoras, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
+import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
+import { DetailTools, ItensTransacaoEntrada } from '../../shared/components';
 
+const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.object().shape({
+    materiais_id: yup.number().required(),
+    und_com: yup.string().required(),
+    quant_com: yup.number().required(),
+    valor_unt_com: yup.number().required(),
+    valor_ipi: yup.number().required(),
+    obs: yup.string().required(),
+});
 
 
 const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'id'>> = yup.object().shape({
     nfe: yup.string().required(),
-    data_de_emissao: yup.string().required(),
-    data_de_recebimento: yup.string().required(),
+    data_emissao: yup.string().required(),
+    data_recebimento: yup.string().required(),
     valor_total: yup.number().required(),
     valor_frete: yup.number().required(),
     valor_ipi_total: yup.number().required(),
     obs: yup.string().required(),
     transportadora_id: yup.number().required(),
     fornecedora_id: yup.number().required(),
+    itens: new yup.ArraySchema(itemSchema).required()
 });
 
 export const EditarTransacoesEntrada = () => {
+    console.log('renderizou EditarTransacoesEntrada');
+
+    const [initialItens, setInitialItens] = useState<Array<IItemTransacaoEntrada>>([]);
 
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();
@@ -32,6 +44,7 @@ export const EditarTransacoesEntrada = () => {
     const formRef = useRef<FormHandles>(null);
 
     useEffect(() => {
+        console.log('renderizou useEffect EditarTransacoesEntrada');
         if (id !== 'new') {
             setIsLoading(true);
             TransacoesEntradaService.getById(Number(id))
@@ -42,8 +55,7 @@ export const EditarTransacoesEntrada = () => {
                         navigate('/transacoes_entrada');
                     } else {
                         formRef.current?.setData(result);
-                        console.log('@@@@@@@Result@@@@@@');
-                        console.log(result);
+                        setInitialItens(result.itens);
                     }
                 });
         }
@@ -109,7 +121,6 @@ export const EditarTransacoesEntrada = () => {
         reader.onload = () => {
             const xmlString = reader.result?.toString() ?? '';
             const jsonObj = parser.parse(xmlString);
-            console.log(jsonObj);
 
             const chave = jsonObj.nfeProc.protNFe.infProt.chNFe;
 
@@ -124,8 +135,7 @@ export const EditarTransacoesEntrada = () => {
             const cnpjTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta.CNPJ;
             const razaoSocialTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta.xNome;
 
-            console.log(razaoSocialTransportadora);
-            
+
         };
         reader.readAsText(file);
     };
@@ -167,14 +177,43 @@ export const EditarTransacoesEntrada = () => {
 
                             <Grid item xs={12} lg={2}>
                                 <VDatePicker
+                                    label='Data de emissao da nota'
+                                    name='data_emissao'
+                                />
+                            </Grid>
+                            <Grid item xs={12} lg={2}>
+                                <VDatePicker
                                     label='Recebido em'
-                                    name='data_de_recebimento'
+                                    name='data_recebimento'
                                 />
                             </Grid>
                         </Grid>
 
                         <Grid container columnSpacing={2} spacing={2}>
-                            <Grid item xs={12} lg={4}>
+
+                            <Grid item xs={12} lg={2}>
+                                <VTextField
+                                    label='Valor total IPI'
+                                    fullWidth
+                                    placeholder='valor total IPI'
+                                    name='valor_ipi_total'
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} lg={2}>
+                                <VTextField
+                                    label='Valor total da nota'
+                                    fullWidth
+                                    placeholder='valor total da nota'
+                                    name='valor_total'
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} lg={3}>
+                                <VAutoCompleteFornecedores isExternalLoading={isLoading} />
+                            </Grid>
+
+                            <Grid item xs={12} lg={2}>
                                 <VTextField
                                     label='Valor do frete'
                                     fullWidth
@@ -183,37 +222,8 @@ export const EditarTransacoesEntrada = () => {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} lg={4}>
-                                <AutoCompleteTransportadoras isExternalLoading={isLoading} />
-                            </Grid>
-
-                            <Grid item xs={12} lg={4}>
-                                <AutoCompleteFornecedores isExternalLoading={isLoading} />
-                            </Grid>
-
-                        </Grid>
-                        
-                        <Grid container spacing={2}>
-                            <Grid item xs={2}>
-                                <VTextField
-                                    label='Quantidade'
-                                    fullWidth
-                                    placeholder='quantidade'
-                                    name='qtd'
-                                />
-                            </Grid>
-
-                            <Grid item xs={2}>
-                                <VTextField
-                                    label='Valor do item'
-                                    fullWidth
-                                    placeholder='valor do item'
-                                    name='valor'
-                                />
-                            </Grid>
-
-                            <Grid item xs={2}>
-                                <AutoCompleteMateriais isExternalLoading={isLoading} />
+                            <Grid item xs={12} lg={3}>
+                                <VAutoCompleteTransportadoras isExternalLoading={isLoading} />
                             </Grid>
 
                             <Grid item xs={6}>
@@ -223,9 +233,20 @@ export const EditarTransacoesEntrada = () => {
                                     placeholder='observações'
                                     name='obs'
                                 />
-                            </Grid>        
+                            </Grid>
+
                         </Grid>
-                   
+
+                        <Grid item flexGrow={1}>
+                            <Divider textAlign="left">
+                                <Chip label="ITENS" />
+                            </Divider>
+                        </Grid>
+
+                        <ItensTransacaoEntrada 
+                            isLoading={isLoading}
+                            initialItens={initialItens}
+                        />
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>

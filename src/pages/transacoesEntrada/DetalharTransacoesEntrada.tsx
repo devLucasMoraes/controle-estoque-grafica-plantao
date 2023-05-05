@@ -62,7 +62,7 @@ export const DetalharTransacoesEntrada = () => {
         >
             <Box
                 component={Paper}
-                
+
                 variant='outlined'
             >
                 <Grid container direction='column' spacing={2} padding={4}>
@@ -72,143 +72,164 @@ export const DetalharTransacoesEntrada = () => {
                         </Grid>
                     )}
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Id
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.id}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            NFe
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.nfe}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Emitido em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.data_de_emissao}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Recebido em
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.data_de_recebimento}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Taxa IPI
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.valor_ipi_total}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Valor total
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.valor_total}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
+                    {transacoesEntrada && (
+                        <Grid item>
                             <Typography
-                                component={Box}
                                 variant='caption'
                                 noWrap
                             >
-                                Fornecedora
+                                Id
                             </Typography>
-                            <UnderlineLinkFornecedores id={transacoesEntrada?.fornecedora_id} />
-                        </Box>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Valor do Frete
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.valor_frete}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
                             <Typography
-                                component={Box}
+                                noWrap
+                            >
+                                {transacoesEntrada?.id}
+                            </Typography>
+                        </Grid>
+                    )}
+
+                    {transacoesEntrada && (
+                        <Grid item>
+                            <Typography
                                 variant='caption'
                                 noWrap
                             >
-                                Transportadora
+                                NFe
                             </Typography>
-                            <UnderlineLinkTransportadoras id={transacoesEntrada?.transportadora_id} />
-                        </Box>
-                    </Grid>
+                            <Typography
+                                noWrap
+                            >
+                                {transacoesEntrada?.nfe}
+                            </Typography>
+                        </Grid>
+                    )}
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Observações
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {transacoesEntrada?.obs}
-                        </Typography>
-                    </Grid>
+                    {transacoesEntrada && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Emitido em
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {transacoesEntrada?.data_emissao}
+                            </Typography>
+                        </Grid>
+                    )}
+
+                    {transacoesEntrada && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Recebido em
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {transacoesEntrada?.data_recebimento}
+                            </Typography>
+                        </Grid>
+                    )}
+
+                    {transacoesEntrada && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Taxa IPI
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {transacoesEntrada?.valor_ipi_total}
+                            </Typography>
+                        </Grid>
+                    )}
+
+                    {transacoesEntrada && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Valor total
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {transacoesEntrada?.valor_total}
+                            </Typography>
+                        </Grid>
+                    )}
+
+                    {transacoesEntrada && (
+                        <Grid item >
+                            <Box display='flex' flexDirection='column'>
+                                <Typography
+                                    component={Box}
+                                    variant='caption'
+                                    noWrap
+                                >
+                                    Fornecedora
+                                </Typography>
+                                <UnderlineLinkFornecedores id={transacoesEntrada?.fornecedora_id} />
+                            </Box>
+                        </Grid>
+                    )}
+
+                    {transacoesEntrada && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Valor do Frete
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {transacoesEntrada?.valor_frete}
+                            </Typography>
+                        </Grid>
+                    )}
+
+                    {transacoesEntrada && (
+                        <Grid item >
+                            <Box display='flex' flexDirection='column'>
+                                <Typography
+                                    component={Box}
+                                    variant='caption'
+                                    noWrap
+                                >
+                                    Transportadora
+                                </Typography>
+                                <UnderlineLinkTransportadoras id={transacoesEntrada?.transportadora_id} />
+                            </Box>
+                        </Grid>
+                    )}
+
+                    {transacoesEntrada && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Observações
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {transacoesEntrada?.obs}
+                            </Typography>
+                        </Grid>
+                    )}
+
 
                 </Grid>
             </Box>

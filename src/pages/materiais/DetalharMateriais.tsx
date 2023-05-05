@@ -7,6 +7,7 @@ import { MateriaisService, IDetalhamentoMaterial } from '../../shared/services/a
 
 
 export const DetalharMateriais = () => {
+    console.log('renderizou DetalharMateriais');
 
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
@@ -29,6 +30,7 @@ export const DetalharMateriais = () => {
     };
 
     useEffect(() => {
+        console.log('renderizou useEffect MateriaisService DetalharMateriais');
         if (id !== 'new') {
             setIsLoading(true);
             MateriaisService.getById(Number(id))
@@ -71,74 +73,87 @@ export const DetalharMateriais = () => {
                         </Grid>
                     )}
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Id
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {materiais?.id}
-                        </Typography>
-                    </Grid>
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Codigo do produto
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {materiais?.cod_prod}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Nome
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {materiais?.descricao}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Valor unitario
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {materiais?.valor_unt}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item >
-                        <Box display='flex' flexDirection='column'>
+                    {materiais && (
+                        <Grid item>
                             <Typography
-                                component={Box}
                                 variant='caption'
                                 noWrap
                             >
-                                Categoria
+                                Id
                             </Typography>
-                            <UnderlineLinkCategoria id={materiais?.categorias_id} />
-                        </Box>
-                    </Grid>
+                            <Typography
+                                noWrap
+                            >
+                                {materiais?.id}
+                            </Typography>
+                        </Grid>
+                    )}
+
+                    {materiais && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Codigo do produto
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {materiais?.cod_prod}
+                            </Typography>
+                        </Grid>
+                    )}
+
+                    {materiais && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Nome
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {materiais?.descricao}
+                            </Typography>
+                        </Grid>
+
+                    )}
+
+                    {materiais && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Valor unitario
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {materiais?.valor_unt}
+                            </Typography>
+                        </Grid>
+
+                    )}
+
+                    {materiais && (
+                        <Grid item >
+                            <Box display='flex' flexDirection='column'>
+                                <Typography
+                                    component={Box}
+                                    variant='caption'
+                                    noWrap
+                                >
+                                    Categoria
+                                </Typography>
+                                <UnderlineLinkCategoria id={materiais?.categorias_id} />
+                            </Box>
+                        </Grid>
+                    )}
 
                 </Grid>
             </Box>

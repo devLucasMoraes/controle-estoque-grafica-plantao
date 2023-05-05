@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
-import { RequisitantesService } from '../../services/api/requisitantes/RequisitantesService';
+import { UsersService } from '../../services/api/users/UsersService';
 
 
 type TAutoCompleteOption = {
@@ -10,13 +10,14 @@ type TAutoCompleteOption = {
     label: string;
 }
 
-interface IAutoCompleteCategoriaProps {
+interface IAutoCompleteUserProps {
     isExternalLoading?: boolean;
 }
 
-export const AutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+export const VAutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUserProps) => {
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('requisitantes_id');
+    const { fieldName, clearError, defaultValue, error, registerField } = useField('user_id');
+    console.log(`defaultValue: ${defaultValue}`);
     const [selectedId, setSelectedId] = useState<number | undefined>();
 
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
@@ -34,39 +35,23 @@ export const AutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoCo
 
     useEffect(() => {
         setIsLoading(true);
-        if (selectedId) {
-            RequisitantesService.getById(selectedId)
+
+        debouce(() => {
+            console.log(`busca: ${busca}`);
+            UsersService.getAll(1, busca)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         //alert(result.message);
                     } else {
-                        console.log('isFirstTime');
                         console.log(result);
-                        const data = [];
-                        data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
-
-                        
+                        setOpcoes(result.data.map(user => ({ id: user.id, label: user.name })));
                     }
                 });
-        } else {
-            debouce(() => {
-                console.log(`busca: ${busca}`);
-                RequisitantesService.getAll(1, busca)
-                    .then((result) => {
-                        setIsLoading(false);
-                        if (result instanceof Error) {
-                            //alert(result.message);
-                        } else {
-                            console.log(result);
-                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
-                        }
-                    });
-            });
-        }
 
-    }, [busca, selectedId]);
+        });
+
+    }, [busca]);
 
 
 
@@ -99,7 +84,7 @@ export const AutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoCo
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Requisitante"
+                    label="Usuario"
                     error={!!error}
                     helperText={error}
                 />

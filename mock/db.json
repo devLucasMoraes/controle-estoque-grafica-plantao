@@ -702,7 +702,33 @@
       "valor_ipi_total": 0,
       "obs": "",
       "transportadora_id": 1,
-      "fornecedora_id": 1
+      "fornecedora_id": 1,
+      "itens": [
+        {
+          "id": 12,
+          "materiais_id": 4,
+          "und_com": "KG",
+          "quant_com": 10,
+          "valor_unt_com": 100,
+          "valor_ipi": 0
+        },
+        {
+          "id": 13,
+          "materiais_id": 2,
+          "und_com": "KG",
+          "quant_com": 10,
+          "valor_unt_com": 100,
+          "valor_ipi": 0
+        },
+        {
+          "id": 14,
+          "materiais_id": 1,
+          "und_com": "KG",
+          "quant_com": 10,
+          "valor_unt_com": 100,
+          "valor_ipi": 0
+        }
+      ]
     },
     {
       "id": 2,

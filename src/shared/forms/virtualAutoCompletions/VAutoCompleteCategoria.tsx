@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
-import { MateriaisService } from '../../services/api/materiais/MateriaisService';
+import { CategoriasService } from '../../services/api/categorias/CategoriasService';
 
 
 type TAutoCompleteOption = {
@@ -12,55 +12,58 @@ type TAutoCompleteOption = {
 
 interface IAutoCompleteCategoriaProps {
     isExternalLoading?: boolean;
+    initialSelectedIdValue?: number;
+    name: string;
 }
 
-export const AutoCompleteMateriais = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initialSelectedIdValue }: IAutoCompleteCategoriaProps) => {
+    console.log('renderizou AutoCompleteCategoria');
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('material_id');
-    const [selectedId, setSelectedId] = useState<number | undefined>();
 
+    
+    
+    const { fieldName, clearError, error, registerField } = useField(name);
+
+    const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
     const { debouce } = useDebouce();
-
+    
     useEffect(() => {
+        console.log('renderizou useEffect registerField AutoCompleteCategoria');
         registerField({
             name: fieldName,
             getValue: () => selectedId,
             setValue: (_, newSelectedId) => setSelectedId(newSelectedId)
         });
+        console.log(selectedId);
     }, [registerField, fieldName, selectedId]);
-
+    
     useEffect(() => {
+        console.log('renderizou useEffect CategoriasService AutoCompleteCategoria');
         setIsLoading(true);
         if (selectedId) {
-            MateriaisService.getById(selectedId)
+            CategoriasService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         //alert(result.message);
                     } else {
-                        console.log('isFirstTime');
-                        console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.descricao })));
-
-                        
+                        setOpcoes(data.map(categoria => ({ id: categoria.id, label: categoria.nome })));  
                     }
                 });
         } else {
             debouce(() => {
-                console.log(`busca: ${busca}`);
-                MateriaisService.getAll(1, busca)
+                CategoriasService.getAll(1, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
                             //alert(result.message);
                         } else {
-                            console.log(result);
-                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.descricao })));
+                            setOpcoes(result.data.content.map(categoria => ({ id: categoria.id, label: categoria.nome })));
                         }
                     });
             });
@@ -72,9 +75,7 @@ export const AutoCompleteMateriais = ({ isExternalLoading = false }: IAutoComple
 
     const autoCompleteSelectedOption = useMemo(() => {
         if (!selectedId) return null;
-        console.log(`selectedId: ${selectedId}`);
         const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        console.log(`selectedOption: ${selectedOption}`);
         if (!selectedOption) return null;
 
         return selectedOption;
@@ -99,7 +100,7 @@ export const AutoCompleteMateriais = ({ isExternalLoading = false }: IAutoComple
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Material"
+                    label="Categoria"
                     error={!!error}
                     helperText={error}
                 />

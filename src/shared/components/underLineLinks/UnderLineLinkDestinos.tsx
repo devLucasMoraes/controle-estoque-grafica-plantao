@@ -20,7 +20,6 @@ export const UnderlineLinkDestinos = ({ id = 1 }: IUnderlineLinkUserProps) => {
                 if (result instanceof Error) {
                     alert(result.message);
                 } else {
-                    console.log(result);
                     setName(result.nome);
                 }
             });

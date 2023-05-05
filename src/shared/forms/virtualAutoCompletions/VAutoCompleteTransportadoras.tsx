@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
-import { FornecedorasService } from '../../services/api/fornecedoras/FornecedorasService';
+import { TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
 
 
 type TAutoCompleteOption = {
@@ -14,9 +14,10 @@ interface IAutoCompleteCategoriaProps {
     isExternalLoading?: boolean;
 }
 
-export const AutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+export const VAutoCompleteTransportadoras = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+    //console.log('renderizou AutoCompleteTransportadoras');
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('fornecedora_id');
+    const { fieldName, clearError, error, registerField } = useField('transportadora_id');
     const [selectedId, setSelectedId] = useState<number | undefined>();
 
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
@@ -35,14 +36,12 @@ export const AutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCom
     useEffect(() => {
         setIsLoading(true);
         if (selectedId) {
-            FornecedorasService.getById(selectedId)
+            TransportadorasService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         //alert(result.message);
                     } else {
-                        console.log('isFirstTime');
-                        console.log(result);
                         const data = [];
                         data.push(result);
                         setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
@@ -52,15 +51,13 @@ export const AutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCom
                 });
         } else {
             debouce(() => {
-                console.log(`busca: ${busca}`);
-                FornecedorasService.getAll(1, busca)
+                TransportadorasService.getAll(1, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
                             //alert(result.message);
                         } else {
-                            console.log(result);
-                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
+                            setOpcoes(result.data.content.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
                         }
                     });
             });
@@ -72,9 +69,7 @@ export const AutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCom
 
     const autoCompleteSelectedOption = useMemo(() => {
         if (!selectedId) return null;
-        console.log(`selectedId: ${selectedId}`);
         const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        console.log(`selectedOption: ${selectedOption}`);
         if (!selectedOption) return null;
 
         return selectedOption;
@@ -99,7 +94,7 @@ export const AutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCom
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Fornecedora"
+                    label="Transportadora"
                     error={!!error}
                     helperText={error}
                 />

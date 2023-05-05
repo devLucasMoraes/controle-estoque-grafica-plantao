@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
 
 interface IUnderlineLinkUserProps {
-    id?: number;
+    id: number;
 }
 
-export const UnderlineLinkTransportadoras = ({ id = 1 }: IUnderlineLinkUserProps) => {
+export const UnderlineLinkTransportadoras = ({ id }: IUnderlineLinkUserProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [name, setName] = useState('');
@@ -20,7 +20,6 @@ export const UnderlineLinkTransportadoras = ({ id = 1 }: IUnderlineLinkUserProps
                 if (result instanceof Error) {
                     alert(result.message);
                 } else {
-                    console.log(result);
                     setName(result.nome_fantasia);
                 }
             });

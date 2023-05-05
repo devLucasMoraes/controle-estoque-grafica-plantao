@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { CategoriasService } from '../../services/api/categorias/CategoriasService';
 
 interface IUnderlineLinkUserProps {
-    id?: number;
+    id: number;
 }
 
-export const UnderlineLinkCategoria = ({ id = 1 }: IUnderlineLinkUserProps) => {
+export const UnderlineLinkCategoria = ({ id }: IUnderlineLinkUserProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [name, setName] = useState('');
@@ -20,7 +20,6 @@ export const UnderlineLinkCategoria = ({ id = 1 }: IUnderlineLinkUserProps) => {
                 if (result instanceof Error) {
                     alert(result.message);
                 } else {
-                    console.log(result);
                     setName(result.nome);
                 }
             });

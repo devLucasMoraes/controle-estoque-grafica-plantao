@@ -1,6 +1,35 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
+interface ISpringPageData {
+    content: IDetalhamentoMaterial[];
+    pageable: {
+        sort: {
+            empty: boolean;
+            sorted: boolean;
+            unsorted: boolean;
+        };
+        offset: number;
+        pageNumber: number;
+        pageSize: number;
+        paged: boolean;
+        unpaged: boolean;
+    };
+    last: boolean;
+    totalPages: number;
+    totalElements: number;
+    size: number;
+    number: number;
+    sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+    };
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
+}
+
 export interface IDetalhamentoMaterial {
     id: number;
     cod_prod: string;
@@ -17,7 +46,7 @@ export interface IMaterialFormData {
 }
 
 type TMateriaisComTotalCount = {
-    data: IDetalhamentoMaterial[];
+    data: ISpringPageData;
     totalCount: number;
 }
 
@@ -29,7 +58,8 @@ const getAll = async (page = 1, filter = ''): Promise<TMateriaisComTotalCount | 
         if (data) {
             return {
                 data,
-                totalCount: Number(headers['x-total-count'] || Environment.LIMITE_DE_LINHAS)
+                //totalCount: Number(headers['x-total-count'] || Environment.LIMITE_DE_LINHAS)
+                totalCount: data.totalElements
             };
         }
 

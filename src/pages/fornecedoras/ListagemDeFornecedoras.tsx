@@ -11,11 +11,11 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IDetalhamentoFornecedora, FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
 export const ListagemDeFornecedoras = () => {
+    console.log('renderizou ListagemDeFornecedoras');
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const [rows, setRows] = useState<IDetalhamentoFornecedora[]>([]);
-    console.log(rows);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
@@ -55,6 +55,7 @@ export const ListagemDeFornecedoras = () => {
     const { debouce } = useDebouce(1000);
 
     useEffect(() => {
+        console.log('renderizou useEffect FornecedorasService ListagemDeFornecedoras');
         setIsLoading(true);
         FornecedorasService.getAll(pagina, buscaMemo)
             .then((result) => {
@@ -63,7 +64,7 @@ export const ListagemDeFornecedoras = () => {
                     alert(result.message);
                 } else {
                     setTotalCount(result.totalCount);
-                    setRows(result.data);
+                    setRows(result.data.content);
                 }
             });
     }, [buscaMemo, pagina]);

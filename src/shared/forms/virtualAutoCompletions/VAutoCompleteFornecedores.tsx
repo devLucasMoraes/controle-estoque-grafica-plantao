@@ -1,8 +1,8 @@
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
-import { useDebouce } from '../../../shared/hooks';
-import { CategoriasService } from '../../../shared/services/api/categorias/CategoriasService';
+import { useDebouce } from '../../hooks';
+import { FornecedorasService } from '../../services/api/fornecedoras/FornecedorasService';
 
 
 type TAutoCompleteOption = {
@@ -14,9 +14,10 @@ interface IAutoCompleteCategoriaProps {
     isExternalLoading?: boolean;
 }
 
-export const AutoCompleteCategoria = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+export const VAutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+    //console.log('renderizou AutoCompleteFornecedores');
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('categorias_id');
+    const { fieldName, clearError, error, registerField } = useField('fornecedora_id');
     const [selectedId, setSelectedId] = useState<number | undefined>();
 
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
@@ -35,32 +36,28 @@ export const AutoCompleteCategoria = ({ isExternalLoading = false }: IAutoComple
     useEffect(() => {
         setIsLoading(true);
         if (selectedId) {
-            CategoriasService.getById(selectedId)
+            FornecedorasService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         //alert(result.message);
                     } else {
-                        console.log('isFirstTime');
-                        console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(categoria => ({ id: categoria.id, label: categoria.nome })));
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
 
                         
                     }
                 });
         } else {
             debouce(() => {
-                console.log(`busca: ${busca}`);
-                CategoriasService.getAll(1, busca)
+                FornecedorasService.getAll(1, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
                             //alert(result.message);
                         } else {
-                            console.log(result);
-                            setOpcoes(result.data.map(categoria => ({ id: categoria.id, label: categoria.nome })));
+                            setOpcoes(result.data.content.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
                         }
                     });
             });
@@ -72,9 +69,7 @@ export const AutoCompleteCategoria = ({ isExternalLoading = false }: IAutoComple
 
     const autoCompleteSelectedOption = useMemo(() => {
         if (!selectedId) return null;
-        console.log(`selectedId: ${selectedId}`);
         const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        console.log(`selectedOption: ${selectedOption}`);
         if (!selectedOption) return null;
 
         return selectedOption;
@@ -99,7 +94,7 @@ export const AutoCompleteCategoria = ({ isExternalLoading = false }: IAutoComple
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Categoria"
+                    label="Fornecedora"
                     error={!!error}
                     helperText={error}
                 />
