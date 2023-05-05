@@ -25,7 +25,7 @@ export const EditarMateriais = () => {
     const formRef = useRef<FormHandles>(null);
 
     useEffect(() => {
-        console.log('renderizou useEffect MateriaisService EditarMateriais');
+        console.log('renderizou useEffect MateriaisService.getById EditarMateriais');
         if (id !== 'new') {
             setIsLoading(true);
             MateriaisService.getById(Number(id))
@@ -43,14 +43,12 @@ export const EditarMateriais = () => {
 
 
     const handleSave = (dados: Omit<IMaterialFormData, 'id'>) => {
-        console.log('handleSave EditarMateriais');
+        console.log('renderizou handleSave EditarMateriais');
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
                 setIsLoading(true);
-                console.log('handleSave dadosValidados EditarMateriais');
                 if (id === 'new') {
-                    console.log('handleSave if new EditarMateriais');
                     MateriaisService
                         .create(dadosValidados)
                         .then(result => {
@@ -62,7 +60,6 @@ export const EditarMateriais = () => {
                             }
                         });
                 } else {
-                    console.log('handleSave else EditarMateriais');
                     MateriaisService
                         .updateById(Number(id), { id: Number(id), ...dadosValidados })
                         .then(result => {
@@ -76,7 +73,6 @@ export const EditarMateriais = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                console.log('handleSave catch EditarMateriais');
                 const validationErrors: IVFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
@@ -87,6 +83,7 @@ export const EditarMateriais = () => {
             });
     };
     const handleDelete = (id: number) => {
+        console.log('renderizou handleDelete EditarMateriais');
         if (confirm('Realmente deseja apagar?')) {
             MateriaisService.deleteById(id)
                 .then(result => {

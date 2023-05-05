@@ -17,11 +17,8 @@ interface IAutoCompleteCategoriaProps {
 }
 
 export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initialSelectedIdValue }: IAutoCompleteCategoriaProps) => {
-    console.log('renderizou AutoCompleteCategoria');
+    console.log('renderizou VAutoCompleteCategoria');
 
-
-    
-    
     const { fieldName, clearError, error, registerField } = useField(name);
 
     const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
@@ -48,7 +45,7 @@ export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
-                        //alert(result.message);
+                        alert(result.message);
                     } else {
                         const data = [];
                         data.push(result);
@@ -61,7 +58,7 @@ export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
-                            //alert(result.message);
+                            alert(result.message);
                         } else {
                             setOpcoes(result.data.content.map(categoria => ({ id: categoria.id, label: categoria.nome })));
                         }

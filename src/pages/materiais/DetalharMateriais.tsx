@@ -16,6 +16,7 @@ export const DetalharMateriais = () => {
 
 
     const handleDelete = (id: number) => {
+        console.log('renderizou handleDelete DetalharMateriais');
         if (confirm('Realmente deseja apagar?')) {
             MateriaisService.deleteById(id)
                 .then(result => {
@@ -30,7 +31,7 @@ export const DetalharMateriais = () => {
     };
 
     useEffect(() => {
-        console.log('renderizou useEffect MateriaisService DetalharMateriais');
+        console.log('renderizou useEffect MateriaisService.getById DetalharMateriais');
         if (id !== 'new') {
             setIsLoading(true);
             MateriaisService.getById(Number(id))

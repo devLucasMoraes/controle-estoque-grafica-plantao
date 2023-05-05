@@ -11,6 +11,7 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IDetalhamentoMaterial, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
 
 export const ListagemDeMateriais = () => {
+    console.log('renderizou ListagemDeMateriais');
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ export const ListagemDeMateriais = () => {
     });
 
     const handleDelete = (id: number) => {
+        console.log('renderizou handleDelete ListagemDeMateriais');
         if (confirm('Realmente deseja apagar?')) {
             MateriaisService.deleteById(id)
                 .then(result => {
@@ -54,6 +56,7 @@ export const ListagemDeMateriais = () => {
     const { debouce } = useDebouce(1000);
 
     useEffect(() => {
+        console.log('renderizou useEffect MateriaisService.getAll ListagemDeMateriais');
         setIsLoading(true);
         MateriaisService.getAll(pagina, buscaMemo)
             .then((result) => {
