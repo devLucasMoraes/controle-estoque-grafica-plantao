@@ -35,6 +35,8 @@ export const ListagemDeCategorias = () => {
     });
 
     const handleDelete = (id: number) => {
+        console.log('renderizou handleDelete CategoriasService.deleteById ListagemDeCategorias');
+
         if (confirm('Realmente deseja apagar?')) {
             CategoriasService.deleteById(id)
                 .then(result => {
@@ -56,8 +58,7 @@ export const ListagemDeCategorias = () => {
     const { debouce } = useDebouce(1000);
 
     useEffect(() => {
-        console.log('renderizou useEffect ListagemDeCategorias');
-
+        console.log('renderizou useEffect CategoriasService.getAll ListagemDeCategorias');
         setIsLoading(true);
         CategoriasService.getAll(pagina, buscaMemo)
             .then((result) => {
@@ -67,7 +68,6 @@ export const ListagemDeCategorias = () => {
                 } else {
                     setTotalCount(result.totalCount);
                     setRows(result.data.content);
-                    console.log(result.data.content);
                 }
             });
     }, [buscaMemo, pagina]);

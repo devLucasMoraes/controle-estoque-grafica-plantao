@@ -7,6 +7,7 @@ import { CategoriasService, IDetalhamentoCategoria } from '../../shared/services
 
 
 export const DetalharCategoria = () => {
+    console.log('renderizou DetalharCategoria');
 
     const navigate = useNavigate();
     const { id } = useParams<'id'>();
@@ -15,6 +16,7 @@ export const DetalharCategoria = () => {
 
 
     const handleDelete = (id: number) => {
+        console.log('renderizou handleDelete DetalharCategoria');
         if (confirm('Realmente deseja apagar?')) {
             CategoriasService.deleteById(id)
                 .then(result => {
@@ -29,6 +31,7 @@ export const DetalharCategoria = () => {
     };
 
     useEffect(() => {
+        console.log('renderizou useEffect CategoriasService.getById DetalharCategoria');
         if (id !== 'new') {
             setIsLoading(true);
             CategoriasService.getById(Number(id))
@@ -38,7 +41,6 @@ export const DetalharCategoria = () => {
                         alert(result.message);
                         navigate('/categorias');
                     } else {
-                        console.log(result);
                         setCategoria(result);
                     }
                 });
@@ -71,61 +73,70 @@ export const DetalharCategoria = () => {
                         </Grid>
                     )}
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Id
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {categoria?.id}
-                        </Typography>
-                    </Grid>
+                    {categoria && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Id
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {categoria?.id}
+                            </Typography>
+                        </Grid>
+                    )}
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Nome
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {categoria?.nome}
-                        </Typography>
-                    </Grid>
+                    {categoria && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Nome
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {categoria?.nome}
+                            </Typography>
+                        </Grid>
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Unidade de medida
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {categoria?.und_padrao}
-                        </Typography>
-                    </Grid>
+                    )}
+                    
+                    {categoria && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Unidade de medida
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {categoria?.und_padrao}
+                            </Typography>
+                        </Grid>
+                    )}
 
-                    <Grid item>
-                        <Typography
-                            variant='caption'
-                            noWrap
-                        >
-                            Estoque minimo
-                        </Typography>
-                        <Typography
-                            noWrap
-                        >
-                            {categoria?.estoque_minimo}
-                        </Typography>
-                    </Grid>
+                    {categoria && (
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Estoque minimo
+                            </Typography>
+                            <Typography
+                                noWrap
+                            >
+                                {categoria?.estoque_minimo}
+                            </Typography>
+                        </Grid>
+                    )}
 
                 </Grid>
             </Box>

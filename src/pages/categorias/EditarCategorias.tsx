@@ -17,6 +17,7 @@ const formValidationSchema: yup.ObjectSchema<Omit<ICategoriaFormData, 'id'>> = y
 });
 
 export const EditarCategoria = () => {
+    console.log('renderizou EditarCategoria');
 
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ export const EditarCategoria = () => {
     const formRef = useRef<FormHandles>(null);
 
     useEffect(() => {
+        console.log('renderizou useEffect CategoriasService.getById EditarCategoria');
         if (id !== 'new') {
             setIsLoading(true);
             CategoriasService.getById(Number(id))
@@ -33,7 +35,6 @@ export const EditarCategoria = () => {
                         alert(result.message);
                         navigate('/categorias');
                     } else {
-                        console.log(result);
                         formRef.current?.setData(result);
                     }
                 });
@@ -42,6 +43,7 @@ export const EditarCategoria = () => {
 
 
     const handleSave = (dados: Omit<ICategoriaFormData, 'id'>) => {
+        console.log('renderizou handleSave EditarCategoria');
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -80,6 +82,7 @@ export const EditarCategoria = () => {
             });
     };
     const handleDelete = (id: number) => {
+        console.log('renderizou handleDelete EditarCategoria');
         if (confirm('Realmente deseja apagar?')) {
             CategoriasService.deleteById(id)
                 .then(result => {

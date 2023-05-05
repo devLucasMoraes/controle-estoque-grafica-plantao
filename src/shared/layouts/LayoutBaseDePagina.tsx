@@ -12,6 +12,7 @@ interface ILayoutBaseDePaginaProps {
 }
 
 const LayoutBaseDePaginaMemo = ({ children, titulo, tools, mostrarBotaoVoltar = false, totalCount, aoClicaeEmVoltar }: ILayoutBaseDePaginaProps) => {
+    console.log('renderizou LayoutBaseDePaginaMemo');
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
