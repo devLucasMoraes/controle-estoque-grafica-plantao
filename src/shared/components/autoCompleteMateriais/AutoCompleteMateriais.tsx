@@ -1,5 +1,7 @@
-import { Autocomplete, CircularProgress, TextField, AutocompleteProps } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+/* eslint-disable react/display-name */
+
+import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { SetStateAction, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
 import { MateriaisService } from '../../services/api/materiais/MateriaisService';
 
@@ -12,20 +14,46 @@ type TAutoCompleteOption = {
 interface IAutoCompleteCategoriaProps {
     isExternalLoading?: boolean;
     initialValue?: number;
-    inputRef?: React.RefObject<HTMLInputElement>;
+    error?: string
 }
 
-export const AutoCompleteMateriais = ({ isExternalLoading = false, initialValue, inputRef }: IAutoCompleteCategoriaProps) => {
-    //console.log('renderizou AutoCompleteMateriais');
+export interface AutoCompleteMateriaisSelectedId {
+    selectedId: number;
+    setSelectedIdUndefined: () => void;
+    setErrosMateriais: (error: string) => void;
+}
+
+export const AutoCompleteMateriais = forwardRef(({ initialValue, isExternalLoading = false, error }: IAutoCompleteCategoriaProps, ref) => {
+    console.log('renderizou AutoCompleteMateriais');
 
     const [selectedId, setSelectedId] = useState<number | undefined>(initialValue);
+    const [erros, setErros] = useState(error);
 
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
     const { debouce } = useDebouce();
 
+
+    const setErrosMateriais = useCallback((error: SetStateAction<string | undefined>) => {
+        setErros(error);
+    }, []);
+
+    const setSelectedIdUndefined = useCallback(() => {
+        setSelectedId(undefined);
+    }, []);
+
+    useImperativeHandle(ref, () => {
+        return {
+            selectedId,
+            setSelectedIdUndefined,
+            setErrosMateriais
+        };
+    });
+
     useEffect(() => {
+        console.log('renderizou useEffect MateriaisService.getById AutoCompleteMateriais');
+        console.log(`selectedId: ${selectedId}`);
         setIsLoading(true);
         if (selectedId) {
             MateriaisService.getById(selectedId)
@@ -65,6 +93,12 @@ export const AutoCompleteMateriais = ({ isExternalLoading = false, initialValue,
         return selectedOption;
     }, [selectedId, opcoes]);
 
+    const handleFocus = (): void => {
+        if (erros) {
+            setErros('');
+        }
+    };
+
     return (
         <Autocomplete
             openText='Abrir'
@@ -73,7 +107,7 @@ export const AutoCompleteMateriais = ({ isExternalLoading = false, initialValue,
             loadingText='Carregando...'
 
             disablePortal
-    
+
             disabled={isExternalLoading}
             value={autoCompleteSelectedOption}
             loading={isLoading}
@@ -84,10 +118,13 @@ export const AutoCompleteMateriais = ({ isExternalLoading = false, initialValue,
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    inputRef={inputRef}
                     label="Material"
+                    inputRef={ref}
+                    error={!!erros}
+                    helperText={erros}
+                    onFocus={() => handleFocus()}
                 />
             )}
         />
     );
-};
+});

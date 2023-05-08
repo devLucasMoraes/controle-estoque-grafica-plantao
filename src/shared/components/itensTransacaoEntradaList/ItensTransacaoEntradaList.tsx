@@ -2,9 +2,11 @@ import { Grid, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { IItemTransacaoEntrada } from '../../services/api/transacoesEntrada/TransacoesEntradaService';
 import { Scope } from '@unform/core';
-import { VAutoCompleteMateriais, VId, VTextField } from '../../forms';
+import { IVFormErros, VAutoCompleteMateriais, VId, VTextField } from '../../forms';
 import { ItensListTools } from '../itensListTools/ItensListTools';
-import { AutoCompleteMateriais } from '../autoCompleteMateriais/AutoCompleteMateriais';
+import { AutoCompleteMateriais, AutoCompleteMateriaisSelectedId } from '../autoCompleteMateriais/AutoCompleteMateriais';
+import * as yup from 'yup';
+
 
 
 interface IItensTransacaoEntradaProps {
@@ -12,19 +14,48 @@ interface IItensTransacaoEntradaProps {
     initialItens: Array<IItemTransacaoEntrada>;
 }
 
+interface novoItem {
+    id?: number;
+    materiais_id?: number;
+    obs?: string;
+    quant_com?: number;
+    und_com?: string;
+    valor_ipi?: number;
+    valor_unt_com?: number;
+}
+
+const itemSchema: yup.ObjectSchema<IItemTransacaoEntrada> = yup.object().shape({
+    id: yup.number().required(),
+    materiais_id: yup.number().required(),
+    und_com: yup.string().required(),
+    quant_com: yup.number().required(),
+    valor_unt_com: yup.number().required(),
+    valor_ipi: yup.number().required(),
+    obs: yup.string(),
+});
+
 export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransacaoEntradaProps) => {
     console.log('renderizou ItensTransacaoEntrada');
 
     const [itens, setItens] = useState<Array<IItemTransacaoEntrada>>(initialItens);
+    const [erros, setErros] = useState<IVFormErros>({});
     const obsRef = useRef<HTMLInputElement>(null);
-    const idMaterialRef = useRef<HTMLInputElement>(null);
+    const idMaterialRef = useRef<AutoCompleteMateriaisSelectedId>(null);
     const valorIpiRef = useRef<HTMLInputElement>(null);
     const valorUntComRef = useRef<HTMLInputElement>(null);
     const undComRef = useRef<HTMLInputElement>(null);
     const quantComRef = useRef<HTMLInputElement>(null);
 
+    const inputRefs = [
+        obsRef,
+        valorIpiRef,
+        valorUntComRef,
+        undComRef,
+        quantComRef
+    ];
+
     useEffect(() => {
-        console.log('renderizou useEffect ItensTransacaoEntrada');
+        console.log('renderizou setItens useEffect ItensTransacaoEntrada');
         setItens(initialItens);
     }, [initialItens]);
 
@@ -33,24 +64,49 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
     };
 
     const handleAdicionar = (): void => {
-        if (
-            obsRef.current?.value !== undefined &&
-            idMaterialRef.current?.value !== undefined &&
-            quantComRef.current?.value !== undefined &&
-            undComRef.current?.value !== undefined &&
-            undComRef.current?.value !== undefined &&
-            valorIpiRef.current?.value !== undefined
-        ) {
-            const novoItem: IItemTransacaoEntrada = {
-                id: itens.length + 1,
-                materiais_id: Number(idMaterialRef.current?.value),
-                obs: obsRef.current?.value,
-                quant_com: Number(quantComRef.current?.value),
-                und_com: undComRef.current?.value,
-                valor_ipi: Number(valorIpiRef.current?.value),
-                valor_unt_com: Number(valorUntComRef.current?.value)
-            };
-            setItens([...itens, novoItem]);
+        const novoItem: novoItem = {
+            id: -1,
+            materiais_id: idMaterialRef.current?.selectedId,
+            obs: obsRef.current?.value,
+            quant_com: Number(quantComRef.current?.value == '' ? 'undefined' : quantComRef.current?.value),
+            und_com: undComRef.current?.value,
+            valor_ipi: Number(valorIpiRef.current?.value == '' ? 'undefined' : valorIpiRef.current?.value),
+            valor_unt_com: Number(valorUntComRef.current?.value == '' ? 'undefined' : valorUntComRef.current?.value)
+        };
+        console.log(novoItem);
+        itemSchema
+            .validate(novoItem, { abortEarly: false })
+            .then(itemValidado => {
+                setItens([...itens, itemValidado]);
+                inputRefs.forEach((ref) => {
+                    if (ref.current) {
+                        ref.current.value = '';
+                    }
+                });
+                if (idMaterialRef.current) {
+                    idMaterialRef.current.setSelectedIdUndefined();
+                }
+            })
+            .catch((erros: yup.ValidationError) => {
+                const validationErrors: IVFormErros = {};
+                erros.inner.forEach(error => {
+                    if (!error.path) return;
+                    validationErrors[error.path] = error.message;
+                });
+                setErros(validationErrors);
+                idMaterialRef.current?.setErrosMateriais(validationErrors['materiais_id']);
+                console.log(validationErrors);
+            });
+
+    };
+
+    const handleInputFocus = (ref: string) => {
+        if (erros[ref]) {
+            setErros((errosAntigos) => ({
+                ...errosAntigos,
+                [ref]: '',
+            }));
+
         }
     };
 
@@ -62,6 +118,9 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='quantidade'
                     inputRef={quantComRef}
+                    helperText={erros['quant_com']}
+                    error={!!erros['quant_com']}
+                    onFocus={() => handleInputFocus('quant_com')}
                 />
             </Grid>
 
@@ -71,6 +130,10 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='unidade de compra'
                     inputRef={undComRef}
+                    helperText={erros['und_com']}
+                    error={!!erros['und_com']}
+                    onFocus={() => handleInputFocus('und_com')}
+
                 />
             </Grid>
 
@@ -80,6 +143,10 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='valor unitário'
                     inputRef={valorUntComRef}
+                    helperText={erros['valor_unt_com']}
+                    error={!!erros['valor_unt_com']}
+                    onFocus={() => handleInputFocus('valor_unt_com')}
+
                 />
             </Grid>
 
@@ -89,13 +156,18 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='IPI'
                     inputRef={valorIpiRef}
+                    helperText={erros['valor_ipi']}
+                    error={!!erros['valor_ipi']}
+                    onFocus={() => handleInputFocus('valor_ipi')}
+
                 />
             </Grid>
 
             <Grid item xs={2}>
                 <AutoCompleteMateriais
                     isExternalLoading={isLoading}
-                    inputRef={idMaterialRef}
+                    ref={idMaterialRef}
+                    error={erros['materiais_id']}
                 />
             </Grid>
 
@@ -105,6 +177,10 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='observações'
                     inputRef={obsRef}
+                    helperText={erros['obs']}
+                    error={!!erros['obs']}
+                    onFocus={() => handleInputFocus('obs')}
+
                 />
             </Grid>
 
@@ -115,8 +191,8 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                 />
             </Grid>
 
-            {itens.map((item) => (
-                <Scope key={item.id} path={`itens[${item.id}]`} >
+            {itens.map((item, index) => (
+                <Scope key={item.id} path={`itens[${index}]`} >
 
                     <VId
                         name='id'
