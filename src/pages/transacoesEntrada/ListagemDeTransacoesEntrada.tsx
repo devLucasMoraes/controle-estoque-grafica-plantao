@@ -113,13 +113,13 @@ export const ListagemDeTransacoesEntrada = () => {
             ]
         },
         {
-            field: 'data_de_emissao',
+            field: 'data_emissao',
             headerName: 'Emitido em',
             minWidth: 155,
             flex: 0.3
         },
         {
-            field: 'data_de_recebimento',
+            field: 'data_recebimento',
             headerName: 'Recebido em',
             minWidth: 155,
             flex: 0.3
