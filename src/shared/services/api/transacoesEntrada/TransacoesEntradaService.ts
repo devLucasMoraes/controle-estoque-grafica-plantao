@@ -51,7 +51,7 @@ export interface IItemTransacaoEntrada {
     quant_com: number
     valor_unt_com: number
     valor_ipi: number
-    obs: string
+    obs?: string
 }
 
 export interface ITransacoesEntradaFormData {
@@ -62,7 +62,7 @@ export interface ITransacoesEntradaFormData {
     valor_total: number;
     valor_frete: number;
     valor_ipi_total: number;
-    obs: string;
+    obs?: string;
     transportadora_id: number;
     fornecedora_id: number;
     itens: Array<Omit<IItemTransacaoEntrada, 'id'>>
