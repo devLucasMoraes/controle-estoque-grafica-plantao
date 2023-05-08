@@ -16,7 +16,7 @@ const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.obje
     quant_com: yup.number().required(),
     valor_unt_com: yup.number().required(),
     valor_ipi: yup.number().required(),
-    obs: yup.string().required(),
+    obs: yup.string(),
 });
 
 
@@ -27,7 +27,7 @@ const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'i
     valor_total: yup.number().required(),
     valor_frete: yup.number().required(),
     valor_ipi_total: yup.number().required(),
-    obs: yup.string().required(),
+    obs: yup.string(),
     transportadora_id: yup.number().required(),
     fornecedora_id: yup.number().required(),
     itens: new yup.ArraySchema(itemSchema).required()
@@ -63,9 +63,11 @@ export const EditarTransacoesEntrada = () => {
 
 
     const handleSave = (dados: Omit<ITransacoesEntradaFormData, 'id'>) => {
+        console.log(dados);
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
+                console.log(dadosValidados);
                 setIsLoading(true);
                 if (id === 'new') {
                     TransacoesEntradaService
