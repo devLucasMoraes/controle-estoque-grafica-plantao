@@ -41,19 +41,6 @@ export const EditarTransacoesEntrada = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<FormHandles>(null);
-    const xmlImport: IDetalhamentoTransacoesEntrada = {
-        id: Math.random(),
-        nfe: '',
-        data_emissao: '',
-        data_recebimento: '',
-        valor_total: 0,
-        valor_frete: 0,
-        valor_ipi_total: 0,
-        obs: '',
-        transportadora_id: 0,
-        fornecedora_id: 0,
-        itens: []
-    };
     useEffect(() => {
         console.log('renderizou useEffect EditarTransacoesEntrada');
         if (id !== 'new') {
@@ -131,51 +118,67 @@ export const EditarTransacoesEntrada = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
-        const parser = new XMLParser();
+
+        const parser = new XMLParser({
+            numberParseOptions: {
+                eNotation: false,
+                leadingZeros: false,
+                hex: false
+            }
+        });
         const reader = new FileReader();
         reader.onload = () => {
             const xmlString = reader.result?.toString() ?? '';
             const jsonObj: INfeProc = parser.parse(xmlString);
             console.log(jsonObj);
             // Salva o objeto jsonObj em um arquivo de texto
-            /* const jsonStr = JSON.stringify(jsonObj);
-            const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.download = 'meu-arquivo.json';
-            a.href = url;
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            URL.revokeObjectURL(url); */
+            /*   const jsonStr = JSON.stringify(jsonObj);
+              const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.download = 'meu-arquivo.json';
+              a.href = url;
+              a.style.display = 'none';
+              document.body.appendChild(a);
+              a.click();
+              URL.revokeObjectURL(url); */
 
-
-            const chave = jsonObj.nfeProc.protNFe.infProt.chNFe;
-            xmlImport.nfe = chave;
-
-            const dataEmissao = jsonObj.nfeProc.NFe.infNFe.ide.dhEmi;
-            xmlImport.data_emissao = dataEmissao;
-
-            const nfeFornecedora = jsonObj.nfeProc.NFe.infNFe.emit;
-            const nfeTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta;
-
-
+            const chaveNfe = jsonObj.nfeProc.protNFe.infProt.chNFe;
+            const dataEmissaoNfe = jsonObj.nfeProc.NFe.infNFe.ide.dhEmi;
+            const fornecedoraNfe = jsonObj.nfeProc.NFe.infNFe.emit;
+            const transportadoraNfe = jsonObj.nfeProc.NFe.infNFe.transp.transporta;
             const modalidadeFrete = jsonObj.nfeProc.NFe.infNFe.transp.modFrete;
-            const nfeItens = jsonObj.nfeProc.NFe.infNFe.det.map(item => {
-                xmlImport.itens.push({
+            const itensNfe = jsonObj.nfeProc.NFe.infNFe.det;
+            const totaisNfe = jsonObj.nfeProc.NFe.infNFe.total;
+            const xmlImportData: IDetalhamentoTransacoesEntrada = {
+                id: Math.random(),
+                nfe: chaveNfe,
+                data_emissao: dataEmissaoNfe,
+                data_recebimento: '',
+                valor_total: totaisNfe.ICMSTot.vNF,
+                valor_frete: totaisNfe.ICMSTot.vFrete,
+                valor_ipi_total: totaisNfe.ICMSTot.vIPI,
+                obs: '',
+                transportadora_id: 0,
+                fornecedora_id: 0,
+                itens: []
+            };
+
+            itensNfe.map(item => {
+                xmlImportData.itens.push({
                     id: Math.random(),
                     materiais_id: 1,
                     und_com: item.prod.uCom,
                     quant_com: item.prod.qCom,
                     valor_unt_com: item.prod.vUnCom,
-                    valor_ipi: 0
+                    valor_ipi: item.imposto.IPI.IPITrib?.vIPI ?? 0
                 });
             });
 
-            console.log(nfeItens);
-            console.log(xmlImport);
-            formRef.current?.setData(xmlImport);
-            setInitialItens(xmlImport.itens);
+            
+            console.log(xmlImportData);
+            formRef.current?.setData(xmlImportData);
+            setInitialItens(xmlImportData.itens);
 
         };
         reader.readAsText(file);
