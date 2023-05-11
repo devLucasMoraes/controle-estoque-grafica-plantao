@@ -7,8 +7,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { IVFormErros, VAutoCompleteFornecedores, VAutoCompleteTransportadoras, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
+import { IDetalhamentoTransacoesEntrada, IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 import { DetailTools, ItensTransacaoEntrada } from '../../shared/components';
+import { INfeProc } from '../../shared/interfaces';
 
 const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.object().shape({
     materiais_id: yup.number().required(),
@@ -18,7 +19,6 @@ const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.obje
     valor_ipi: yup.number().required(),
     obs: yup.string(),
 });
-
 
 const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'id'>> = yup.object().shape({
     nfe: yup.string().required(),
@@ -37,12 +37,23 @@ export const EditarTransacoesEntrada = () => {
     console.log('renderizou EditarTransacoesEntrada');
 
     const [initialItens, setInitialItens] = useState<Array<IItemTransacaoEntrada>>([]);
-
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<FormHandles>(null);
-
+    const xmlImport: IDetalhamentoTransacoesEntrada = {
+        id: -1,
+        nfe: '',
+        data_emissao: '',
+        data_recebimento: '',
+        valor_total: 0,
+        valor_frete: 0,
+        valor_ipi_total: 0,
+        obs: '',
+        transportadora_id: 0,
+        fornecedora_id: 0,
+        itens: []
+    };
     useEffect(() => {
         console.log('renderizou useEffect EditarTransacoesEntrada');
         if (id !== 'new') {
@@ -54,13 +65,13 @@ export const EditarTransacoesEntrada = () => {
                         alert(result.message);
                         navigate('/transacoes_entrada');
                     } else {
+                        console.log(result);
                         formRef.current?.setData(result);
                         setInitialItens(result.itens);
                     }
                 });
         }
     }, [id]);
-
 
     const handleSave = (dados: Omit<ITransacoesEntradaFormData, 'id'>) => {
         console.log(dados);
@@ -102,6 +113,7 @@ export const EditarTransacoesEntrada = () => {
                 formRef.current?.setErrors(validationErrors);
             });
     };
+
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
             TransacoesEntradaService.deleteById(id)
@@ -115,6 +127,7 @@ export const EditarTransacoesEntrada = () => {
                 });
         }
     };
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
@@ -122,22 +135,37 @@ export const EditarTransacoesEntrada = () => {
         const reader = new FileReader();
         reader.onload = () => {
             const xmlString = reader.result?.toString() ?? '';
-            const jsonObj = parser.parse(xmlString);
-
+            const jsonObj: INfeProc = parser.parse(xmlString);
+            console.log(jsonObj);
+            // Salva o objeto jsonObj em um arquivo de texto
+            /* const jsonStr = JSON.stringify(jsonObj);
+            const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.download = 'meu-arquivo.json';
+            a.href = url;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url); */
+            
+            
             const chave = jsonObj.nfeProc.protNFe.infProt.chNFe;
-
+            xmlImport.nfe = chave;
+        
             const dataEmissao = jsonObj.nfeProc.NFe.infNFe.ide.dhEmi;
+            xmlImport.data_emissao = dataEmissao;
 
-            const cnpjFornecedora = jsonObj.nfeProc.NFe.infNFe.emit.CNPJ;
-            const nomeFantasiafornecedora = jsonObj.nfeProc.NFe.infNFe.emit.xFant;
-            const razaoSocialfornecedora = jsonObj.nfeProc.NFe.infNFe.emit.xNome;
-            const fonefornecedora = jsonObj.nfeProc.NFe.infNFe.emit.enderEmit.fone;
+            const nfeFornecedora = jsonObj.nfeProc.NFe.infNFe.emit;
+            const nfeTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta;
+           
 
             const modalidadeFrete = jsonObj.nfeProc.NFe.infNFe.transp.modFrete;
-            const cnpjTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta.CNPJ;
-            const razaoSocialTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta.xNome;
-
-
+            const nfeItens = jsonObj.nfeProc.NFe.infNFe.det.map((item, index) => xmlImport.itens[index].quant_com = item.prod.qCom);
+            
+            console.log(nfeItens);
+            console.log(xmlImport);
+            formRef.current?.setData(xmlImport);
         };
         reader.readAsText(file);
     };
@@ -154,7 +182,7 @@ export const EditarTransacoesEntrada = () => {
                     mostrarBotaoImportarXML={id === 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
                     aoClicaeEmDetalhar={() => navigate(`/transacoes_entrada/records/show/${id}`)}
-                    aoAlternarArquivo={handleFileChange}
+                    aoAlternarArquivo={(e) => handleFileChange(e)}
                 />
             }
         >
