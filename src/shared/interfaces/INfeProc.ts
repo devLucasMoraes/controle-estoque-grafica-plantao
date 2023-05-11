@@ -93,8 +93,14 @@ export interface INfeProc {
                         };
                         IPI: {
                             cEnq: number;
-                            IPINT: {
+                            IPINT?: {
                                 CST: number;
+                            };
+                            IPITrib?: {
+                                CST: number;
+                                vBC: number;
+                                pIPI: number;
+                                vIPI: number;
                             };
                         };
                         PIS: {
@@ -136,7 +142,6 @@ export interface INfeProc {
                         vCOFINS: number;
                         vOutro: number;
                         vNF: number;
-                        vTotTrib: number;
                     };
                 };
                 transp: {
