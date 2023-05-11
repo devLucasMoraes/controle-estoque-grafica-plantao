@@ -65,7 +65,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
 
     const handleAdicionar = (): void => {
         const novoItem: novoItem = {
-            id: -1,
+            id: Math.random(),
             materiais_id: idMaterialRef.current?.selectedId,
             obs: obsRef.current?.value,
             quant_com: Number(quantComRef.current?.value == '' ? 'undefined' : quantComRef.current?.value),
