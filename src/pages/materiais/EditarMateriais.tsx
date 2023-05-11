@@ -1,4 +1,4 @@
-import { Box, Grid, LinearProgress, Paper } from '@mui/material';
+import { Box, Chip, Divider, Grid, LinearProgress, Paper } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
@@ -8,6 +8,7 @@ import { DetailTools } from '../../shared/components';
 import { IVFormErros, VAutoCompleteCategoria, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IMaterialFormData, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
+import { ListaUnidadesConvertidas } from './listaUnidadesConvertidas';
 
 
 const formValidationSchema: yup.ObjectSchema<Omit<IMaterialFormData, 'id'>> = yup.object().shape({
@@ -113,38 +114,46 @@ export const EditarMateriais = () => {
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
-                    <Grid container direction='column' spacing={2} padding={4}>
+                    <Grid container padding={4} rowGap={2}>
                         {isLoading && (
                             <Grid item>
                                 <LinearProgress variant='indeterminate' />
                             </Grid>
                         )}
+                        <Grid container columnSpacing={2} spacing={2}>
+                            <Grid item xs={12} lg={6}>
+                                <VTextField
+                                    label='Descriçao'
+                                    fullWidth
+                                    placeholder='Descriçao'
+                                    name='descricao'
+                                />
+                            </Grid>
 
-                        <Grid item marginBottom={2}>
-                            <VTextField
-                                label='Descriçao'
-                                fullWidth
-                                placeholder='Descriçao'
-                                name='descricao'
-                            />
+                            <Grid item xs={12} lg={2}>
+                                <VTextField
+                                    label='Valor unitário'
+                                    fullWidth
+                                    placeholder='valor unitário'
+                                    name='valor_unt'
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} lg={4}>
+                                <VAutoCompleteCategoria
+                                    isExternalLoading={isLoading}
+                                    name='categorias_id'
+                                />
+                            </Grid>
                         </Grid>
 
-                        <Grid item marginBottom={2}>
-                            <VTextField
-                                label='Valor unitário'
-                                fullWidth
-                                placeholder='valor unitário'
-                                name='valor_unt'
-                            />
+                        <Grid item flexGrow={1}>
+                            <Divider textAlign="left">
+                                <Chip label="CONVERSOR DE UNIDADES" />
+                            </Divider>
                         </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <VAutoCompleteCategoria
-                                isExternalLoading={isLoading}
-                                name='categorias_id'
-                            />
-                        </Grid>
-
+                        
+                        <ListaUnidadesConvertidas />
                     </Grid>
                     <Box component='section' paddingBottom={4}>
                         <DetailTools
