@@ -42,7 +42,7 @@ export const EditarTransacoesEntrada = () => {
     const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<FormHandles>(null);
     const xmlImport: IDetalhamentoTransacoesEntrada = {
-        id: -1,
+        id: Math.random(),
         nfe: '',
         data_emissao: '',
         data_recebimento: '',
@@ -148,24 +148,35 @@ export const EditarTransacoesEntrada = () => {
             document.body.appendChild(a);
             a.click();
             URL.revokeObjectURL(url); */
-            
-            
+
+
             const chave = jsonObj.nfeProc.protNFe.infProt.chNFe;
             xmlImport.nfe = chave;
-        
+
             const dataEmissao = jsonObj.nfeProc.NFe.infNFe.ide.dhEmi;
             xmlImport.data_emissao = dataEmissao;
 
             const nfeFornecedora = jsonObj.nfeProc.NFe.infNFe.emit;
             const nfeTransportadora = jsonObj.nfeProc.NFe.infNFe.transp.transporta;
-           
+
 
             const modalidadeFrete = jsonObj.nfeProc.NFe.infNFe.transp.modFrete;
-            const nfeItens = jsonObj.nfeProc.NFe.infNFe.det.map((item, index) => xmlImport.itens[index].quant_com = item.prod.qCom);
-            
+            const nfeItens = jsonObj.nfeProc.NFe.infNFe.det.map(item => {
+                xmlImport.itens.push({
+                    id: Math.random(),
+                    materiais_id: 1,
+                    und_com: item.prod.uCom,
+                    quant_com: item.prod.qCom,
+                    valor_unt_com: item.prod.vUnCom,
+                    valor_ipi: 0
+                });
+            });
+
             console.log(nfeItens);
             console.log(xmlImport);
             formRef.current?.setData(xmlImport);
+            setInitialItens(xmlImport.itens);
+
         };
         reader.readAsText(file);
     };
@@ -273,7 +284,7 @@ export const EditarTransacoesEntrada = () => {
                             </Divider>
                         </Grid>
 
-                        <ItensTransacaoEntrada 
+                        <ItensTransacaoEntrada
                             isLoading={isLoading}
                             initialItens={initialItens}
                         />
