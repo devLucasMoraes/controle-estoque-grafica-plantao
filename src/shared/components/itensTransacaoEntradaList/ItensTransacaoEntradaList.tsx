@@ -77,7 +77,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
         itemSchema
             .validate(novoItem, { abortEarly: false })
             .then(itemValidado => {
-                setItens([...itens, itemValidado]);
+                setItens(oldItens => [...oldItens, itemValidado]);
                 inputRefs.forEach((ref) => {
                     if (ref.current) {
                         ref.current.value = '';
