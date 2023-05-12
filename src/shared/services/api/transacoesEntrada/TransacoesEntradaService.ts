@@ -73,9 +73,9 @@ type TTransacoesEntradaComTotalCount = {
     totalCount: number;
 }
 
-const getAll = async (page = 1, filter = ''): Promise<TTransacoesEntradaComTotalCount | Error> => {
+const getAll = async (page = 0, filter = ''): Promise<TTransacoesEntradaComTotalCount | Error> => {
     try {
-        const urlRelativa = `/transacoes_entrada?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nfe_like=${filter}`;
+        const urlRelativa = `/transacoes_entrada?page=${page}&size=${Environment.LIMITE_DE_LINHAS}&nfe_like=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
 
         if (data) {

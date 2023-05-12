@@ -159,8 +159,8 @@ export const EditarTransacoesEntrada = () => {
                 valor_frete: totaisNfe.ICMSTot.vFrete,
                 valor_ipi_total: totaisNfe.ICMSTot.vIPI,
                 obs: '',
-                transportadora_id: 0,
-                fornecedora_id: 0,
+                transportadora_id: transportadoraNfe.CNPJ,
+                fornecedora_id: 3,
                 itens: []
             };
 

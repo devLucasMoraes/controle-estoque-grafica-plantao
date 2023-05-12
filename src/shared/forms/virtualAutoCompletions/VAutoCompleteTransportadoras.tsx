@@ -51,11 +51,13 @@ export const VAutoCompleteTransportadoras = ({ isExternalLoading = false }: IAut
                 });
         } else {
             debouce(() => {
-                TransportadorasService.getAll(1, busca)
+                console.log(busca);
+                TransportadorasService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
+                        console.log(result);
                         if (result instanceof Error) {
-                            //alert(result.message);
+                            alert(result.message);
                         } else {
                             setOpcoes(result.data.content.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
                         }

@@ -51,9 +51,9 @@ type TTransportadorasComTotalCount = {
     totalCount: number;
 }
 
-const getAll = async (page = 1, filter = ''): Promise<TTransportadorasComTotalCount | Error> => {
+const getAll = async (page = 0, filter = ''): Promise<TTransportadorasComTotalCount | Error> => {
     try {
-        const urlRelativa = `/transportadoras?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_fantasia_like=${filter}`;
+        const urlRelativa = `/transportadoras?page=${page}&size=${Environment.LIMITE_DE_LINHAS}&cnpj=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
         
         if (data) {
