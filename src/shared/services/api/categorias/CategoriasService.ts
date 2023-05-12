@@ -49,9 +49,9 @@ type TCategoriasComTotalCount = {
     totalCount: number;
 }
 
-const getAll = async (page = 1, filter = ''): Promise<TCategoriasComTotalCount | Error> => {
+const getAll = async (page = 0, filter = ''): Promise<TCategoriasComTotalCount | Error> => {
     try {
-        const urlRelativa = `/categorias?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;
+        const urlRelativa = `/categorias?page=${page}size=${Environment.LIMITE_DE_LINHAS}&nome=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
         
         if (data) {
