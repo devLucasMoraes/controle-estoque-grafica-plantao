@@ -50,9 +50,9 @@ type TMateriaisComTotalCount = {
     totalCount: number;
 }
 
-const getAll = async (page = 1, filter = ''): Promise<TMateriaisComTotalCount | Error> => {
+const getAll = async (page = 0, filter = ''): Promise<TMateriaisComTotalCount | Error> => {
     try {
-        const urlRelativa = `/materiais?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&descricao_like=${filter}`;
+        const urlRelativa = `/materiais?page=${page}&size=${Environment.LIMITE_DE_LINHAS}&descricao=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
 
         if (data) {
