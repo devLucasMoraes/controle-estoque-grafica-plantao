@@ -2,7 +2,7 @@ import { Box, Chip, Divider, Grid, LinearProgress, Paper } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { XMLParser } from 'fast-xml-parser';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { IVFormErros, VAutoCompleteFornecedores, VAutoCompleteTransportadoras, VDatePicker, VTextField } from '../../shared/forms';
@@ -10,6 +10,8 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IDetalhamentoTransacoesEntrada, IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 import { DetailTools, ItensTransacaoEntrada } from '../../shared/components';
 import { INfeProc } from '../../shared/interfaces';
+import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
+import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
 const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.object().shape({
     materiais_id: yup.number().required(),
@@ -127,7 +129,7 @@ export const EditarTransacoesEntrada = () => {
             }
         });
         const reader = new FileReader();
-        reader.onload = () => {
+        reader.onload = async () => {
             const xmlString = reader.result?.toString() ?? '';
             const jsonObj: INfeProc = parser.parse(xmlString);
             console.log(jsonObj);
@@ -150,6 +152,24 @@ export const EditarTransacoesEntrada = () => {
             const modalidadeFrete = jsonObj.nfeProc.NFe.infNFe.transp.modFrete;
             const itensNfe = jsonObj.nfeProc.NFe.infNFe.det;
             const totaisNfe = jsonObj.nfeProc.NFe.infNFe.total;
+
+            const getFornecedoraNfeId = async (): Promise<number | undefined> => {
+                try {
+                    const result = await FornecedorasService.getByCNPJ(fornecedoraNfe.CNPJ);
+                    console.log(result);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        return result.id;
+                    }
+                } catch (error) {
+                    alert('Aconteceu um erro desconhecido');
+                    throw error;
+                }
+            };
+
+
+
             const xmlImportData: IDetalhamentoTransacoesEntrada = {
                 id: Math.random(),
                 nfe: chaveNfe,
@@ -160,7 +180,7 @@ export const EditarTransacoesEntrada = () => {
                 valor_ipi_total: totaisNfe.ICMSTot.vIPI,
                 obs: '',
                 transportadora_id: transportadoraNfe.CNPJ,
-                fornecedora_id: 3,
+                fornecedora_id: await getFornecedoraNfeId() ?? 0,
                 itens: []
             };
 
