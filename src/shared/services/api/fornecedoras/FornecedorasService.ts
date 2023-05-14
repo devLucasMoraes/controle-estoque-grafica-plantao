@@ -53,7 +53,7 @@ type TFornecedoresComTotalCount = {
 
 const getAll = async (page = 1, filter = ''): Promise<TFornecedoresComTotalCount | Error> => {
     try {
-        const urlRelativa = `/fornecedoras?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_fantasia_like=${filter}`;
+        const urlRelativa = `/fornecedoras?page=${page}&size=${Environment.LIMITE_DE_LINHAS}&nome_fantasia=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
         
         if (data) {
@@ -74,6 +74,21 @@ const getAll = async (page = 1, filter = ''): Promise<TFornecedoresComTotalCount
 const getById = async (id: number): Promise<IDetalhamentoFornecedora | Error> => {
     try {
         const { data } = await Api.get(`/fornecedoras/${id}`);
+
+        if (data) {
+            return data;
+        }
+
+        return new Error('Erro ao consutar o registro.');
+    } catch (error) {
+        console.error(error);
+        return new Error((error as { message: string }).message || 'Erro ao consutar o registro.');
+    }
+};
+
+const getByCNPJ = async (cnpj: number): Promise<IDetalhamentoFornecedora | Error> => {
+    try {
+        const { data } = await Api.get(`/fornecedoras/search/cnpj/${cnpj}`);
 
         if (data) {
             return data;
@@ -122,6 +137,7 @@ const deleteById = async (id: number): Promise<void | Error> => {
 export const FornecedorasService = {
     getAll,
     getById,
+    getByCNPJ,
     create,
     updateById,
     deleteById

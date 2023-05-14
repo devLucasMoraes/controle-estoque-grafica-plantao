@@ -51,7 +51,7 @@ export const VAutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCo
                 });
         } else {
             debouce(() => {
-                FornecedorasService.getAll(1, busca)
+                FornecedorasService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {

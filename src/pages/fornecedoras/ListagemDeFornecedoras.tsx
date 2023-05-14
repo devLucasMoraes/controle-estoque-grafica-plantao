@@ -21,7 +21,7 @@ export const ListagemDeFornecedoras = () => {
     const [busca, setBusca] = useState('');
 
     const pagina = useMemo(() => {
-        return Number(searchParams.get('pagina') || '1');
+        return Number(searchParams.get('pagina') || '0');
     }, [searchParams]);
 
 
@@ -71,13 +71,13 @@ export const ListagemDeFornecedoras = () => {
 
     const pagination = (e: GridPaginationModel): void => {
         setPaginationModel(e);
-        const page = e.page + 1;
+        const page = e.page;
         setSearchParams({ busca: buscaMemo, pagina: page.toString() }, { replace: true });
     };
 
     const setBuscaDebouce = (texto: string): void => {
         setBusca(texto);
-        debouce(() => setSearchParams({ busca: texto, pagina: '1' }, { replace: true }));
+        debouce(() => setSearchParams({ busca: texto, pagina: '0' }, { replace: true }));
     };
 
     const columns = useMemo<GridColDef<IDetalhamentoFornecedora>[]>(() => [
