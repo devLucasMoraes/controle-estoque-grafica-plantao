@@ -53,7 +53,7 @@ type TTransportadorasComTotalCount = {
 
 const getAll = async (page = 0, filter = ''): Promise<TTransportadorasComTotalCount | Error> => {
     try {
-        const urlRelativa = `/transportadoras?page=${page}&size=${Environment.LIMITE_DE_LINHAS}&cnpj=${filter}`;
+        const urlRelativa = `/transportadoras?page=${page}&size=${Environment.LIMITE_DE_LINHAS}&nome_fantasia=${filter}`;
         const { data, headers } = await Api.get(urlRelativa);
         
         if (data) {
@@ -74,6 +74,21 @@ const getAll = async (page = 0, filter = ''): Promise<TTransportadorasComTotalCo
 const getById = async (id: number): Promise<IDetalhamentoTransportadora | Error> => {
     try {
         const { data } = await Api.get(`/transportadoras/${id}`);
+
+        if (data) {
+            return data;
+        }
+
+        return new Error('Erro ao consutar o registro.');
+    } catch (error) {
+        console.error(error);
+        return new Error((error as { message: string }).message || 'Erro ao consutar o registro.');
+    }
+};
+
+const getByCNPJ = async (cnpj: number): Promise<IDetalhamentoTransportadora | Error> => {
+    try {
+        const { data } = await Api.get(`/transportadoras/search/cnpj/${cnpj}`);
 
         if (data) {
             return data;
@@ -122,6 +137,7 @@ const deleteById = async (id: number): Promise<void | Error> => {
 export const TransportadorasService = {
     getAll,
     getById,
+    getByCNPJ,
     create,
     updateById,
     deleteById
