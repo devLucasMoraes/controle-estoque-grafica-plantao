@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { IVFormErros, VAutoCompleteFornecedores, VAutoCompleteTransportadoras, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { IDetalhamentoTransacoesEntrada, IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
-import { DetailTools, ItensTransacaoEntrada } from '../../shared/components';
+import { DetailTools, ItensTransacaoEntrada, NovaFornecedoraDialog } from '../../shared/components';
 import { INfeProc } from '../../shared/interfaces';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
@@ -238,6 +238,7 @@ export const EditarTransacoesEntrada = () => {
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
+                    <NovaFornecedoraDialog />
                     <Grid container padding={4} rowGap={2}>
                         {isLoading && (
                             <Grid item>

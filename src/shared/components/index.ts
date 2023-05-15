@@ -15,3 +15,5 @@ export * from './autoCompleteMateriais/AutoCompleteMateriais';
 
 export * from './itensTransacaoEntradaList/ItensTransacaoEntradaList';
 export * from './itensListTools/ItensListTools';
+
+export * from './dialogs/NovaFornecedoraDialog';
