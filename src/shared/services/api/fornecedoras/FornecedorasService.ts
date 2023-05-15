@@ -95,15 +95,10 @@ const getByCNPJ = async (cnpj: number): Promise<IDetalhamentoFornecedora | Error
             return data;
         }
 
-        return new Error('Erro ao consutar o registro.');
+        return new Error('Erro ao consultar o registro.');
     } catch (error) {
-        if (error instanceof AxiosError) {
-            console.error(error);
-            return new Error(error.response?.data.message || 'Erro ao consutar o registro.');
-        } else {
-            console.error('Error', error);
-            return new Error('Erro ao consutar o registro.');
-        }
+        console.error(error);
+        return new Error((error as { message: string }).message || 'Erro ao consutar o registro.');
     }
 };
 
