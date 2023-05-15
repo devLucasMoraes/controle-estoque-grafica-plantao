@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
@@ -96,8 +97,13 @@ const getByCNPJ = async (cnpj: number): Promise<IDetalhamentoFornecedora | Error
 
         return new Error('Erro ao consutar o registro.');
     } catch (error) {
-        console.error(error);
-        return new Error((error as { message: string }).message || 'Erro ao consutar o registro.');
+        if (error instanceof AxiosError) {
+            console.error(error);
+            return new Error(error.response?.data.message || 'Erro ao consutar o registro.');
+        } else {
+            console.error('Error', error);
+            return new Error('Erro ao consutar o registro.');
+        }
     }
 };
 
