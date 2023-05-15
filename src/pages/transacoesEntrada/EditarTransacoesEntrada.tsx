@@ -168,6 +168,22 @@ export const EditarTransacoesEntrada = () => {
                 }
             };
 
+            const getTransportadoraNfeId = async (): Promise<number | undefined> => {
+                try {
+                    const result = await TransportadorasService.getByCNPJ(transportadoraNfe.CNPJ);
+                    console.log(result);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        return result.id;
+                    }
+                } catch (error) {
+                    alert('Aconteceu um erro desconhecido');
+                    throw error;
+                }
+            };
+            
+
 
 
             const xmlImportData: IDetalhamentoTransacoesEntrada = {
@@ -179,7 +195,7 @@ export const EditarTransacoesEntrada = () => {
                 valor_frete: totaisNfe.ICMSTot.vFrete,
                 valor_ipi_total: totaisNfe.ICMSTot.vIPI,
                 obs: '',
-                transportadora_id: transportadoraNfe.CNPJ,
+                transportadora_id: await getTransportadoraNfeId() ?? 0,
                 fornecedora_id: await getFornecedoraNfeId() ?? 0,
                 itens: []
             };
