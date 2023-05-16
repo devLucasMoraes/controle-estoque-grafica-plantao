@@ -87,7 +87,7 @@ const getById = async (id: number): Promise<IDetalhamentoFornecedora | Error> =>
     }
 };
 
-const getByCNPJ = async (cnpj: number): Promise<IDetalhamentoFornecedora | Error> => {
+const getByCNPJ = async (cnpj: string): Promise<IDetalhamentoFornecedora | Error> => {
     try {
         const { data } = await Api.get(`/fornecedoras/search/cnpj/${cnpj}`);
 

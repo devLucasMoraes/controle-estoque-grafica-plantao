@@ -87,7 +87,7 @@ const getById = async (id: number): Promise<IDetalhamentoTransportadora | Error>
     }
 };
 
-const getByCNPJ = async (cnpj: number): Promise<IDetalhamentoTransportadora | Error> => {
+const getByCNPJ = async (cnpj: string): Promise<IDetalhamentoTransportadora | Error> => {
     try {
         const { data } = await Api.get(`/transportadoras/search/cnpj/${cnpj}`);
 

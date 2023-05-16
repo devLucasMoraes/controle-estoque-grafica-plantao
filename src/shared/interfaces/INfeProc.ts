@@ -24,7 +24,7 @@ export interface INfeProc {
                     verProc: string;
                 };
                 emit: {
-                    CNPJ: number;
+                    CNPJ: string;
                     xNome: string;
                     xFant: string;
                     enderEmit: {
@@ -45,7 +45,7 @@ export interface INfeProc {
                     CRT: number;
                 };
                 dest: {
-                    CNPJ: number;
+                    CNPJ: string;
                     xNome: string;
                     enderDest: {
                         xLgr: string;
@@ -147,7 +147,7 @@ export interface INfeProc {
                 transp: {
                     modFrete: 0 | 1 | 2 | 3 | 4 | 9;
                     transporta: {
-                        CNPJ: number;
+                        CNPJ: string;
                         xNome: string;
                         IE: string;
                         xEnder: string;
