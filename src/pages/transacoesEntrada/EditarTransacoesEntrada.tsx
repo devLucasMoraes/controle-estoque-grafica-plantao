@@ -175,10 +175,10 @@ export const EditarTransacoesEntrada = () => {
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
                     {showNovaFornecedoraDialog && (
-                        <NovaFornecedoraDialog />
+                        <NovaFornecedoraDialog aoFechar={(e) => setShowNovaFornecedoraDialog(e)}/>
                     )}
                     {showNovaTransportadoraDialog && (
-                        <NovaTransportadoraDialog />
+                        <NovaTransportadoraDialog aoFechar={(e) => setShowNovaTransportadoraDialog(e)} />
                     )}
                     <Grid container padding={4} rowGap={2}>
                         {isLoading && (

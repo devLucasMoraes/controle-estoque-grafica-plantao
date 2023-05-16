@@ -17,7 +17,7 @@ interface IAutoCompleteCategoriaProps {
 }
 
 export const VAutoCompleteMateriais = ({ isExternalLoading = false, name, initialSelectedIdValue }: IAutoCompleteCategoriaProps) => {
-    console.log('renderizou VAutoCompleteMateriais');
+    //console.log('renderizou VAutoCompleteMateriais');
 
     const { fieldName, clearError, error, registerField } = useField(name);
     const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
@@ -28,7 +28,7 @@ export const VAutoCompleteMateriais = ({ isExternalLoading = false, name, initia
     const { debouce } = useDebouce();
 
     useEffect(() => {
-        console.log('renderizou useEffect registerField VAutoCompleteMateriais');
+        //console.log('renderizou useEffect registerField VAutoCompleteMateriais');
         registerField({
             name: fieldName,
             getValue: () => selectedId,
@@ -37,7 +37,7 @@ export const VAutoCompleteMateriais = ({ isExternalLoading = false, name, initia
     }, [registerField, fieldName, selectedId]);
 
     useEffect(() => {
-        console.log('renderizou useEffect MateriaisService VAutoCompleteMateriais');
+        //console.log('renderizou useEffect MateriaisService VAutoCompleteMateriais');
         setIsLoading(true);
         if (selectedId) {
             MateriaisService.getById(selectedId)

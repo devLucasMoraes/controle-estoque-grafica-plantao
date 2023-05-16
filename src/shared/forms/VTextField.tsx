@@ -8,7 +8,7 @@ type TVTextFieldProps = TextFieldProps & {
 }
 
 export const VTextField = ({ initialValue = '', name, ...rest }: TVTextFieldProps) => {
-    console.log(`renderizou VTextField ${name}`);
+    //console.log(`renderizou VTextField ${name}`);
     
     const { clearError, defaultValue, error, fieldName, registerField } = useField(name);
     const [value, setValue] = useState(initialValue);

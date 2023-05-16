@@ -5,7 +5,11 @@ import { useRef, useState } from 'react';
 import { VTextField } from '../../forms';
 import { FormHandles } from '@unform/core';
 
-export const NovaTransportadoraDialog = () => {
+interface INovaTransportadoraDialog {
+    aoFechar: (value: React.SetStateAction<boolean>) => void;
+}
+
+export const NovaTransportadoraDialog = ({ aoFechar }: INovaTransportadoraDialog) => {
     console.log('renderizou NovaTransportadoraDialog');
 
     const formRef = useRef<FormHandles>(null);
@@ -14,6 +18,7 @@ export const NovaTransportadoraDialog = () => {
 
     const hadleClose = (): void => {
         setOpen(false);
+        aoFechar(false);
     };
 
     function handleSave(dados: any): void {
