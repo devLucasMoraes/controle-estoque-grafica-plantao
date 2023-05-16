@@ -12,6 +12,7 @@ import { DetailTools, ItensTransacaoEntrada, NovaFornecedoraDialog } from '../..
 import { INfeProc } from '../../shared/interfaces';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
+import { useFileHandler } from '../../shared/hooks/useFileHandler';
 
 const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.object().shape({
     materiais_id: yup.number().required(),
@@ -38,6 +39,8 @@ const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'i
 export const EditarTransacoesEntrada = () => {
     console.log('renderizou EditarTransacoesEntrada');
 
+    const { fileData, fileInputRef, handleFileChange } = useFileHandler();
+    console.log(fileData);
     const [initialItens, setInitialItens] = useState<Array<IItemTransacaoEntrada>>([]);
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();
@@ -117,7 +120,7 @@ export const EditarTransacoesEntrada = () => {
         }
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const oldHandleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -232,7 +235,7 @@ export const EditarTransacoesEntrada = () => {
                     mostrarBotaoImportarXML={id === 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
                     aoClicaeEmDetalhar={() => navigate(`/transacoes_entrada/records/show/${id}`)}
-                    aoAlternarArquivo={(e) => handleFileChange(e)}
+                    aoAlternarArquivo={handleFileChange}
                 />
             }
         >

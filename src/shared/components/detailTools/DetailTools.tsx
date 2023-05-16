@@ -1,5 +1,6 @@
 import { Box, Button, Input, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Delete, Download, Edit, Info, Save } from '@mui/icons-material';
+import { useFileHandler } from '../../hooks/useFileHandler';
 
 interface IDetailToolsProps {
     mostrarBotaoSalvar?: boolean;
@@ -83,7 +84,12 @@ export const DetailTools = ({
                             IMPORTAR XML
                         </Typography>
                     }
-                    <Input inputProps={{ accept: '.xml' }} type='file' sx={{ display: 'none' }} onChange={aoAlternarArquivo}/>
+                    <Input 
+                        inputProps={{ accept: '.xml' }} 
+                        type='file' 
+                        sx={{ display: 'none' }} 
+                        onChange={aoAlternarArquivo}
+                    />
                 </Button>
             }
 
