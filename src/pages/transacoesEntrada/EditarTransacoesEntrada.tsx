@@ -1,15 +1,13 @@
 import { Box, Chip, Divider, Grid, LinearProgress, Paper } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { XMLParser } from 'fast-xml-parser';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { IVFormErros, VAutoCompleteFornecedores, VAutoCompleteTransportadoras, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { IDetalhamentoTransacoesEntrada, IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
-import { DetailTools, ItensTransacaoEntrada, NovaFornecedoraDialog } from '../../shared/components';
-import { INfeProc } from '../../shared/interfaces';
+import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
+import { DetailTools, ItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 import { useFileHandler } from '../../shared/hooks/useFileHandler';
@@ -39,13 +37,47 @@ const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'i
 export const EditarTransacoesEntrada = () => {
     console.log('renderizou EditarTransacoesEntrada');
 
-    const { fileData, fileInputRef, handleFileChange } = useFileHandler();
-    console.log(fileData);
-    const [initialItens, setInitialItens] = useState<Array<IItemTransacaoEntrada>>([]);
     const { id = 'new' } = useParams<'id'>();
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<FormHandles>(null);
+
+    const [initialItens, setInitialItens] = useState<Array<IItemTransacaoEntrada>>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [showNovaFornecedoraDialog, setShowNovaFornecedoraDialog] = useState(false);
+    const [showNovaTransportadoraDialog, setShowNovaTransportadoraDialog] = useState(false);
+
+    const getTransportadoraNfeId = async (cnpj: string): Promise<number | undefined> => {
+        try {
+            const result = await TransportadorasService.getByCNPJ(cnpj);
+            console.log(cnpj);
+            if (result instanceof Error) {
+                setShowNovaTransportadoraDialog(true);
+            } else {
+                return result.id;
+            }
+        } catch (error) {
+            alert('Aconteceu um erro desconhecido');
+            throw error;
+        }
+    };
+
+    const getFornecedoraNfeId = async (cnpj: string): Promise<number | undefined> => {
+        try {
+            const result = await FornecedorasService.getByCNPJ(cnpj);
+            console.log(cnpj);
+            if (result instanceof Error) {
+                setShowNovaFornecedoraDialog(true);
+            } else {
+                return result.id;
+            }
+        } catch (error) {
+            alert('Aconteceu um erro desconhecido');
+            throw error;
+        }
+    };
+
+    const { fileData, handleFileChange } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId);
+
     useEffect(() => {
         console.log('renderizou useEffect EditarTransacoesEntrada');
         if (id !== 'new') {
@@ -63,7 +95,11 @@ export const EditarTransacoesEntrada = () => {
                     }
                 });
         }
-    }, [id]);
+        if (id === 'new' && fileData) {
+            formRef.current?.setData(fileData);
+            setInitialItens(fileData.itens);
+        }
+    }, [id, fileData]);
 
     const handleSave = (dados: Omit<ITransacoesEntradaFormData, 'id'>) => {
         console.log(dados);
@@ -120,109 +156,6 @@ export const EditarTransacoesEntrada = () => {
         }
     };
 
-    const oldHandleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const parser = new XMLParser({
-            numberParseOptions: {
-                eNotation: false,
-                leadingZeros: false,
-                hex: false
-            }
-        });
-        const reader = new FileReader();
-        reader.onload = async () => {
-            const xmlString = reader.result?.toString() ?? '';
-            const jsonObj: INfeProc = parser.parse(xmlString);
-            console.log(jsonObj);
-            // Salva o objeto jsonObj em um arquivo de texto
-            /*   const jsonStr = JSON.stringify(jsonObj);
-              const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.download = 'meu-arquivo.json';
-              a.href = url;
-              a.style.display = 'none';
-              document.body.appendChild(a);
-              a.click();
-              URL.revokeObjectURL(url); */
-
-            const chaveNfe = jsonObj.nfeProc.protNFe.infProt.chNFe;
-            const dataEmissaoNfe = jsonObj.nfeProc.NFe.infNFe.ide.dhEmi;
-            const fornecedoraNfe = jsonObj.nfeProc.NFe.infNFe.emit;
-            const transportadoraNfe = jsonObj.nfeProc.NFe.infNFe.transp.transporta;
-            const modalidadeFrete = jsonObj.nfeProc.NFe.infNFe.transp.modFrete;
-            const itensNfe = jsonObj.nfeProc.NFe.infNFe.det;
-            const totaisNfe = jsonObj.nfeProc.NFe.infNFe.total;
-
-            const getFornecedoraNfeId = async (): Promise<number | undefined> => {
-                try {
-                    const result = await FornecedorasService.getByCNPJ(fornecedoraNfe.CNPJ);
-                    console.log(result);
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        return result.id;
-                    }
-                } catch (error) {
-                    alert('Aconteceu um erro desconhecido');
-                    throw error;
-                }
-            };
-
-            const getTransportadoraNfeId = async (): Promise<number | undefined> => {
-                try {
-                    const result = await TransportadorasService.getByCNPJ(transportadoraNfe.CNPJ);
-                    console.log(result);
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        return result.id;
-                    }
-                } catch (error) {
-                    alert('Aconteceu um erro desconhecido');
-                    throw error;
-                }
-            };
-            
-
-
-
-            const xmlImportData: IDetalhamentoTransacoesEntrada = {
-                id: Math.random(),
-                nfe: chaveNfe,
-                data_emissao: dataEmissaoNfe,
-                data_recebimento: '',
-                valor_total: totaisNfe.ICMSTot.vNF,
-                valor_frete: totaisNfe.ICMSTot.vFrete,
-                valor_ipi_total: totaisNfe.ICMSTot.vIPI,
-                obs: '',
-                transportadora_id: await getTransportadoraNfeId() ?? 0,
-                fornecedora_id: await getFornecedoraNfeId() ?? 0,
-                itens: []
-            };
-
-            itensNfe.map(item => {
-                xmlImportData.itens.push({
-                    id: Math.random(),
-                    materiais_id: 1,
-                    und_com: item.prod.uCom,
-                    quant_com: item.prod.qCom,
-                    valor_unt_com: item.prod.vUnCom,
-                    valor_ipi: item.imposto.IPI.IPITrib?.vIPI ?? 0
-                });
-            });
-
-            
-            console.log(xmlImportData);
-            formRef.current?.setData(xmlImportData);
-            setInitialItens(xmlImportData.itens);
-
-        };
-        reader.readAsText(file);
-    };
-
     return (
         <LayoutBaseDePagina
             mostrarBotaoVoltar
@@ -241,7 +174,12 @@ export const EditarTransacoesEntrada = () => {
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
-                    <NovaFornecedoraDialog />
+                    {showNovaFornecedoraDialog && (
+                        <NovaFornecedoraDialog />
+                    )}
+                    {showNovaTransportadoraDialog && (
+                        <NovaTransportadoraDialog />
+                    )}
                     <Grid container padding={4} rowGap={2}>
                         {isLoading && (
                             <Grid item>
