@@ -5,8 +5,8 @@ import { useRef, useState } from 'react';
 import { VTextField } from '../../forms';
 import { FormHandles } from '@unform/core';
 
-export const NovaFornecedoraDialog = () => {
-    console.log('renderizou NovaFornecedoraDialog');
+export const NovaTransportadoraDialog = () => {
+    console.log('renderizou NovaTransportadoraDialog');
 
     const formRef = useRef<FormHandles>(null);
 
@@ -22,10 +22,10 @@ export const NovaFornecedoraDialog = () => {
 
     return (
         <Dialog open={open} onClose={hadleClose}>
-            <DialogTitle>Fornecedora informada na NFe não encontrada</DialogTitle>
+            <DialogTitle>Transportadora informada na NFe não encontrada</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Deseja cadastrar uma nova fornecedora com os seguintes dados encontrados na nota fiscal?
+                    Deseja cadastrar uma nova transportadora com os seguintes dados encontrados na nota fiscal?
                 </DialogContentText>
                 <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                     <Box component={Paper} display='flex' flexDirection='column' variant='outlined' alignItems='center' justifyContent='center'>

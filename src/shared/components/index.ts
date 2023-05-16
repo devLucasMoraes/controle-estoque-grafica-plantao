@@ -17,3 +17,4 @@ export * from './itensTransacaoEntradaList/ItensTransacaoEntradaList';
 export * from './itensListTools/ItensListTools';
 
 export * from './dialogs/NovaFornecedoraDialog';
+export * from './dialogs/NovaTransportadoraDialog';
