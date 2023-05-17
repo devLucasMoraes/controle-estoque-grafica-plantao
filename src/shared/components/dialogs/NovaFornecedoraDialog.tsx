@@ -2,9 +2,17 @@ import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTit
 import { Close, Save } from '@mui/icons-material';
 import { Form } from '@unform/web';
 import { useRef, useState } from 'react';
-import { VTextField } from '../../forms';
+import * as yup from 'yup';
+import { IVFormErros, VTextField } from '../../forms';
 import { FormHandles } from '@unform/core';
+import { IFornecedorasFormData, FornecedorasService } from '../../services/api/fornecedoras/FornecedorasService';
 
+const formValidationSchema: yup.ObjectSchema<Omit<IFornecedorasFormData, 'id'>> = yup.object().shape({
+    nome_fantasia: yup.string().required(),
+    razao_social: yup.string().required(),
+    cnpj: yup.string().required(),
+    fone: yup.string().required(),
+});
 interface INovaFornecedoraDialogProps {
     aoFechar: (value: React.SetStateAction<boolean>) => void;
 }
@@ -21,9 +29,29 @@ export const NovaFornecedoraDialog = ({ aoFechar }: INovaFornecedoraDialogProps)
         aoFechar(false);
     };
 
-    function handleSave(dados: any): void {
-        console.log(dados);
-    }
+    const handleSave = (dados: Omit<IFornecedorasFormData, 'id'>) => {
+        formValidationSchema
+            .validate(dados, { abortEarly: false })
+            .then(dadosValidados => {
+                FornecedorasService
+                    .create(dadosValidados)
+                    .then(result => {
+                        if (result instanceof Error) {
+                            alert(result.message);
+                        } else {
+                            hadleClose();
+                        }
+                    });
+            })
+            .catch((erros: yup.ValidationError) => {
+                const validationErrors: IVFormErros = {};
+                erros.inner.forEach(error => {
+                    if (!error.path) return;
+                    validationErrors[error.path] = error.message;
+                });
+                formRef.current?.setErrors(validationErrors);
+            });
+    };
 
     return (
         <Dialog open={open} onClose={hadleClose}>
