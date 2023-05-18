@@ -52,7 +52,7 @@ export const DetalhamentoDeCategoria = () => {
         <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/categorias')}
-            titulo='Detalhar'
+            titulo='Detalhamento'
             tools={
                 <CrudTools
                     mostrarBotaoApagar
