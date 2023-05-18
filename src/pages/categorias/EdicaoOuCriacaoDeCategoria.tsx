@@ -150,6 +150,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                         </Grid>
 
                     </Grid>
+                    
                     <Box component='section' paddingBottom={4}>
                         <CrudTools
                             mostrarBotaoSalvar
