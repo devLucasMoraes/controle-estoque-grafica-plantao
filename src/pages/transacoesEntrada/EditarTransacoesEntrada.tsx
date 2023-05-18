@@ -76,7 +76,7 @@ export const EditarTransacoesEntrada = () => {
         }
     };
 
-    const { fileData, handleFileChange } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId);
+    const { fileData, handleFileChange, fornecedoraFileData } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId);
 
     useEffect(() => {
         console.log('renderizou useEffect EditarTransacoesEntrada');
@@ -156,6 +156,12 @@ export const EditarTransacoesEntrada = () => {
         }
     };
 
+
+    function handleAoFecharOuSalvar(fieldName: string, id: number | undefined): void {
+        setShowNovaFornecedoraDialog(false);
+        formRef.current?.setFieldValue(fieldName, id);
+    }
+
     return (
         <LayoutBaseDePagina
             mostrarBotaoVoltar
@@ -175,7 +181,7 @@ export const EditarTransacoesEntrada = () => {
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
                     {showNovaFornecedoraDialog && (
-                        <NovaFornecedoraDialog aoFechar={(e) => setShowNovaFornecedoraDialog(e)}/>
+                        <NovaFornecedoraDialog initialFornecedoraFileData={fornecedoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
                     )}
                     {showNovaTransportadoraDialog && (
                         <NovaTransportadoraDialog aoFechar={(e) => setShowNovaTransportadoraDialog(e)} />

@@ -11,7 +11,7 @@ export const VTextField = ({ initialValue = '', name, ...rest }: TVTextFieldProp
     //console.log(`renderizou VTextField ${name}`);
     
     const { clearError, defaultValue, error, fieldName, registerField } = useField(name);
-    const [value, setValue] = useState(initialValue);
+    const [value, setValue] = useState(defaultValue || initialValue);
 
     useEffect(() => {
         registerField({

@@ -14,19 +14,22 @@ const formValidationSchema: yup.ObjectSchema<Omit<IFornecedorasFormData, 'id'>> 
     fone: yup.string().required(),
 });
 interface INovaFornecedoraDialogProps {
-    aoFechar: (value: React.SetStateAction<boolean>) => void;
+    aoFecharOuSalvar: (fieldName: string, id?: number) => void;
+    initialFornecedoraFileData?: Omit<IFornecedorasFormData, 'id'>;
 }
 
-export const NovaFornecedoraDialog = ({ aoFechar }: INovaFornecedoraDialogProps) => {
+export const NovaFornecedoraDialog = ({ aoFecharOuSalvar, initialFornecedoraFileData }: INovaFornecedoraDialogProps) => {
     console.log('renderizou NovaFornecedoraDialog');
+    console.log(initialFornecedoraFileData);
+
 
     const formRef = useRef<FormHandles>(null);
 
     const [open, setOpen] = useState(true);
 
-    const hadleClose = (): void => {
+    const hadleClose = (id?: number): void => {
         setOpen(false);
-        aoFechar(false);
+        aoFecharOuSalvar('fornecedora_id', id);
     };
 
     const handleSave = (dados: Omit<IFornecedorasFormData, 'id'>) => {
@@ -39,7 +42,7 @@ export const NovaFornecedoraDialog = ({ aoFechar }: INovaFornecedoraDialogProps)
                         if (result instanceof Error) {
                             alert(result.message);
                         } else {
-                            hadleClose();
+                            hadleClose(result);
                         }
                     });
             })
@@ -54,13 +57,13 @@ export const NovaFornecedoraDialog = ({ aoFechar }: INovaFornecedoraDialogProps)
     };
 
     return (
-        <Dialog open={open} onClose={hadleClose}>
+        <Dialog open={open} onClose={() => hadleClose()}>
             <DialogTitle>Fornecedora informada na NFe não encontrada</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     Deseja cadastrar uma nova fornecedora com os seguintes dados encontrados na nota fiscal?
                 </DialogContentText>
-                <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
+                <Form ref={formRef} onSubmit={dados => handleSave(dados)} initialData={initialFornecedoraFileData}>
                     <Box component={Paper} display='flex' flexDirection='column' variant='outlined' alignItems='center' justifyContent='center'>
                         <Grid container direction='column' spacing={2} padding={4}>
                             <Grid item marginBottom={2}>
@@ -107,7 +110,7 @@ export const NovaFornecedoraDialog = ({ aoFechar }: INovaFornecedoraDialogProps)
                 <Button
                     color='error'
                     startIcon={<Close />}
-                    onClick={hadleClose}
+                    onClick={() => hadleClose()}
                 >
                     <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
                         CANCELAR
