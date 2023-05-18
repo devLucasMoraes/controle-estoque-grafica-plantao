@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { DetailTools } from '../../shared/components';
 import { IVFormErros, VAutoCompleteCategoria, VTextField } from '../../shared/forms';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IMaterialFormData, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
 import { ListaUnidadesConvertidas } from './listaUnidadesConvertidas';
 
@@ -99,7 +99,7 @@ export const EditarMateriais = () => {
     };
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/materiais')}
             titulo={id === 'new' ? 'Novo Material' : 'Editar'}
@@ -164,6 +164,6 @@ export const EditarMateriais = () => {
                 </Box>
             </Form>
 
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

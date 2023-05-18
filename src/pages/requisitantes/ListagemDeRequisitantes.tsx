@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IDetalhamentoRequisitantes, RequisitantesService } from '../../shared/services/api/requisitantes/RequisitantesService';
 
 export const ListagemDeRequisitantes = () => {
@@ -127,7 +127,7 @@ export const ListagemDeRequisitantes = () => {
     ], [handleDelete]);
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             titulo='Listagem'
             totalCount={totalCount}
             tools={
@@ -159,6 +159,6 @@ export const ListagemDeRequisitantes = () => {
                     pageSizeOptions={[Environment.LIMITE_DE_LINHAS]}
                 />
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { DestinosService, IDestinoFormData } from '../../shared/services/api/destinos/DestinosService';
 
 
@@ -93,7 +93,7 @@ export const EditarDestinos = () => {
     };
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/destinos')}
             titulo={id === 'new' ? 'Novo Destino' : 'Editar'}
@@ -143,6 +143,6 @@ export const EditarDestinos = () => {
                 </Box>
             </Form>
 
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

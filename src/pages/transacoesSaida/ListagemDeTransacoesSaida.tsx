@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolsList, UnderlineLinkDestinos, UnderlineLinkRequisitantes } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IDetalhamentoTransacoesSaida, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
 
 export const ListagemDeTransacoesSaida= () => {
@@ -157,7 +157,7 @@ export const ListagemDeTransacoesSaida= () => {
     ], [handleDelete]);
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             titulo='Listagem'
             totalCount={totalCount}
             tools={
@@ -189,6 +189,6 @@ export const ListagemDeTransacoesSaida= () => {
                     pageSizeOptions={[Environment.LIMITE_DE_LINHAS]}
                 />
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

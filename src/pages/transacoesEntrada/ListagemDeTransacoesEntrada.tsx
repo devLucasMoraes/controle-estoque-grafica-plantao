@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolsList, UnderlineLinkFornecedores, UnderlineLinkTransportadoras } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IDetalhamentoTransacoesEntrada, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 
 export const ListagemDeTransacoesEntrada = () => {
@@ -163,7 +163,7 @@ export const ListagemDeTransacoesEntrada = () => {
     ], [handleDelete]);
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             titulo='Listagem'
             totalCount={totalCount}
             tools={
@@ -195,6 +195,6 @@ export const ListagemDeTransacoesEntrada = () => {
                     pageSizeOptions={[Environment.LIMITE_DE_LINHAS]}
                 />
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

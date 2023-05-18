@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { CategoriasService, ICategoriaFormData } from '../../shared/services/api/categorias/CategoriasService';
 
 
@@ -100,7 +100,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
     };
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/categorias')}
             titulo={id === 'new' ? 'Nova Categoria' : 'Edição'}
@@ -159,6 +159,6 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                 </Box>
             </Form>
 
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

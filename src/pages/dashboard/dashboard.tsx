@@ -1,14 +1,14 @@
 import { ToolsList } from '../../shared/components';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 
 export const Dashboard = () => {
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             titulo='Dashboard'
             tools={<ToolsList />}
         >
             testando
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

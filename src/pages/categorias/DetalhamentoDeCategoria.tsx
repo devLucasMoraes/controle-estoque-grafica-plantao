@@ -2,7 +2,7 @@ import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools } from '../../shared/components';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { CategoriasService, IDetalhamentoCategoria } from '../../shared/services/api/categorias/CategoriasService';
 
 
@@ -49,7 +49,7 @@ export const DetalhamentoDeCategoria = () => {
     };
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/categorias')}
             titulo='Detalhar'
@@ -141,6 +141,6 @@ export const DetalhamentoDeCategoria = () => {
 
                 </Grid>
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

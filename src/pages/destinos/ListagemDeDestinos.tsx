@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IDetalhamentoDestino, DestinosService } from '../../shared/services/api/destinos/DestinosService';
 
 export const ListagemDeDestinos = () => {
@@ -127,7 +127,7 @@ export const ListagemDeDestinos = () => {
     ], [handleDelete]);
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             titulo='Listagem'
             totalCount={totalCount}
             tools={
@@ -159,6 +159,6 @@ export const ListagemDeDestinos = () => {
                     pageSizeOptions={[Environment.LIMITE_DE_LINHAS]}
                 />
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

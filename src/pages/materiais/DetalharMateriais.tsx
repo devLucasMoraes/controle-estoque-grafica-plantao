@@ -2,7 +2,7 @@ import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools, UnderlineLinkCategoria } from '../../shared/components';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { MateriaisService, IDetalhamentoMaterial } from '../../shared/services/api/materiais/MateriaisService';
 
 
@@ -49,7 +49,7 @@ export const DetalharMateriais = () => {
     }, [id]);
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/materiais')}
             titulo='Detalhar'
@@ -158,6 +158,6 @@ export const DetalharMateriais = () => {
 
                 </Grid>
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

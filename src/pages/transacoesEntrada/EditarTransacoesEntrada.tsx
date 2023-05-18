@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { IVFormErros, VAutoCompleteFornecedores, VAutoCompleteTransportadoras, VDatePicker, VTextField } from '../../shared/forms';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 import { DetailTools, ItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
@@ -38,7 +38,9 @@ export const EditarTransacoesEntrada = () => {
     console.log('renderizou EditarTransacoesEntrada');
 
     const { id = 'new' } = useParams<'id'>();
+
     const navigate = useNavigate();
+
     const formRef = useRef<FormHandles>(null);
 
     const [initialItens, setInitialItens] = useState<Array<IItemTransacaoEntrada>>([]);
@@ -164,7 +166,7 @@ export const EditarTransacoesEntrada = () => {
     }
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/transacoes_entrada')}
             titulo={id === 'new' ? 'Nova Transação' : 'Editar'}
@@ -181,14 +183,18 @@ export const EditarTransacoesEntrada = () => {
         >
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
+
                     {showNovaFornecedoraDialog && (
                         <NovaFornecedoraDialog 
                             initialFornecedoraFileData={fornecedoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
                     )}
+
                     {showNovaTransportadoraDialog && (
                         <NovaTransportadoraDialog initialTransportadoraFileData={transportadoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
                     )}
+
                     <Grid container padding={4} rowGap={2}>
+
                         {isLoading && (
                             <Grid item>
                                 <LinearProgress variant='indeterminate' />
@@ -211,6 +217,7 @@ export const EditarTransacoesEntrada = () => {
                                     name='data_emissao'
                                 />
                             </Grid>
+
                             <Grid item xs={12} lg={2}>
                                 <VDatePicker
                                     label='Recebido em'
@@ -220,7 +227,6 @@ export const EditarTransacoesEntrada = () => {
                         </Grid>
 
                         <Grid container columnSpacing={2} spacing={2}>
-
                             <Grid item xs={12} lg={2}>
                                 <VTextField
                                     label='Valor total IPI'
@@ -264,7 +270,6 @@ export const EditarTransacoesEntrada = () => {
                                     name='obs'
                                 />
                             </Grid>
-
                         </Grid>
 
                         <Grid item flexGrow={1}>
@@ -279,15 +284,17 @@ export const EditarTransacoesEntrada = () => {
                         />
 
                     </Grid>
+
                     <Box component='section' paddingBottom={4}>
                         <DetailTools
                             mostrarBotaoSalvar
                             aoClicaeEmSalvar={() => formRef.current?.submitForm()}
                         />
                     </Box>
+
                 </Box>
             </Form>
 
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

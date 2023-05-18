@@ -11,10 +11,11 @@ interface ILayoutBaseDePaginaProps {
     aoClicaeEmVoltar?: () => void;
 }
 
-const LayoutBaseDePaginaMemo = ({ children, titulo, tools, mostrarBotaoVoltar = false, totalCount, aoClicaeEmVoltar }: ILayoutBaseDePaginaProps) => {
+const LayoutBaseDaPaginaMemo = ({ children, titulo, tools, mostrarBotaoVoltar = false, totalCount, aoClicaeEmVoltar }: ILayoutBaseDePaginaProps) => {
     console.log('renderizou LayoutBaseDePaginaMemo');
 
     const theme = useTheme();
+
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
     const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -35,12 +36,15 @@ const LayoutBaseDePaginaMemo = ({ children, titulo, tools, mostrarBotaoVoltar = 
                     >
                         {titulo}
                     </Typography>
-                    <Box
-                        fontSize={theme.spacing(3)}
-                        color='primary.main'
-                    >
-                        {totalCount}
-                    </Box>
+
+                    {totalCount && (
+                        <Box
+                            fontSize={theme.spacing(3)}
+                            color='primary.main'
+                        >
+                            {totalCount}
+                        </Box>
+                    )}      
                 </Box>
 
                 {tools && (
@@ -49,7 +53,6 @@ const LayoutBaseDePaginaMemo = ({ children, titulo, tools, mostrarBotaoVoltar = 
                     </Box>
                 )}
             </Box >
-
 
             <Box
                 overflow='auto'
@@ -62,4 +65,4 @@ const LayoutBaseDePaginaMemo = ({ children, titulo, tools, mostrarBotaoVoltar = 
     );
 };
 
-export const LayoutBaseDePagina = memo(LayoutBaseDePaginaMemo);
+export const LayoutBaseDaPagina = memo(LayoutBaseDaPaginaMemo);

@@ -2,7 +2,7 @@ import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools } from '../../shared/components';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { FornecedorasService, IDetalhamentoFornecedora } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
 
@@ -46,7 +46,7 @@ export const DetalharFornecedoras = () => {
     }, [id]);
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/fornecedoras')}
             titulo='Detalhar'
@@ -143,6 +143,6 @@ export const DetalharFornecedoras = () => {
 
                 </Grid>
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

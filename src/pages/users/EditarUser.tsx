@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { UsersService } from '../../shared/services/api/users/UsersService';
 
 
@@ -104,7 +104,7 @@ export const EditarUser = () => {
     };
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/users')}
             titulo={id === 'new' ? 'Novo usuario' : 'Editar'}
@@ -182,6 +182,6 @@ export const EditarUser = () => {
                 </Box>
             </Form>
 
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

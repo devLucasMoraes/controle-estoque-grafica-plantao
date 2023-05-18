@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { IVFormErros, VAutoCompleteDestinos, VAutoCompleteMateriais, VAutoCompleteRequisitantes, VDatePicker, VTextField } from '../../shared/forms';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { ITransacoesSaidaFormData, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
 import { DetailTools } from '../../shared/components';
 
@@ -98,7 +98,7 @@ export const EditarTransacoesSaida = () => {
     };
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/transacoes_saida')}
             titulo={id === 'new' ? 'Nova Transação' : 'Editar'}
@@ -174,6 +174,6 @@ export const EditarTransacoesSaida = () => {
                 </Box>
             </Form>
 
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { FornecedorasService, IFornecedorasFormData } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
 
@@ -97,7 +97,7 @@ export const EditarFornecedoras= () => {
     };
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/fornecedoras')}
             titulo={id === 'new' ? 'Novo Fornecedor' : 'Editar'}
@@ -165,6 +165,6 @@ export const EditarFornecedoras= () => {
                 </Box>
             </Form>
 
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

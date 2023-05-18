@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { DetailTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { ITransportadoraFormData, TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 
 
@@ -96,7 +96,7 @@ export const EditarTransportadoras= () => {
     };
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/transportadoras')}
             titulo={id === 'new' ? 'Nova Transportadora' : 'Editar'}
@@ -164,6 +164,6 @@ export const EditarTransportadoras= () => {
                 </Box>
             </Form>
 
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

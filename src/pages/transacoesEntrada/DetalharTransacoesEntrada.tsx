@@ -2,7 +2,7 @@ import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailTools, UnderlineLinkFornecedores, UnderlineLinkTransportadoras } from '../../shared/components';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { TransacoesEntradaService, IDetalhamentoTransacoesEntrada } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 
 
@@ -47,7 +47,7 @@ export const DetalharTransacoesEntrada = () => {
     }, [id]);
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/transacoes_entrada')}
             titulo='Detalhar'
@@ -233,6 +233,6 @@ export const DetalharTransacoesEntrada = () => {
 
                 </Grid>
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };

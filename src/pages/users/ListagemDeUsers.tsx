@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolsList } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
-import { LayoutBaseDePagina } from '../../shared/layouts';
+import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IListagemUsers, UsersService } from '../../shared/services/api/users/UsersService';
 
 export const ListagemDeUsers = () => {
@@ -139,7 +139,7 @@ export const ListagemDeUsers = () => {
     ], [handleDelete]);
 
     return (
-        <LayoutBaseDePagina
+        <LayoutBaseDaPagina
             titulo='Listagem'
             totalCount={totalCount}
             tools={
@@ -171,6 +171,6 @@ export const ListagemDeUsers = () => {
                     pageSizeOptions={[Environment.LIMITE_DE_LINHAS]}
                 />
             </Box>
-        </LayoutBaseDePagina>
+        </LayoutBaseDaPagina>
     );
 };
