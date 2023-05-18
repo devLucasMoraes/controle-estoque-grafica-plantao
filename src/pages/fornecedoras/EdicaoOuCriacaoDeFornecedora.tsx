@@ -16,7 +16,7 @@ const formValidationSchema: yup.ObjectSchema<Omit<IFornecedorasFormData, 'id'>> 
     fone: yup.string().required(),
 });
 
-export const EditaoOuCriacaoDeFornecedora = () => {
+export const EdicaoOuCriacaoDeFornecedora = () => {
     console.log('renderizou EditaoOuCriacaoDeFornecedoras');
 
     const { id = 'new' } = useParams<'id'>();
