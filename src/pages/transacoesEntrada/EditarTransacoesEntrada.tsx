@@ -76,7 +76,7 @@ export const EditarTransacoesEntrada = () => {
         }
     };
 
-    const { fileData, handleFileChange, fornecedoraFileData } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId);
+    const { fileData, handleFileChange, fornecedoraFileData, transportadoraFileData } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId);
 
     useEffect(() => {
         console.log('renderizou useEffect EditarTransacoesEntrada');
@@ -158,7 +158,8 @@ export const EditarTransacoesEntrada = () => {
 
 
     function handleAoFecharOuSalvar(fieldName: string, id: number | undefined): void {
-        setShowNovaFornecedoraDialog(false);
+        fieldName === 'fornecedora_id' ? setShowNovaFornecedoraDialog(false) : '';
+        fieldName === 'transportadora_id' ? setShowNovaTransportadoraDialog(false) : '';
         formRef.current?.setFieldValue(fieldName, id);
     }
 
@@ -181,10 +182,11 @@ export const EditarTransacoesEntrada = () => {
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
                     {showNovaFornecedoraDialog && (
-                        <NovaFornecedoraDialog initialFornecedoraFileData={fornecedoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
+                        <NovaFornecedoraDialog 
+                            initialFornecedoraFileData={fornecedoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
                     )}
                     {showNovaTransportadoraDialog && (
-                        <NovaTransportadoraDialog aoFechar={(e) => setShowNovaTransportadoraDialog(e)} />
+                        <NovaTransportadoraDialog initialTransportadoraFileData={transportadoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
                     )}
                     <Grid container padding={4} rowGap={2}>
                         {isLoading && (

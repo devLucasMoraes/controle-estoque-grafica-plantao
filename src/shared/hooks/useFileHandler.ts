@@ -3,12 +3,14 @@ import { useEffect, useRef, useState } from 'react';
 import { INfeProc } from '../interfaces';
 import { IDetalhamentoTransacoesEntrada } from '../services/api/transacoesEntrada/TransacoesEntradaService';
 import { IFornecedorasFormData } from '../services/api/fornecedoras/FornecedorasService';
+import { ITransportadoraFormData } from '../services/api/transportadoras/TransportadorasService';
 
 type GetIdporCnpjFunc = (cnpj: string) => Promise<number | undefined>;
 
 export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTransportadoraNfeId: GetIdporCnpjFunc) => {
     const [fileData, setFileData] = useState<IDetalhamentoTransacoesEntrada>();
     const [fornecedoraFileData, setFornecedoraFileData] = useState <Omit<IFornecedorasFormData, 'id'>>();
+    const [transportadoraFileData, setTransportadoraFileData] = useState <Omit<ITransportadoraFormData, 'id'>>();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -43,6 +45,14 @@ export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTranspo
                 fone: fornecedoraNfe.enderEmit.fone.toString()
             };
             setFornecedoraFileData(fornecedoraImportData);
+
+            const transportadoraImportData: Omit<IFornecedorasFormData, 'id'> = {
+                cnpj: transportadoraNfe.CNPJ,
+                nome_fantasia: '',
+                razao_social: transportadoraNfe.xNome,
+                fone: ''
+            };
+            setTransportadoraFileData(transportadoraImportData);
 
             const transportadoraId = await getTransportadoraNfeId(transportadoraNfe.CNPJ) ?? 0;
             const fornecedoraId = await getFornecedoraNfeId(fornecedoraNfe.CNPJ) ?? 0;
@@ -90,6 +100,7 @@ export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTranspo
     return {
         fileData,
         fornecedoraFileData,
+        transportadoraFileData,
         fileInputRef,
         handleFileChange
     };

@@ -2,37 +2,66 @@ import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTit
 import { Close, Save } from '@mui/icons-material';
 import { Form } from '@unform/web';
 import { useRef, useState } from 'react';
-import { VTextField } from '../../forms';
+import * as yup from 'yup';
+import { IVFormErros, VTextField } from '../../forms';
 import { FormHandles } from '@unform/core';
+import { ITransportadoraFormData, TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
 
+const formValidationSchema: yup.ObjectSchema<Omit<ITransportadoraFormData, 'id'>> = yup.object().shape({
+    nome_fantasia: yup.string().required(),
+    razao_social: yup.string().required(),
+    cnpj: yup.string().required(),
+    fone: yup.string().required(),
+});
 interface INovaTransportadoraDialog {
-    aoFechar: (value: React.SetStateAction<boolean>) => void;
+    aoFecharOuSalvar: (fieldName: string, id?: number) => void;
+    initialTransportadoraFileData?: Omit<ITransportadoraFormData, 'id'>;
 }
 
-export const NovaTransportadoraDialog = ({ aoFechar }: INovaTransportadoraDialog) => {
+export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportadoraFileData }: INovaTransportadoraDialog) => {
     console.log('renderizou NovaTransportadoraDialog');
 
     const formRef = useRef<FormHandles>(null);
 
     const [open, setOpen] = useState(true);
 
-    const hadleClose = (): void => {
+    const hadleClose = (id?: number): void => {
         setOpen(false);
-        aoFechar(false);
+        aoFecharOuSalvar('transportadora_id', id);
     };
 
-    function handleSave(dados: any): void {
-        console.log(dados);
-    }
+    const handleSave = (dados: Omit<ITransportadoraFormData, 'id'>) => {
+        formValidationSchema
+            .validate(dados, { abortEarly: false })
+            .then(dadosValidados => {
+                TransportadorasService
+                    .create(dadosValidados)
+                    .then(result => {
+                        if (result instanceof Error) {
+                            alert(result.message);
+                        } else {
+                            hadleClose(result);
+                        }
+                    });
+            })
+            .catch((erros: yup.ValidationError) => {
+                const validationErrors: IVFormErros = {};
+                erros.inner.forEach(error => {
+                    if (!error.path) return;
+                    validationErrors[error.path] = error.message;
+                });
+                formRef.current?.setErrors(validationErrors);
+            });
+    };
 
     return (
-        <Dialog open={open} onClose={hadleClose}>
+        <Dialog open={open} onClose={() => hadleClose()}>
             <DialogTitle>Transportadora informada na NFe não encontrada</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     Deseja cadastrar uma nova transportadora com os seguintes dados encontrados na nota fiscal?
                 </DialogContentText>
-                <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
+                <Form ref={formRef} onSubmit={dados => handleSave(dados)} initialData={initialTransportadoraFileData}>
                     <Box component={Paper} display='flex' flexDirection='column' variant='outlined' alignItems='center' justifyContent='center'>
                         <Grid container direction='column' spacing={2} padding={4}>
                             <Grid item marginBottom={2}>
@@ -79,7 +108,7 @@ export const NovaTransportadoraDialog = ({ aoFechar }: INovaTransportadoraDialog
                 <Button
                     color='error'
                     startIcon={<Close />}
-                    onClick={hadleClose}
+                    onClick={() => hadleClose()}
                 >
                     <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
                         CANCELAR
