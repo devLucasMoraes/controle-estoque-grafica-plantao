@@ -9,9 +9,6 @@ import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { FornecedorasService, IFornecedorasFormData } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
-
-
-
 const formValidationSchema: yup.ObjectSchema<Omit<IFornecedorasFormData, 'id'>> = yup.object().shape({
     nome_fantasia: yup.string().required(),
     razao_social: yup.string().required(),
@@ -19,12 +16,16 @@ const formValidationSchema: yup.ObjectSchema<Omit<IFornecedorasFormData, 'id'>> 
     fone: yup.string().required(),
 });
 
-export const EditarFornecedoras= () => {
+export const EditaoOuCriacaoDeFornecedora = () => {
+    console.log('renderizou EditaoOuCriacaoDeFornecedoras');
 
     const { id = 'new' } = useParams<'id'>();
+
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
+
     const formRef = useRef<FormHandles>(null);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (id !== 'new') {
@@ -42,7 +43,6 @@ export const EditarFornecedoras= () => {
                 });
         }
     }, [id]);
-
 
     const handleSave = (dados: Omit<IFornecedorasFormData, 'id'>) => {
         formValidationSchema
@@ -82,6 +82,7 @@ export const EditarFornecedoras= () => {
                 formRef.current?.setErrors(validationErrors);
             });
     };
+
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
             FornecedorasService.deleteById(id)
@@ -154,8 +155,8 @@ export const EditarFornecedoras= () => {
                                 name='fone'
                             />
                         </Grid>
-
                     </Grid>
+
                     <Box component='section' paddingBottom={4}>
                         <CrudTools
                             mostrarBotaoSalvar

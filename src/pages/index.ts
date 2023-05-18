@@ -13,8 +13,8 @@ export * from './materiais/EditarMateriais';
 export * from './materiais/DetalharMateriais';
 
 export * from './fornecedoras/ListagemDeFornecedoras';
-export * from './fornecedoras/EditarFornecedoras';
-export * from './fornecedoras/DetalharFornecedoras';
+export * from './fornecedoras/EditaoOuCriacaoDeFornecedora';
+export * from './fornecedoras/DetalhamentoDeFornecedora';
 
 export * from './transportadoras/ListagemDeTransportadoras';
 export * from './transportadoras/EditarTransportadoras';
