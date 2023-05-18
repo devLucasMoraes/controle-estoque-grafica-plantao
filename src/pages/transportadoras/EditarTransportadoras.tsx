@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { DetailTools } from '../../shared/components';
+import { CrudTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { ITransportadoraFormData, TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
@@ -101,7 +101,7 @@ export const EditarTransportadoras= () => {
             aoClicaeEmVoltar={() => navigate('/transportadoras')}
             titulo={id === 'new' ? 'Nova Transportadora' : 'Editar'}
             tools={
-                <DetailTools
+                <CrudTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
@@ -156,7 +156,7 @@ export const EditarTransportadoras= () => {
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>
-                        <DetailTools
+                        <CrudTools
                             mostrarBotaoSalvar
                             aoClicaeEmSalvar={() => formRef.current?.submitForm()}
                         />

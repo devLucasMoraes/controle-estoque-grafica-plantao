@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { IVFormErros, VAutoCompleteFornecedores, VAutoCompleteTransportadoras, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
-import { DetailTools, ItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
+import { CrudTools, ItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 import { useFileHandler } from '../../shared/hooks/useFileHandler';
@@ -171,7 +171,7 @@ export const EditarTransacoesEntrada = () => {
             aoClicaeEmVoltar={() => navigate('/transacoes_entrada')}
             titulo={id === 'new' ? 'Nova Transação' : 'Editar'}
             tools={
-                <DetailTools
+                <CrudTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     mostrarBotaoImportarXML={id === 'new'}
@@ -286,7 +286,7 @@ export const EditarTransacoesEntrada = () => {
                     </Grid>
 
                     <Box component='section' paddingBottom={4}>
-                        <DetailTools
+                        <CrudTools
                             mostrarBotaoSalvar
                             aoClicaeEmSalvar={() => formRef.current?.submitForm()}
                         />

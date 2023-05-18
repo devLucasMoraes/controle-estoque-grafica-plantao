@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { IVFormErros, VAutoCompleteDestinos, VAutoCompleteMateriais, VAutoCompleteRequisitantes, VDatePicker, VTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { ITransacoesSaidaFormData, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
-import { DetailTools } from '../../shared/components';
+import { CrudTools } from '../../shared/components';
 
 
 
@@ -103,7 +103,7 @@ export const EditarTransacoesSaida = () => {
             aoClicaeEmVoltar={() => navigate('/transacoes_saida')}
             titulo={id === 'new' ? 'Nova Transação' : 'Editar'}
             tools={
-                <DetailTools
+                <CrudTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
@@ -166,7 +166,7 @@ export const EditarTransacoesSaida = () => {
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>
-                        <DetailTools
+                        <CrudTools
                             mostrarBotaoSalvar
                             aoClicaeEmSalvar={() => formRef.current?.submitForm()}
                         />

@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { DetailTools } from '../../shared/components';
+import { CrudTools } from '../../shared/components';
 import { IVFormErros, VAutoCompleteUser, VTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IRequisitantesFormData, RequisitantesService } from '../../shared/services/api/requisitantes/RequisitantesService';
@@ -98,7 +98,7 @@ export const EditarRequisitantes = () => {
             aoClicaeEmVoltar={() => navigate('/requisitantes')}
             titulo={id === 'new' ? 'Novo Requisitante' : 'Editar'}
             tools={
-                <DetailTools
+                <CrudTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
@@ -139,7 +139,7 @@ export const EditarRequisitantes = () => {
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>
-                        <DetailTools
+                        <CrudTools
                             mostrarBotaoSalvar
                             aoClicaeEmSalvar={() => formRef.current?.submitForm()}
                         />

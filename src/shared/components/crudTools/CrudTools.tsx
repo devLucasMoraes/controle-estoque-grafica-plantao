@@ -14,7 +14,7 @@ interface IDetailToolsProps {
     aoAlternarArquivo?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const DetailTools = ({
+export const CrudTools = ({
     mostrarBotaoSalvar = false,
     mostrarBotaoDetalhar = false,
     mostrarBotaoEditar = false,
@@ -28,6 +28,7 @@ export const DetailTools = ({
 }: IDetailToolsProps) => {
 
     const theme = useTheme();
+    
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (

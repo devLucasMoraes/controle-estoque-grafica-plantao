@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { DetailTools } from '../../shared/components';
+import { CrudTools } from '../../shared/components';
 import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { UsersService } from '../../shared/services/api/users/UsersService';
@@ -109,7 +109,7 @@ export const EditarUser = () => {
             aoClicaeEmVoltar={() => navigate('/users')}
             titulo={id === 'new' ? 'Novo usuario' : 'Editar'}
             tools={
-                <DetailTools
+                <CrudTools
                     mostrarBotaoApagar={id !== 'new'}
                     mostrarBotaoDetalhar={id !== 'new'}
                     aoClicaeEmApagar={() => handleDelete(Number(id))}
@@ -174,7 +174,7 @@ export const EditarUser = () => {
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>
-                        <DetailTools
+                        <CrudTools
                             mostrarBotaoSalvar
                             aoClicaeEmSalvar={() => formRef.current?.submitForm()}
                         />

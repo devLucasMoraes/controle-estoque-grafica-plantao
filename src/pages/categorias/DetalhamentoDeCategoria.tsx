@@ -1,7 +1,7 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools } from '../../shared/components';
+import { CrudTools } from '../../shared/components';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { CategoriasService, IDetalhamentoCategoria } from '../../shared/services/api/categorias/CategoriasService';
 
@@ -54,7 +54,7 @@ export const DetalhamentoDeCategoria = () => {
             aoClicaeEmVoltar={() => navigate('/categorias')}
             titulo='Detalhar'
             tools={
-                <DetailTools
+                <CrudTools
                     mostrarBotaoApagar
                     mostrarBotaoEditar
                     aoClicaeEmApagar={() => handleDelete(Number(id))}

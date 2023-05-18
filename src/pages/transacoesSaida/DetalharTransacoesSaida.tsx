@@ -1,7 +1,7 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailTools, UnderlineLinkDestinos, UnderlineLinkRequisitantes } from '../../shared/components';
+import { CrudTools, UnderlineLinkDestinos, UnderlineLinkRequisitantes } from '../../shared/components';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { TransacoesSaidaService, IDetalhamentoTransacoesSaida } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
 
@@ -52,7 +52,7 @@ export const DetalharTransacoesSaida = () => {
             aoClicaeEmVoltar={() => navigate('/transacoes_saida')}
             titulo='Detalhar'
             tools={
-                <DetailTools
+                <CrudTools
                     mostrarBotaoApagar
                     mostrarBotaoEditar
                     aoClicaeEmApagar={() => handleDelete(Number(id))}

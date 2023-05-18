@@ -1,6 +1,6 @@
 export * from './menu-lateral/MenuLateral';
 export * from './listingTools/ListingTools';
-export * from './detailTools/DetailTools';
+export * from './crudTools/CrudTools';
 export * from './responsiveAppBar/ResponsiveAppBar';
 
 export * from './underLineLinks/UnderLineLinkUser';
