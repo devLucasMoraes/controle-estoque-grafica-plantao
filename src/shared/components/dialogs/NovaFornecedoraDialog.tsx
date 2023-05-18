@@ -22,7 +22,6 @@ export const NovaFornecedoraDialog = ({ aoFecharOuSalvar, initialFornecedoraFile
     console.log('renderizou NovaFornecedoraDialog');
     console.log(initialFornecedoraFileData);
 
-
     const formRef = useRef<FormHandles>(null);
 
     const [open, setOpen] = useState(true);
