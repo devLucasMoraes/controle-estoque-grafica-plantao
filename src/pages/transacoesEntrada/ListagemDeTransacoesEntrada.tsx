@@ -4,7 +4,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList, UnderlineLinkFornecedores, UnderlineLinkTransportadoras } from '../../shared/components';
+import { ListingTools, UnderlineLinkFornecedores, UnderlineLinkTransportadoras } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
@@ -167,7 +167,7 @@ export const ListagemDeTransacoesEntrada = () => {
             titulo='Listagem'
             totalCount={totalCount}
             tools={
-                <ToolsList
+                <ListingTools
                     aoClicarEmNovo={() => navigate('/transacoes_entrada/records/new')}
                     mostrarInputBusca
                     textoDaBusca={busca}

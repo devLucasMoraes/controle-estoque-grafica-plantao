@@ -1,5 +1,5 @@
 export * from './menu-lateral/MenuLateral';
-export * from './toolsList/ToolsList';
+export * from './listingTools/ListingTools';
 export * from './detailTools/DetailTools';
 export * from './responsiveAppBar/ResponsiveAppBar';
 

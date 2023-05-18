@@ -4,7 +4,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components';
 import { Delete, Edit, Info } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsList } from '../../shared/components';
+import { ListingTools } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebouce } from '../../shared/hooks';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
@@ -141,7 +141,7 @@ export const ListagemDeCategorias = () => {
             titulo='Listagem'
             totalCount={totalCount}
             tools={
-                <ToolsList
+                <ListingTools
                     aoClicarEmNovo={() => navigate('/categorias/records/new')}
                     mostrarInputBusca
                     textoDaBusca={busca}

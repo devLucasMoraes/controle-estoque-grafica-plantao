@@ -12,7 +12,7 @@ interface IToolsListProps {
     aoClicarEmNovo?: () => void;
 }
 
-export const ToolsList = ({
+export const ListingTools = ({
     mostrarInputBusca = false,
     textoDaBusca = '',
     textoBotaoNovo = 'Criar novo',
@@ -22,8 +22,8 @@ export const ToolsList = ({
 }: IToolsListProps) => {
 
     const theme = useTheme();
-    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Box
@@ -63,7 +63,6 @@ export const ToolsList = ({
                     </Button>
                 )}
             </Box>
-
         </Box>
 
     );
