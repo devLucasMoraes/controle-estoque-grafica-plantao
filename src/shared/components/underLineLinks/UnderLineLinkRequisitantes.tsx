@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { RequisitantesService } from '../../services/api/requisitantes/RequisitantesService';
 
 interface IUnderlineLinkUserProps {
-    id?: number;
+    id: number;
 }
 
-export const UnderlineLinkRequisitantes = ({ id = 1 }: IUnderlineLinkUserProps) => {
+export const UnderlineLinkRequisitantes = ({ id }: IUnderlineLinkUserProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [name, setName] = useState('');
@@ -23,7 +23,6 @@ export const UnderlineLinkRequisitantes = ({ id = 1 }: IUnderlineLinkUserProps) 
                     setName(result.nome);
                 }
             });
-
     }, [id]);
 
     return (
@@ -31,7 +30,6 @@ export const UnderlineLinkRequisitantes = ({ id = 1 }: IUnderlineLinkUserProps) 
             sx={{ cursor: 'pointer' }}
             underline="hover"
             variant='body1'
-
             onClick={() => navigate(`/requisitantes/records/show/${id}`)}
         >
             {isLoading ? <CircularProgress size={28} /> : name}

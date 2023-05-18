@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { MateriaisService } from '../../services/api/materiais/MateriaisService';
 
 interface IUnderlineLinkUserProps {
-    id?: number;
+    id: number;
 }
 
-export const UnderlineLinkMateriais = ({ id = 1 }: IUnderlineLinkUserProps) => {
-    const [isLoading, setIsLoading] = useState(false);
+export const UnderlineLinkMateriais = ({ id }: IUnderlineLinkUserProps) => {
+
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
 
     useEffect(() => {
@@ -23,7 +25,6 @@ export const UnderlineLinkMateriais = ({ id = 1 }: IUnderlineLinkUserProps) => {
                     setName(result.descricao);
                 }
             });
-
     }, [id]);
 
     return (
@@ -31,7 +32,6 @@ export const UnderlineLinkMateriais = ({ id = 1 }: IUnderlineLinkUserProps) => {
             sx={{ cursor: 'pointer' }}
             underline="hover"
             variant='body1'
-
             onClick={() => navigate(`/materiais/records/show/${id}`)}
         >
             {isLoading ? <CircularProgress size={28} /> : name}

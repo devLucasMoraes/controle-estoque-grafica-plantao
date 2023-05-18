@@ -8,8 +8,10 @@ interface IUnderlineLinkUserProps {
 }
 
 export const UnderlineLinkFornecedores = ({ id }: IUnderlineLinkUserProps) => {
-    const [isLoading, setIsLoading] = useState(false);
+
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
 
     useEffect(() => {
@@ -23,7 +25,6 @@ export const UnderlineLinkFornecedores = ({ id }: IUnderlineLinkUserProps) => {
                     setName(result.nome_fantasia);
                 }
             });
-
     }, [id]);
 
     return (
@@ -31,8 +32,7 @@ export const UnderlineLinkFornecedores = ({ id }: IUnderlineLinkUserProps) => {
             sx={{ cursor: 'pointer' }}
             underline="hover"
             variant='body1'
-
-            onClick={() => navigate(`/fornecedores/records/show/${id}`)}
+            onClick={() => navigate(`/fornecedoras/records/show/${id}`)}
         >
             {isLoading ? <CircularProgress size={28} /> : name}
         </Link>

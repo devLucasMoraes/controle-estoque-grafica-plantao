@@ -8,8 +8,10 @@ interface IUnderlineLinkUserProps {
 }
 
 export const UnderlineLinkCategoria = ({ id }: IUnderlineLinkUserProps) => {
-    const [isLoading, setIsLoading] = useState(false);
+
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
 
     useEffect(() => {
@@ -23,7 +25,6 @@ export const UnderlineLinkCategoria = ({ id }: IUnderlineLinkUserProps) => {
                     setName(result.nome);
                 }
             });
-
     }, [id]);
 
     return (
@@ -31,7 +32,6 @@ export const UnderlineLinkCategoria = ({ id }: IUnderlineLinkUserProps) => {
             sx={{ cursor: 'pointer' }}
             underline="hover"
             variant='body1'
-
             onClick={() => navigate(`/categorias/records/show/${id}`)}
         >
             {isLoading ? <CircularProgress size={28} /> : name}

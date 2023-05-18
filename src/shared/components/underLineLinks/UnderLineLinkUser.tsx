@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { UsersService } from '../../services/api/users/UsersService';
 
 interface IUnderlineLinkUserProps {
-    id?: number;
+    id: number;
 }
 
-export const UnderlineLinkUser = ({ id = 1 }: IUnderlineLinkUserProps) => {
-    const [isLoading, setIsLoading] = useState(false);
+export const UnderlineLinkUser = ({ id }: IUnderlineLinkUserProps) => {
+
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
 
     useEffect(() => {
@@ -23,7 +25,6 @@ export const UnderlineLinkUser = ({ id = 1 }: IUnderlineLinkUserProps) => {
                     setName(result.name);
                 }
             });
-
     }, [id]);
 
     return (
@@ -31,7 +32,6 @@ export const UnderlineLinkUser = ({ id = 1 }: IUnderlineLinkUserProps) => {
             sx={{ cursor: 'pointer' }}
             underline="hover"
             variant='body1'
-
             onClick={() => navigate(`/users/records/show/${id}`)}
         >
             {isLoading ? <CircularProgress size={28} /> : name}
