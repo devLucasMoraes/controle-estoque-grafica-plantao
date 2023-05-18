@@ -16,16 +16,19 @@ const formValidationSchema: yup.ObjectSchema<Omit<ICategoriaFormData, 'id'>> = y
     estoque_minimo: yup.number().required(),
 });
 
-export const EditarCategoria = () => {
-    console.log('renderizou EditarCategoria');
+export const EdicaoOuCriacaoDeCategoria = () => {
+    console.log('renderizou EdicaoOuCriacaoDeCategoria');
 
     const { id = 'new' } = useParams<'id'>();
+
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
+    
     const formRef = useRef<FormHandles>(null);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
-        console.log('renderizou useEffect CategoriasService.getById EditarCategoria');
+        console.log('renderizou useEffect CategoriasService.getById EdicaoOuCriacaoDeCategoria');
         if (id !== 'new') {
             setIsLoading(true);
             CategoriasService.getById(Number(id))
@@ -41,9 +44,8 @@ export const EditarCategoria = () => {
         }
     }, [id]);
 
-
     const handleSave = (dados: Omit<ICategoriaFormData, 'id'>) => {
-        console.log('renderizou handleSave EditarCategoria');
+        console.log('renderizou handleSave EdicaoOuCriacaoDeCategoria');
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -81,8 +83,9 @@ export const EditarCategoria = () => {
                 formRef.current?.setErrors(validationErrors);
             });
     };
+
     const handleDelete = (id: number) => {
-        console.log('renderizou handleDelete EditarCategoria');
+        console.log('renderizou handleDelete EdicaoOuCriacaoDeCategoria');
         if (confirm('Realmente deseja apagar?')) {
             CategoriasService.deleteById(id)
                 .then(result => {
@@ -100,7 +103,7 @@ export const EditarCategoria = () => {
         <LayoutBaseDePagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/categorias')}
-            titulo={id === 'new' ? 'Nova Categoria' : 'Editar'}
+            titulo={id === 'new' ? 'Nova Categoria' : 'Edição'}
             tools={
                 <DetailTools
                     mostrarBotaoApagar={id !== 'new'}

@@ -1,7 +1,7 @@
 import { Category, Factory, ImportExport, Inventory, LineAxis, LocalShipping, Man, Person, Place } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalharCategoria, DetalharDestinos, DetalharFornecedoras, DetalharMateriais, DetalharRequisitantes, DetalharTransacoesEntrada, DetalharTransacoesSaida, DetalharTransportadoras, DetalharUser, EditarCategoria, EditarDestinos, EditarFornecedoras, EditarMateriais, EditarRequisitantes, EditarTransacoesEntrada, EditarTransacoesSaida, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalhamentoDeCategoria, DetalharDestinos, DetalharFornecedoras, DetalharMateriais, DetalharRequisitantes, DetalharTransacoesEntrada, DetalharTransacoesSaida, DetalharTransportadoras, DetalharUser, EdicaoOuCriacaoDeCategoria, EditarDestinos, EditarFornecedoras, EditarMateriais, EditarRequisitantes, EditarTransacoesEntrada, EditarTransacoesSaida, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -84,9 +84,9 @@ export const AppRoutes = () => {
             <Route path='/users/records/show/:id' element={<DetalharUser />} />
             <Route path='/users/records/:id' element={<EditarUser />} />
             <Route path="/categorias" element={<ListagemDeCategorias />} />
-            <Route path='/categorias/records/edit/:id' element={<EditarCategoria />} />
-            <Route path='/categorias/records/show/:id' element={<DetalharCategoria />} />
-            <Route path='/categorias/records/:id' element={<EditarCategoria />} />
+            <Route path='/categorias/records/edit/:id' element={<EdicaoOuCriacaoDeCategoria />} />
+            <Route path='/categorias/records/show/:id' element={<DetalhamentoDeCategoria />} />
+            <Route path='/categorias/records/:id' element={<EdicaoOuCriacaoDeCategoria />} />
             <Route path="/materiais" element={<ListagemDeMateriais />} />
             <Route path='/materiais/records/edit/:id' element={<EditarMateriais />} />
             <Route path='/materiais/records/show/:id' element={<DetalharMateriais />} />

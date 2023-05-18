@@ -6,32 +6,18 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { CategoriasService, IDetalhamentoCategoria } from '../../shared/services/api/categorias/CategoriasService';
 
 
-export const DetalharCategoria = () => {
-    console.log('renderizou DetalharCategoria');
+export const DetalhamentoDeCategoria = () => {
+    console.log('renderizou DetalhamentoDeCategoria');
+
+    const { id } = useParams<'id'>();
 
     const navigate = useNavigate();
-    const { id } = useParams<'id'>();
+
     const [isLoading, setIsLoading] = useState(false);
     const [categoria, setCategoria] = useState<IDetalhamentoCategoria>();
 
-
-    const handleDelete = (id: number) => {
-        console.log('renderizou handleDelete DetalharCategoria');
-        if (confirm('Realmente deseja apagar?')) {
-            CategoriasService.deleteById(id)
-                .then(result => {
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        alert('Registro apagado com sucesso!');
-                        navigate('/categorias');
-                    }
-                });
-        }
-    };
-
     useEffect(() => {
-        console.log('renderizou useEffect CategoriasService.getById DetalharCategoria');
+        console.log('renderizou useEffect CategoriasService.getById DetalhamentoDeCategoria');
         if (id !== 'new') {
             setIsLoading(true);
             CategoriasService.getById(Number(id))
@@ -46,6 +32,21 @@ export const DetalharCategoria = () => {
                 });
         }
     }, [id]);
+
+    const handleDelete = (id: number) => {
+        console.log('renderizou handleDelete DetalhamentoDeCategoria');
+        if (confirm('Realmente deseja apagar?')) {
+            CategoriasService.deleteById(id)
+                .then(result => {
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        alert('Registro apagado com sucesso!');
+                        navigate('/categorias');
+                    }
+                });
+        }
+    };
 
     return (
         <LayoutBaseDePagina
