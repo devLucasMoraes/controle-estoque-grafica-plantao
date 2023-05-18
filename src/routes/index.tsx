@@ -1,7 +1,7 @@
 import { Category, Factory, ImportExport, Inventory, LineAxis, LocalShipping, Man, Person, Place } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalhamentoDeCategoria, DetalharDestinos, DetalharFornecedoras, DetalharMateriais, DetalharRequisitantes, DetalharTransacoesEntrada, DetalharTransacoesSaida, DetalharTransportadoras, DetalharUser, EdicaoOuCriacaoDeCategoria, EditarDestinos, EditarFornecedoras, EditarMateriais, EditarRequisitantes, EditarTransacoesEntrada, EditarTransacoesSaida, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalhamentoDeCategoria, DetalharDestinos, DetalharFornecedoras, DetalharMateriais, DetalharRequisitantes, DetalhamentoDeTransacoesEntrada, DetalharTransacoesSaida, DetalharTransportadoras, DetalharUser, EdicaoOuCriacaoDeCategoria, EditarDestinos, EditarFornecedoras, EditarMateriais, EditarRequisitantes, EdicaoOuCriacaoDeTransacoesEntrada, EditarTransacoesSaida, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -108,9 +108,9 @@ export const AppRoutes = () => {
             <Route path='/destinos/records/show/:id' element={<DetalharDestinos />} />
             <Route path='/destinos/records/:id' element={<EditarDestinos />} />
             <Route path="/transacoes_entrada" element={<ListagemDeTransacoesEntrada />} />
-            <Route path='/transacoes_entrada/records/edit/:id' element={<EditarTransacoesEntrada />} />
-            <Route path='/transacoes_entrada/records/show/:id' element={<DetalharTransacoesEntrada />} />
-            <Route path='/transacoes_entrada/records/:id' element={<EditarTransacoesEntrada />} />
+            <Route path='/transacoes_entrada/records/edit/:id' element={<EdicaoOuCriacaoDeTransacoesEntrada />} />
+            <Route path='/transacoes_entrada/records/show/:id' element={<DetalhamentoDeTransacoesEntrada />} />
+            <Route path='/transacoes_entrada/records/:id' element={<EdicaoOuCriacaoDeTransacoesEntrada />} />
             <Route path="/transacoes_saida" element={<ListagemDeTransacoesSaida />} />
             <Route path='/transacoes_saida/records/edit/:id' element={<EditarTransacoesSaida />} />
             <Route path='/transacoes_saida/records/show/:id' element={<DetalharTransacoesSaida />} />

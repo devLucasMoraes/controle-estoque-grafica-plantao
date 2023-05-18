@@ -6,27 +6,15 @@ import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { TransacoesEntradaService, IDetalhamentoTransacoesEntrada } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 
 
-export const DetalharTransacoesEntrada = () => {
+export const DetalhamentoDeTransacoesEntrada = () => {
+    console.log('renderizou DetalhamentoDeTransacoesEntrada');
+
+    const { id } = useParams<'id'>();
 
     const navigate = useNavigate();
-    const { id } = useParams<'id'>();
+
     const [isLoading, setIsLoading] = useState(false);
     const [transacoesEntrada, setTransacoesEntrada] = useState<IDetalhamentoTransacoesEntrada>();
-
-
-    const handleDelete = (id: number) => {
-        if (confirm('Realmente deseja apagar?')) {
-            TransacoesEntradaService.deleteById(id)
-                .then(result => {
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        alert('Registro apagado com sucesso!');
-                        navigate('/transacoes_entrada');
-                    }
-                });
-        }
-    };
 
     useEffect(() => {
         if (id !== 'new') {
@@ -46,11 +34,25 @@ export const DetalharTransacoesEntrada = () => {
         }
     }, [id]);
 
+    const handleDelete = (id: number) => {
+        if (confirm('Realmente deseja apagar?')) {
+            TransacoesEntradaService.deleteById(id)
+                .then(result => {
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        alert('Registro apagado com sucesso!');
+                        navigate('/transacoes_entrada');
+                    }
+                });
+        }
+    };
+
     return (
         <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/transacoes_entrada')}
-            titulo='Detalhar'
+            titulo='Detalhamento'
             tools={
                 <CrudTools
                     mostrarBotaoApagar
@@ -62,7 +64,7 @@ export const DetalharTransacoesEntrada = () => {
         >
             <Box
                 component={Paper}
-
+                height='99%'
                 variant='outlined'
             >
                 <Grid container direction='column' spacing={2} padding={4}>

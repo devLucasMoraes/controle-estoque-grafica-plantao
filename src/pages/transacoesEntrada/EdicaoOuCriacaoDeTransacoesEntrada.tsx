@@ -34,8 +34,8 @@ const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'i
     itens: new yup.ArraySchema(itemSchema).required()
 });
 
-export const EditarTransacoesEntrada = () => {
-    console.log('renderizou EditarTransacoesEntrada');
+export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
+    console.log('renderizou EdicaoOuCriacaoDeTransacoesEntrada');
 
     const { id = 'new' } = useParams<'id'>();
 
@@ -81,7 +81,7 @@ export const EditarTransacoesEntrada = () => {
     const { fileData, handleFileChange, fornecedoraFileData, transportadoraFileData } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId);
 
     useEffect(() => {
-        console.log('renderizou useEffect EditarTransacoesEntrada');
+        console.log('renderizou useEffect EdicaoOuCriacaoDeTransacoesEntrada');
         if (id !== 'new') {
             setIsLoading(true);
             TransacoesEntradaService.getById(Number(id))
@@ -185,7 +185,7 @@ export const EditarTransacoesEntrada = () => {
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
 
                     {showNovaFornecedoraDialog && (
-                        <NovaFornecedoraDialog 
+                        <NovaFornecedoraDialog
                             initialFornecedoraFileData={fornecedoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
                     )}
 
