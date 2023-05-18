@@ -1,4 +1,4 @@
-export * from './menu-lateral/MenuLateral';
+export * from './menuLateral/MenuLateral';
 export * from './listingTools/ListingTools';
 export * from './crudTools/CrudTools';
 export * from './responsiveAppBar/ResponsiveAppBar';

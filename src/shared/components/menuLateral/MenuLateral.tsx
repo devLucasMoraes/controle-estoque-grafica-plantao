@@ -16,13 +16,13 @@ const ListItemLink = ({ icon, label, to, onClick }: IListItemLinkProps) => {
     const navigate = useNavigate();
 
     const resolvedPath = useResolvedPath(to);
+
     const match = useMatch({ path: resolvedPath.pathname, end: false });
 
     const handleClick = () => {
         navigate(to);
         onClick?.();
     };
-
 
     return (
         <ListItemButton selected={!!match} onClick={handleClick} >
@@ -41,8 +41,11 @@ interface IMenuLateralProps {
 const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
 
     const theme = useTheme();
+
     const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+
     const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+
     const { toggleTheme, themeName } = useAppThemeContext();
 
     return (
@@ -71,6 +74,7 @@ const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
                                     onClick={mdDown ? toggleDrawerOpen : undefined}
                                 />
                             ))}
+
                             <Typography
                                 variant="h6"
                                 component={Link}
@@ -89,6 +93,7 @@ const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
                                     onClick={mdDown ? toggleDrawerOpen : undefined}
                                 />
                             ))}
+
                             <Typography
                                 variant="h6"
                                 component={Link}
@@ -107,6 +112,7 @@ const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
                                     onClick={mdDown ? toggleDrawerOpen : undefined}
                                 />
                             ))}
+
                             <Typography
                                 variant="h6"
                                 component={Link}
@@ -136,6 +142,7 @@ const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
                                         {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
                                     </IconButton>
                                 </ListItemIcon>
+                                
                                 <ListItemText primary={themeName === 'light' ? 'Tema escuro' : 'Tema claro'} />
                             </ListItemButton>
                         </List>
