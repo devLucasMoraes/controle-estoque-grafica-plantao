@@ -16,12 +16,27 @@ interface IAutoCompleteCategoriaProps {
 
 export const VAutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('requisitantes_id');
-    const [selectedId, setSelectedId] = useState<number | undefined>();
+    const { fieldName, clearError, error, registerField } = useField('requisitantes_id');
 
+    const [selectedId, setSelectedId] = useState<number | undefined>();
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
+
+    const autoCompleteSelectedOption = useMemo(() => {
+
+        if (!selectedId) return null;
+        console.log(`selectedId: ${selectedId}`);
+
+        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
+        console.log(`selectedOption: ${selectedOption}`);
+
+        if (!selectedOption) return null;
+
+        return selectedOption;
+
+    }, [selectedId, opcoes]);
+
     const { debouce } = useDebouce();
 
     useEffect(() => {
@@ -39,25 +54,23 @@ export const VAutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoC
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
-                        //alert(result.message);
+                        alert(result.message);
                     } else {
                         console.log('isFirstTime');
                         console.log(result);
                         const data = [];
                         data.push(result);
                         setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
-
-                        
                     }
                 });
         } else {
             debouce(() => {
                 console.log(`busca: ${busca}`);
-                RequisitantesService.getAll(1, busca)
+                RequisitantesService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
-                            //alert(result.message);
+                            alert(result.message);
                         } else {
                             console.log(result);
                             setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
@@ -67,18 +80,6 @@ export const VAutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoC
         }
 
     }, [busca, selectedId]);
-
-
-
-    const autoCompleteSelectedOption = useMemo(() => {
-        if (!selectedId) return null;
-        console.log(`selectedId: ${selectedId}`);
-        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        console.log(`selectedOption: ${selectedOption}`);
-        if (!selectedOption) return null;
-
-        return selectedOption;
-    }, [selectedId, opcoes]);
 
     return (
         <Autocomplete
