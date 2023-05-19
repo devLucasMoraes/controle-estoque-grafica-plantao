@@ -18,11 +18,26 @@ export const VAutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUs
 
     const { fieldName, clearError, defaultValue, error, registerField } = useField('user_id');
     console.log(`defaultValue: ${defaultValue}`);
-    const [selectedId, setSelectedId] = useState<number | undefined>();
 
+    const [selectedId, setSelectedId] = useState<number | undefined>();
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
+
+    const autoCompleteSelectedOption = useMemo(() => {
+
+        if (!selectedId) return null;
+        console.log(`selectedId: ${selectedId}`);
+
+        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
+        console.log(`selectedOption: ${selectedOption}`);
+
+        if (!selectedOption) return null;
+
+        return selectedOption;
+
+    }, [selectedId, opcoes]);
+
     const { debouce } = useDebouce();
 
     useEffect(() => {
@@ -42,28 +57,14 @@ export const VAutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUs
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
-                        //alert(result.message);
+                        alert(result.message);
                     } else {
                         console.log(result);
                         setOpcoes(result.data.map(user => ({ id: user.id, label: user.name })));
                     }
                 });
-
         });
-
     }, [busca]);
-
-
-
-    const autoCompleteSelectedOption = useMemo(() => {
-        if (!selectedId) return null;
-        console.log(`selectedId: ${selectedId}`);
-        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        console.log(`selectedOption: ${selectedOption}`);
-        if (!selectedOption) return null;
-
-        return selectedOption;
-    }, [selectedId, opcoes]);
 
     return (
         <Autocomplete
