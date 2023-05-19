@@ -1,7 +1,7 @@
 import { Category, Factory, ImportExport, Inventory, LineAxis, LocalShipping, Man, Person, Place } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalhamentoDeCategoria, DetalharDestinos, DetalhamentoDeFornecedora, DetalharMateriais, DetalharRequisitantes, DetalhamentoDeTransacoesEntrada, DetalharTransacoesSaida, DetalharTransportadoras, DetalharUser, EdicaoOuCriacaoDeCategoria, EditarDestinos, EdicaoOuCriacaoDeFornecedora, EditarMateriais, EditarRequisitantes, EdicaoOuCriacaoDeTransacoesEntrada, EditarTransacoesSaida, EditarTransportadoras, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalhamentoDeCategoria, DetalharDestinos, DetalhamentoDeFornecedora, DetalharMateriais, DetalharRequisitantes, DetalhamentoDeTransacoesEntrada, DetalharTransacoesSaida, DetalhamentoDeTransportadora, DetalharUser, EdicaoOuCriacaoDeCategoria, EditarDestinos, EdicaoOuCriacaoDeFornecedora, EditarMateriais, EditarRequisitantes, EdicaoOuCriacaoDeTransacoesEntrada, EditarTransacoesSaida, EdicaoOuCriacaoDeTransportadora, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -96,9 +96,9 @@ export const AppRoutes = () => {
             <Route path='/fornecedoras/records/show/:id' element={<DetalhamentoDeFornecedora />} />
             <Route path='/fornecedoras/records/:id' element={<EdicaoOuCriacaoDeFornecedora />} />
             <Route path="/transportadoras" element={<ListagemDeTransportadoras />} />
-            <Route path='/transportadoras/records/edit/:id' element={<EditarTransportadoras />} />
-            <Route path='/transportadoras/records/show/:id' element={<DetalharTransportadoras />} />
-            <Route path='/transportadoras/records/:id' element={<EditarTransportadoras />} />
+            <Route path='/transportadoras/records/edit/:id' element={<EdicaoOuCriacaoDeTransportadora />} />
+            <Route path='/transportadoras/records/show/:id' element={<DetalhamentoDeTransportadora />} />
+            <Route path='/transportadoras/records/:id' element={<EdicaoOuCriacaoDeTransportadora />} />
             <Route path="/requisitantes" element={<ListagemDeRequisitantes />} />
             <Route path='/requisitantes/records/edit/:id' element={<EditarRequisitantes />} />
             <Route path='/requisitantes/records/show/:id' element={<DetalharRequisitantes />} />

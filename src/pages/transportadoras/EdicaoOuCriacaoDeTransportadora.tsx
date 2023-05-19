@@ -9,8 +9,6 @@ import { IVFormErros, VTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { ITransportadoraFormData, TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 
-
-
 const formValidationSchema: yup.ObjectSchema<Omit<ITransportadoraFormData, 'id'>> = yup.object().shape({
     nome_fantasia: yup.string().required(),
     razao_social: yup.string().required(),
@@ -18,12 +16,15 @@ const formValidationSchema: yup.ObjectSchema<Omit<ITransportadoraFormData, 'id'>
     fone: yup.string().required(),
 });
 
-export const EditarTransportadoras= () => {
+export const EdicaoOuCriacaoDeTransportadora = () => {
 
     const { id = 'new' } = useParams<'id'>();
+
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
+
     const formRef = useRef<FormHandles>(null);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (id !== 'new') {
@@ -41,7 +42,6 @@ export const EditarTransportadoras= () => {
                 });
         }
     }, [id]);
-
 
     const handleSave = (dados: Omit<ITransportadoraFormData, 'id'>) => {
         formValidationSchema
@@ -81,6 +81,7 @@ export const EditarTransportadoras= () => {
                 formRef.current?.setErrors(validationErrors);
             });
     };
+
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
             TransportadorasService.deleteById(id)
@@ -153,8 +154,8 @@ export const EditarTransportadoras= () => {
                                 name='fone'
                             />
                         </Grid>
-
                     </Grid>
+
                     <Box component='section' paddingBottom={4}>
                         <CrudTools
                             mostrarBotaoSalvar
@@ -163,7 +164,6 @@ export const EditarTransportadoras= () => {
                     </Box>
                 </Box>
             </Form>
-
         </LayoutBaseDaPagina>
     );
 };

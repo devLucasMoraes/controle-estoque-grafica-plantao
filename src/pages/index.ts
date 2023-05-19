@@ -17,8 +17,8 @@ export * from './fornecedoras/EdicaoOuCriacaoDeFornecedora';
 export * from './fornecedoras/DetalhamentoDeFornecedora';
 
 export * from './transportadoras/ListagemDeTransportadoras';
-export * from './transportadoras/EditarTransportadoras';
-export * from './transportadoras/DetalharTransportadoras';
+export * from './transportadoras/EdicaoOuCriacaoDeTransportadora';
+export * from './transportadoras/DetalhamentoDeTransportadora';
 
 export * from './requisitantes/ListagemDeRequisitantes';
 export * from './requisitantes/EditarRequisitantes';

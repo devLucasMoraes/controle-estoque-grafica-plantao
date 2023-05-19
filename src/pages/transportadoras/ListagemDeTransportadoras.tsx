@@ -13,26 +13,40 @@ import { IDetalhamentoTransportadora, TransportadorasService } from '../../share
 export const ListagemDeTransportadoras = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
+
     const navigate = useNavigate();
+
     const [rows, setRows] = useState<IDetalhamentoTransportadora[]>([]);
-    console.log(rows);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [busca, setBusca] = useState('');
-
-    const pagina = useMemo(() => {
-        return Number(searchParams.get('pagina') || '0');
-    }, [searchParams]);
-
-
-    const buscaMemo = useMemo(() => {
-        return searchParams.get('busca') || '';
-    }, [searchParams]);
-
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: Environment.LIMITE_DE_LINHAS,
     });
+
+    const pagina = useMemo(() => {
+        return Number(searchParams.get('pagina') || '0');
+    }, [searchParams]);
+    const buscaMemo = useMemo(() => {
+        return searchParams.get('busca') || '';
+    }, [searchParams]);
+
+    const { debouce } = useDebouce(1000);
+
+    useEffect(() => {
+        setIsLoading(true);
+        TransportadorasService.getAll(pagina, buscaMemo)
+            .then((result) => {
+                setIsLoading(false);
+                if (result instanceof Error) {
+                    alert(result.message);
+                } else {
+                    setTotalCount(result.totalCount);
+                    setRows(result.data.content);
+                }
+            });
+    }, [buscaMemo, pagina]);
 
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
@@ -51,22 +65,6 @@ export const ListagemDeTransportadoras = () => {
                 });
         }
     };
-
-    const { debouce } = useDebouce(1000);
-
-    useEffect(() => {
-        setIsLoading(true);
-        TransportadorasService.getAll(pagina, buscaMemo)
-            .then((result) => {
-                setIsLoading(false);
-                if (result instanceof Error) {
-                    alert(result.message);
-                } else {
-                    setTotalCount(result.totalCount);
-                    setRows(result.data.content);
-                }
-            });
-    }, [buscaMemo, pagina]);
 
     const pagination = (e: GridPaginationModel): void => {
         setPaginationModel(e);
@@ -156,8 +154,6 @@ export const ListagemDeTransportadoras = () => {
                 component={Paper}
                 height='99%'
                 variant='outlined'
-
-
             >
                 <DataGrid
                     localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
