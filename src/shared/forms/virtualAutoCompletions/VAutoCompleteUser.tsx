@@ -53,7 +53,7 @@ export const VAutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUs
 
         debouce(() => {
             console.log(`busca: ${busca}`);
-            UsersService.getAll(1, busca)
+            UsersService.getAll(0, busca)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
