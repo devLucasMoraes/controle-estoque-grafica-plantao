@@ -15,13 +15,29 @@ interface IAutoCompleteCategoriaProps {
 }
 
 export const VAutoCompleteDestinos = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+    console.log('renderizou VAutoCompleteDestinos');
 
-    const { fieldName, clearError, defaultValue, error, registerField } = useField('destinos_id');
+    const { fieldName, clearError, error, registerField } = useField('destinos_id');
+
     const [selectedId, setSelectedId] = useState<number | undefined>();
-
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
+
+    const autoCompleteSelectedOption = useMemo(() => {
+
+        if (!selectedId) return null;
+        console.log(`selectedId: ${selectedId}`);
+
+        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
+        console.log(`selectedOption: ${selectedOption}`);
+
+        if (!selectedOption) return null;
+
+        return selectedOption;
+
+    }, [selectedId, opcoes]);
+
     const { debouce } = useDebouce();
 
     useEffect(() => {
@@ -39,25 +55,23 @@ export const VAutoCompleteDestinos = ({ isExternalLoading = false }: IAutoComple
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
-                        //alert(result.message);
+                        alert(result.message);
                     } else {
                         console.log('isFirstTime');
                         console.log(result);
                         const data = [];
                         data.push(result);
                         setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
-
-                        
                     }
                 });
         } else {
             debouce(() => {
                 console.log(`busca: ${busca}`);
-                DestinosService.getAll(1, busca)
+                DestinosService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
-                            //alert(result.message);
+                            alert(result.message);
                         } else {
                             console.log(result);
                             setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
@@ -65,20 +79,7 @@ export const VAutoCompleteDestinos = ({ isExternalLoading = false }: IAutoComple
                     });
             });
         }
-
     }, [busca, selectedId]);
-
-
-
-    const autoCompleteSelectedOption = useMemo(() => {
-        if (!selectedId) return null;
-        console.log(`selectedId: ${selectedId}`);
-        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        console.log(`selectedOption: ${selectedOption}`);
-        if (!selectedOption) return null;
-
-        return selectedOption;
-    }, [selectedId, opcoes]);
 
     return (
         <Autocomplete
