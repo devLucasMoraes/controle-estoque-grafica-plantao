@@ -15,14 +15,27 @@ interface IAutoCompleteCategoriaProps {
 }
 
 export const VAutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
-    //console.log('renderizou AutoCompleteFornecedores');
+    console.log('renderizou AutoCompleteFornecedores');
 
     const { fieldName, clearError, error, registerField } = useField('fornecedora_id');
-    const [selectedId, setSelectedId] = useState<number | undefined>();
 
+    const [selectedId, setSelectedId] = useState<number | undefined>();
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
+
+    const autoCompleteSelectedOption = useMemo(() => {
+
+        if (!selectedId) return null;
+
+        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
+
+        if (!selectedOption) return null;
+
+        return selectedOption;
+
+    }, [selectedId, opcoes]);
+
     const { debouce } = useDebouce();
 
     useEffect(() => {
@@ -44,9 +57,7 @@ export const VAutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCo
                     } else {
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
-
-                        
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));  
                     }
                 });
         } else {
@@ -62,18 +73,7 @@ export const VAutoCompleteFornecedores = ({ isExternalLoading = false }: IAutoCo
                     });
             });
         }
-
     }, [busca, selectedId]);
-
-
-
-    const autoCompleteSelectedOption = useMemo(() => {
-        if (!selectedId) return null;
-        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        if (!selectedOption) return null;
-
-        return selectedOption;
-    }, [selectedId, opcoes]);
 
     return (
         <Autocomplete
