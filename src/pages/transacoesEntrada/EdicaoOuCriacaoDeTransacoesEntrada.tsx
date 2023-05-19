@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { IVFormErros, VAutoCompleteFornecedores, VAutoCompleteTransportadoras, VDatePicker, VTextField } from '../../shared/forms';
+import { IUFormErros, UAutoCompleteFornecedora, UAutoCompleteTransportadora, UDatePicker, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
 import { CrudTools, ItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
@@ -135,7 +135,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -203,7 +203,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
 
                         <Grid container justifyContent="space-between" spacing={2}>
                             <Grid item xs={12} lg={6}>
-                                <VTextField
+                                <UTextField
                                     label='NFe'
                                     fullWidth
                                     placeholder='NFe'
@@ -212,14 +212,14 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={2}>
-                                <VDatePicker
+                                <UDatePicker
                                     label='Data de emissao da nota'
                                     name='data_emissao'
                                 />
                             </Grid>
 
                             <Grid item xs={12} lg={2}>
-                                <VDatePicker
+                                <UDatePicker
                                     label='Recebido em'
                                     name='data_recebimento'
                                 />
@@ -228,7 +228,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
 
                         <Grid container columnSpacing={2} spacing={2}>
                             <Grid item xs={12} lg={2}>
-                                <VTextField
+                                <UTextField
                                     label='Valor total IPI'
                                     fullWidth
                                     placeholder='valor total IPI'
@@ -237,7 +237,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={2}>
-                                <VTextField
+                                <UTextField
                                     label='Valor total da nota'
                                     fullWidth
                                     placeholder='valor total da nota'
@@ -246,11 +246,11 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={3}>
-                                <VAutoCompleteFornecedores isExternalLoading={isLoading} />
+                                <UAutoCompleteFornecedora isExternalLoading={isLoading} />
                             </Grid>
 
                             <Grid item xs={12} lg={2}>
-                                <VTextField
+                                <UTextField
                                     label='Valor do frete'
                                     fullWidth
                                     placeholder='valor do frete'
@@ -259,11 +259,11 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={3}>
-                                <VAutoCompleteTransportadoras isExternalLoading={isLoading} />
+                                <UAutoCompleteTransportadora isExternalLoading={isLoading} />
                             </Grid>
 
                             <Grid item xs={6}>
-                                <VTextField
+                                <UTextField
                                     label='Observações'
                                     fullWidth
                                     placeholder='observações'

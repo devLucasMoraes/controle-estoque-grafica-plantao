@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { CrudTools } from '../../shared/components';
-import { IVFormErros, VAutoCompleteCategoria, VTextField } from '../../shared/forms';
+import { IUFormErros, UAutoCompleteCategoria, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IMaterialFormData, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
 import { ListaUnidadesConvertidas } from './listaUnidadesConvertidas';
@@ -76,7 +76,7 @@ export const EdicaoOuCriacaoDeMaterial = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -126,7 +126,7 @@ export const EdicaoOuCriacaoDeMaterial = () => {
 
                         <Grid container columnSpacing={2} spacing={2}>
                             <Grid item xs={12} lg={6}>
-                                <VTextField
+                                <UTextField
                                     label='Descriçao'
                                     fullWidth
                                     placeholder='Descriçao'
@@ -135,7 +135,7 @@ export const EdicaoOuCriacaoDeMaterial = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={2}>
-                                <VTextField
+                                <UTextField
                                     label='Valor unitário'
                                     fullWidth
                                     placeholder='valor unitário'
@@ -144,7 +144,7 @@ export const EdicaoOuCriacaoDeMaterial = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={4}>
-                                <VAutoCompleteCategoria
+                                <UAutoCompleteCategoria
                                     isExternalLoading={isLoading}
                                     name='categorias_id'
                                 />

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { CrudTools } from '../../shared/components';
-import { IVFormErros, VTextField } from '../../shared/forms';
+import { IUFormErros, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { FornecedorasService, IFornecedorasFormData } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
@@ -74,7 +74,7 @@ export const EdicaoOuCriacaoDeFornecedora = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -121,7 +121,7 @@ export const EdicaoOuCriacaoDeFornecedora = () => {
                         )}
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Nome'
                                 fullWidth
                                 placeholder='Nome'
@@ -130,7 +130,7 @@ export const EdicaoOuCriacaoDeFornecedora = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Razão social'
                                 fullWidth
                                 placeholder='razão social'
@@ -139,7 +139,7 @@ export const EdicaoOuCriacaoDeFornecedora = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='CNPJ'
                                 fullWidth
                                 placeholder='CNPJ'
@@ -148,7 +148,7 @@ export const EdicaoOuCriacaoDeFornecedora = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Telefone'
                                 fullWidth
                                 placeholder='telefone'

@@ -1,17 +1,17 @@
-import { TextField, TextFieldProps } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useState } from 'react';
 
-interface IVId {
+interface IUId {
     name: string;
-    initialValue?: any;
+    initialValue?: number;
 }
 
-export const VId = ({ initialValue, name }: IVId) => {
+export const UId = ({ initialValue, name }: IUId) => {
     //console.log(`renderizou VTextField ${name}`);
 
     const { fieldName, registerField } = useField(name);
-    const [value, setValue] = useState(initialValue || '');
+
+    const [value, setValue] = useState(initialValue);
 
     useEffect(() => {
         registerField({

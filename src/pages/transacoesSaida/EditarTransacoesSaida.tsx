@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { IVFormErros, VAutoCompleteDestinos, VAutoCompleteMateriais, VAutoCompleteRequisitantes, VDatePicker, VTextField } from '../../shared/forms';
+import { IUFormErros, UAutoCompleteRequisitante, UDatePicker, UTextField, UAutoCompleteDestino } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { ITransacoesSaidaFormData, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
 import { CrudTools } from '../../shared/components';
@@ -75,7 +75,7 @@ export const EditarTransacoesSaida = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -121,14 +121,14 @@ export const EditarTransacoesSaida = () => {
                         )}
 
                         <Grid item marginBottom={2}>
-                            <VDatePicker
+                            <UDatePicker
                                 label='Entregue em'
                                 name='data_retirada'
                             />
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Valor total'
                                 fullWidth
                                 placeholder='valor total'
@@ -137,7 +137,7 @@ export const EditarTransacoesSaida = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Ordem de produção'
                                 fullWidth
                                 placeholder='ordem de produção'
@@ -146,7 +146,7 @@ export const EditarTransacoesSaida = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Observações'
                                 fullWidth
                                 placeholder='observações'
@@ -155,11 +155,11 @@ export const EditarTransacoesSaida = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VAutoCompleteRequisitantes isExternalLoading={isLoading} />
+                            <UAutoCompleteRequisitante isExternalLoading={isLoading} />
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VAutoCompleteDestinos isExternalLoading={isLoading} />
+                            <UAutoCompleteDestino isExternalLoading={isLoading} />
                         </Grid>
 
                         

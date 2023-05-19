@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { CrudTools } from '../../shared/components';
-import { IVFormErros, VAutoCompleteUser, VTextField } from '../../shared/forms';
+import { IUFormErros, UAutoCompleteUser, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IRequisitantesFormData, RequisitantesService } from '../../shared/services/api/requisitantes/RequisitantesService';
 
@@ -70,7 +70,7 @@ export const EditarRequisitantes = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -116,7 +116,7 @@ export const EditarRequisitantes = () => {
                         )}
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Nome'
                                 fullWidth
                                 placeholder='Nome'
@@ -125,7 +125,7 @@ export const EditarRequisitantes = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Celular'
                                 fullWidth
                                 placeholder='celular'
@@ -134,7 +134,7 @@ export const EditarRequisitantes = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VAutoCompleteUser isExternalLoading={isLoading} />
+                            <UAutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>

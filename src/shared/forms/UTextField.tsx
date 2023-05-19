@@ -2,15 +2,16 @@ import { TextField, TextFieldProps } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useState } from 'react';
 
-type TVTextFieldProps = TextFieldProps & {
+type TUTextField = TextFieldProps & {
     name: string;
     initialValue?: number | string;
 }
 
-export const VTextField = ({ initialValue = '', name, ...rest }: TVTextFieldProps) => {
+export const UTextField = ({ initialValue = '', name, ...rest }: TUTextField) => {
     //console.log(`renderizou VTextField ${name}`);
     
     const { clearError, defaultValue, error, fieldName, registerField } = useField(name);
+
     const [value, setValue] = useState(defaultValue || initialValue);
 
     useEffect(() => {
@@ -20,7 +21,6 @@ export const VTextField = ({ initialValue = '', name, ...rest }: TVTextFieldProp
             setValue: (_, newValue) => setValue(newValue)
         });
     }, [registerField, fieldName, value]);
-
 
     return (
         <TextField

@@ -5,22 +5,22 @@ import { useDebouce } from '../../hooks';
 import { UsersService } from '../../services/api/users/UsersService';
 
 
-type TAutoCompleteOption = {
+type TUAutoCompleteOption = {
     id: number;
     label: string;
 }
 
-interface IAutoCompleteUserProps {
+interface IUAutoCompleteUser {
     isExternalLoading?: boolean;
 }
 
-export const VAutoCompleteUser = ({ isExternalLoading = false }: IAutoCompleteUserProps) => {
+export const UAutoCompleteUser = ({ isExternalLoading = false }: IUAutoCompleteUser) => {
 
     const { fieldName, clearError, defaultValue, error, registerField } = useField('user_id');
     console.log(`defaultValue: ${defaultValue}`);
 
     const [selectedId, setSelectedId] = useState<number | undefined>();
-    const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
+    const [opcoes, setOpcoes] = useState<TUAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
 

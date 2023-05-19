@@ -5,16 +5,17 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 
-interface IVDatePickerProps extends DatePickerProps<Dayjs> {
+interface IUDatePickerProps extends DatePickerProps<Dayjs> {
     name: string;
 }
 
+export const UDatePicker = ({ name, ...rest }: IUDatePickerProps) => {
 
+    const { defaultValue, fieldName, registerField } = useField(name);
 
-export const VDatePicker = ({ name, ...rest }: IVDatePickerProps) => {
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
-    const { defaultValue, fieldName, registerField } = useField(name);
+
     const [value, setValue] = useState<Dayjs | null>(dayjs(today) || '');
     const [error, setError] = useState<DateValidationError | null>(null);
 
@@ -24,17 +25,14 @@ export const VDatePicker = ({ name, ...rest }: IVDatePickerProps) => {
         case 'minDate': {
             return 'Please select a date in the first quarter of 2022';
         }
-
         case 'invalidDate': {
             return 'Digite uma data valida';
         }
-
         default: {
             return '';
         }
         }
     }, [error]);
-
 
     useEffect(() => {
         registerField({
@@ -43,7 +41,6 @@ export const VDatePicker = ({ name, ...rest }: IVDatePickerProps) => {
             setValue: (_, newValue) => setValue(dayjs(newValue))
         });
     }, [registerField, fieldName, value]);
-
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { CrudTools } from '../../shared/components';
-import { IVFormErros, VTextField } from '../../shared/forms';
+import { IUFormErros, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { CategoriasService, ICategoriaFormData } from '../../shared/services/api/categorias/CategoriasService';
 
@@ -75,7 +75,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -123,7 +123,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                         )}
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Nome'
                                 fullWidth
                                 placeholder='Nome'
@@ -132,7 +132,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Unidade de medida'
                                 fullWidth
                                 placeholder='unidade de medida'
@@ -141,7 +141,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Estoque minimo'
                                 fullWidth
                                 placeholder='estoque minimo'

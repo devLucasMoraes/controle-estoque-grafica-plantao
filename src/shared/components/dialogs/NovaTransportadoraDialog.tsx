@@ -3,7 +3,7 @@ import { Close, Save } from '@mui/icons-material';
 import { Form } from '@unform/web';
 import { useRef, useState } from 'react';
 import * as yup from 'yup';
-import { IVFormErros, VTextField } from '../../forms';
+import { IUFormErros, UTextField } from '../../forms';
 import { FormHandles } from '@unform/core';
 import { ITransportadoraFormData, TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
 
@@ -45,7 +45,7 @@ export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportado
                     });
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -65,7 +65,7 @@ export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportado
                     <Box component={Paper} display='flex' flexDirection='column' variant='outlined' alignItems='center' justifyContent='center'>
                         <Grid container direction='column' spacing={2} padding={4}>
                             <Grid item marginBottom={2}>
-                                <VTextField
+                                <UTextField
                                     label='Nome'
                                     fullWidth
                                     placeholder='Nome'
@@ -74,7 +74,7 @@ export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportado
                             </Grid>
 
                             <Grid item marginBottom={2}>
-                                <VTextField
+                                <UTextField
                                     label='Razão social'
                                     fullWidth
                                     placeholder='razão social'
@@ -83,7 +83,7 @@ export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportado
                             </Grid>
 
                             <Grid item marginBottom={2}>
-                                <VTextField
+                                <UTextField
                                     label='CNPJ'
                                     fullWidth
                                     placeholder='CNPJ'
@@ -92,7 +92,7 @@ export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportado
                             </Grid>
 
                             <Grid item marginBottom={2}>
-                                <VTextField
+                                <UTextField
                                     label='Telefone'
                                     fullWidth
                                     placeholder='telefone'

@@ -2,34 +2,35 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
-import { RequisitantesService } from '../../services/api/requisitantes/RequisitantesService';
+import { CategoriasService } from '../../services/api/categorias/CategoriasService';
 
 
-type TAutoCompleteOption = {
+type TUAutoCompleteOption = {
     id: number;
     label: string;
 }
 
-interface IAutoCompleteCategoriaProps {
+interface IUAutoCompleteCategoria {
     isExternalLoading?: boolean;
+    initialSelectedIdValue?: number;
+    name: string;
 }
 
-export const VAutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
+export const UAutoCompleteCategoria = ({ isExternalLoading = false, name, initialSelectedIdValue }: IUAutoCompleteCategoria) => {
+    console.log('renderizou UAutoCompleteCategoria');
 
-    const { fieldName, clearError, error, registerField } = useField('requisitantes_id');
+    const { fieldName, clearError, error, registerField } = useField(name);
 
-    const [selectedId, setSelectedId] = useState<number | undefined>();
-    const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
+    const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
+    const [opcoes, setOpcoes] = useState<TUAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
 
     const autoCompleteSelectedOption = useMemo(() => {
 
         if (!selectedId) return null;
-        console.log(`selectedId: ${selectedId}`);
 
         const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        console.log(`selectedOption: ${selectedOption}`);
 
         if (!selectedOption) return null;
 
@@ -38,47 +39,45 @@ export const VAutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoC
     }, [selectedId, opcoes]);
 
     const { debouce } = useDebouce();
-
+    
     useEffect(() => {
+        console.log('renderizou useEffect registerField UAutoCompleteCategoria');
         registerField({
             name: fieldName,
             getValue: () => selectedId,
             setValue: (_, newSelectedId) => setSelectedId(newSelectedId)
         });
+        console.log(selectedId);
     }, [registerField, fieldName, selectedId]);
-
+    
     useEffect(() => {
+        console.log('renderizou useEffect CategoriasService UAutoCompleteCategoria');
         setIsLoading(true);
         if (selectedId) {
-            RequisitantesService.getById(selectedId)
+            CategoriasService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         alert(result.message);
                     } else {
-                        console.log('isFirstTime');
-                        console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
+                        setOpcoes(data.map(categoria => ({ id: categoria.id, label: categoria.nome })));  
                     }
                 });
         } else {
             debouce(() => {
-                console.log(`busca: ${busca}`);
-                RequisitantesService.getAll(0, busca)
+                CategoriasService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
                             alert(result.message);
                         } else {
-                            console.log(result);
-                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
+                            setOpcoes(result.data.content.map(categoria => ({ id: categoria.id, label: categoria.nome })));
                         }
                     });
             });
         }
-
     }, [busca, selectedId]);
 
     return (
@@ -100,7 +99,7 @@ export const VAutoCompleteRequisitantes = ({ isExternalLoading = false }: IAutoC
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Requisitante"
+                    label="Categoria"
                     error={!!error}
                     helperText={error}
                 />

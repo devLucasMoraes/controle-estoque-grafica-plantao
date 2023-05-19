@@ -2,7 +2,7 @@ import { Grid, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { IItemTransacaoEntrada } from '../../services/api/transacoesEntrada/TransacoesEntradaService';
 import { Scope } from '@unform/core';
-import { IVFormErros, VAutoCompleteMateriais, VId, VTextField } from '../../forms';
+import { IUFormErros, UAutoCompleteMaterial, UId, UTextField } from '../../forms';
 import { ItensListTools } from '../itensListTools/ItensListTools';
 import { AutoCompleteMateriais, AutoCompleteMateriaisSelectedId } from '../autoCompleteMateriais/AutoCompleteMateriais';
 import * as yup from 'yup';
@@ -38,7 +38,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
     console.log('renderizou ItensTransacaoEntrada');
 
     const [itens, setItens] = useState<Array<IItemTransacaoEntrada>>(initialItens);
-    const [erros, setErros] = useState<IVFormErros>({});
+    const [erros, setErros] = useState<IUFormErros>({});
     const obsRef = useRef<HTMLInputElement>(null);
     const idMaterialRef = useRef<AutoCompleteMateriaisSelectedId>(null);
     const valorIpiRef = useRef<HTMLInputElement>(null);
@@ -88,7 +88,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -194,14 +194,14 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
             {itens.map((item, index) => (
                 <Scope key={item.id} path={`itens[${index}]`} >
 
-                    <VId
+                    <UId
                         name='id'
                         initialValue={item.id}
                     />
 
 
                     <Grid item xs={2}>
-                        <VTextField
+                        <UTextField
                             label='Quantidade'
                             fullWidth
                             placeholder='quantidade'
@@ -211,7 +211,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     </Grid>
 
                     <Grid item xs={2}>
-                        <VTextField
+                        <UTextField
                             label='Unidade de compra'
                             fullWidth
                             placeholder='unidade de compra'
@@ -222,7 +222,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     </Grid>
 
                     <Grid item xs={2}>
-                        <VTextField
+                        <UTextField
                             label='Valor unitário'
                             fullWidth
                             placeholder='valor unitário'
@@ -232,7 +232,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     </Grid>
 
                     <Grid item xs={1}>
-                        <VTextField
+                        <UTextField
                             label='IPI'
                             fullWidth
                             placeholder='IPI'
@@ -242,7 +242,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     </Grid>
 
                     <Grid item xs={2}>
-                        <VAutoCompleteMateriais
+                        <UAutoCompleteMaterial
                             isExternalLoading={isLoading}
                             initialSelectedIdValue={item.materiais_id}
                             name='materiais_id'
@@ -250,7 +250,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     </Grid>
 
                     <Grid item xs={2}>
-                        <VTextField
+                        <UTextField
                             label='Observações'
                             fullWidth
                             placeholder='observações'

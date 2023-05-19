@@ -2,27 +2,25 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
-import { CategoriasService } from '../../services/api/categorias/CategoriasService';
+import { TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
 
 
-type TAutoCompleteOption = {
+type TUAutoCompleteOption = {
     id: number;
     label: string;
 }
 
-interface IAutoCompleteCategoriaProps {
+interface IUAutoCompleteTransportadora {
     isExternalLoading?: boolean;
-    initialSelectedIdValue?: number;
-    name: string;
 }
 
-export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initialSelectedIdValue }: IAutoCompleteCategoriaProps) => {
-    console.log('renderizou VAutoCompleteCategoria');
+export const UAutoCompleteTransportadora = ({ isExternalLoading = false }: IUAutoCompleteTransportadora) => {
+    console.log('renderizou UAutoCompleteTransportadora');
 
-    const { fieldName, clearError, error, registerField } = useField(name);
+    const { fieldName, clearError, error, registerField } = useField('transportadora_id');
 
-    const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
-    const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
+    const [selectedId, setSelectedId] = useState<number | undefined>();
+    const [opcoes, setOpcoes] = useState<TUAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
 
@@ -39,22 +37,19 @@ export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
     }, [selectedId, opcoes]);
 
     const { debouce } = useDebouce();
-    
+
     useEffect(() => {
-        console.log('renderizou useEffect registerField AutoCompleteCategoria');
         registerField({
             name: fieldName,
             getValue: () => selectedId,
             setValue: (_, newSelectedId) => setSelectedId(newSelectedId)
         });
-        console.log(selectedId);
     }, [registerField, fieldName, selectedId]);
-    
+
     useEffect(() => {
-        console.log('renderizou useEffect CategoriasService AutoCompleteCategoria');
         setIsLoading(true);
         if (selectedId) {
-            CategoriasService.getById(selectedId)
+            TransportadorasService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
@@ -62,22 +57,25 @@ export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
                     } else {
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(categoria => ({ id: categoria.id, label: categoria.nome })));  
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
                     }
                 });
         } else {
             debouce(() => {
-                CategoriasService.getAll(0, busca)
+                console.log(busca);
+                TransportadorasService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
+                        console.log(result);
                         if (result instanceof Error) {
                             alert(result.message);
                         } else {
-                            setOpcoes(result.data.content.map(categoria => ({ id: categoria.id, label: categoria.nome })));
+                            setOpcoes(result.data.content.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
                         }
                     });
             });
         }
+
     }, [busca, selectedId]);
 
     return (
@@ -99,7 +97,7 @@ export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Categoria"
+                    label="Transportadora"
                     error={!!error}
                     helperText={error}
                 />

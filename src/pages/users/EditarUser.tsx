@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { CrudTools } from '../../shared/components';
-import { IVFormErros, VTextField } from '../../shared/forms';
+import { IUFormErros, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { UsersService } from '../../shared/services/api/users/UsersService';
 
@@ -81,7 +81,7 @@ export const EditarUser = () => {
                 }
             })
             .catch((erros: yup.ValidationError) => {
-                const validationErrors: IVFormErros = {};
+                const validationErrors: IUFormErros = {};
                 erros.inner.forEach(error => {
                     if (!error.path) return;
                     validationErrors[error.path] = error.message;
@@ -127,7 +127,7 @@ export const EditarUser = () => {
                         )}
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Nome'
                                 fullWidth
                                 placeholder='Nome'
@@ -136,7 +136,7 @@ export const EditarUser = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Email'
                                 fullWidth
                                 placeholder='email'
@@ -145,7 +145,7 @@ export const EditarUser = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 type="password"
                                 label='Senha'
                                 fullWidth
@@ -155,7 +155,7 @@ export const EditarUser = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Cargo'
                                 fullWidth
                                 placeholder='cargo'
@@ -164,7 +164,7 @@ export const EditarUser = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <VTextField
+                            <UTextField
                                 label='Status'
                                 fullWidth
                                 placeholder='status'

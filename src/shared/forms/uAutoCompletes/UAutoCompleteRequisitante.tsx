@@ -2,33 +2,34 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebouce } from '../../hooks';
-import { TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
+import { RequisitantesService } from '../../services/api/requisitantes/RequisitantesService';
 
 
-type TAutoCompleteOption = {
+type TUAutoCompleteOption = {
     id: number;
     label: string;
 }
 
-interface IAutoCompleteCategoriaProps {
+interface IUAutoCompleteRequisitante {
     isExternalLoading?: boolean;
 }
 
-export const VAutoCompleteTransportadoras = ({ isExternalLoading = false }: IAutoCompleteCategoriaProps) => {
-    console.log('renderizou AutoCompleteTransportadoras');
+export const UAutoCompleteRequisitante = ({ isExternalLoading = false }: IUAutoCompleteRequisitante) => {
 
-    const { fieldName, clearError, error, registerField } = useField('transportadora_id');
+    const { fieldName, clearError, error, registerField } = useField('requisitantes_id');
 
     const [selectedId, setSelectedId] = useState<number | undefined>();
-    const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
+    const [opcoes, setOpcoes] = useState<TUAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
 
     const autoCompleteSelectedOption = useMemo(() => {
 
         if (!selectedId) return null;
+        console.log(`selectedId: ${selectedId}`);
 
         const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
+        console.log(`selectedOption: ${selectedOption}`);
 
         if (!selectedOption) return null;
 
@@ -49,28 +50,30 @@ export const VAutoCompleteTransportadoras = ({ isExternalLoading = false }: IAut
     useEffect(() => {
         setIsLoading(true);
         if (selectedId) {
-            TransportadorasService.getById(selectedId)
+            RequisitantesService.getById(selectedId)
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
                         alert(result.message);
                     } else {
+                        console.log('isFirstTime');
+                        console.log(result);
                         const data = [];
                         data.push(result);
-                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
+                        setOpcoes(data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
                     }
                 });
         } else {
             debouce(() => {
-                console.log(busca);
-                TransportadorasService.getAll(0, busca)
+                console.log(`busca: ${busca}`);
+                RequisitantesService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
-                        console.log(result);
                         if (result instanceof Error) {
                             alert(result.message);
                         } else {
-                            setOpcoes(result.data.content.map(opcao => ({ id: opcao.id, label: opcao.nome_fantasia })));
+                            console.log(result);
+                            setOpcoes(result.data.map(opcao => ({ id: opcao.id, label: opcao.nome })));
                         }
                     });
             });
@@ -97,7 +100,7 @@ export const VAutoCompleteTransportadoras = ({ isExternalLoading = false }: IAut
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Transportadora"
+                    label="Requisitante"
                     error={!!error}
                     helperText={error}
                 />
