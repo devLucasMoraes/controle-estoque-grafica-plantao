@@ -28,17 +28,13 @@ export const AutoCompleteMateriais = forwardRef(({ initialValue, isExternalLoadi
 
     const [selectedId, setSelectedId] = useState<number | undefined>(initialValue);
     const [erros, setErros] = useState(error);
-
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
-    const { debouce } = useDebouce();
-
 
     const setErrosMateriais = useCallback((error: SetStateAction<string | undefined>) => {
         setErros(error);
     }, []);
-
     const setSelectedIdUndefined = useCallback(() => {
         setSelectedId(undefined);
     }, []);
@@ -51,6 +47,20 @@ export const AutoCompleteMateriais = forwardRef(({ initialValue, isExternalLoadi
         };
     });
 
+    const autoCompleteSelectedOption = useMemo(() => {
+
+        if (!selectedId) return null;
+
+        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
+
+        if (!selectedOption) return null;
+
+        return selectedOption;
+
+    }, [selectedId, opcoes]);
+
+    const { debouce } = useDebouce();
+
     useEffect(() => {
         console.log('renderizou useEffect MateriaisService.getById AutoCompleteMateriais');
         console.log(`selectedId: ${selectedId}`);
@@ -60,7 +70,7 @@ export const AutoCompleteMateriais = forwardRef(({ initialValue, isExternalLoadi
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
-                        //alert(result.message);
+                        alert(result.message);
                     } else {
                         const data = [];
                         data.push(result);
@@ -69,29 +79,18 @@ export const AutoCompleteMateriais = forwardRef(({ initialValue, isExternalLoadi
                 });
         } else {
             debouce(() => {
-                MateriaisService.getAll(1, busca)
+                MateriaisService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
-                            //alert(result.message);
+                            alert(result.message);
                         } else {
                             setOpcoes(result.data.content.map(opcao => ({ id: opcao.id, label: opcao.descricao })));
                         }
                     });
             });
         }
-
     }, [busca, selectedId]);
-
-
-
-    const autoCompleteSelectedOption = useMemo(() => {
-        if (!selectedId) return null;
-        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        if (!selectedOption) return null;
-
-        return selectedOption;
-    }, [selectedId, opcoes]);
 
     const handleFocus = (): void => {
         if (erros) {

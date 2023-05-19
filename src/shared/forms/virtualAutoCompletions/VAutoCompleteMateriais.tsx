@@ -17,14 +17,27 @@ interface IAutoCompleteCategoriaProps {
 }
 
 export const VAutoCompleteMateriais = ({ isExternalLoading = false, name, initialSelectedIdValue }: IAutoCompleteCategoriaProps) => {
-    //console.log('renderizou VAutoCompleteMateriais');
+    console.log('renderizou VAutoCompleteMateriais');
 
     const { fieldName, clearError, error, registerField } = useField(name);
-    const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
 
+    const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
+
+    const autoCompleteSelectedOption = useMemo(() => {
+
+        if (!selectedId) return null;
+
+        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
+
+        if (!selectedOption) return null;
+
+        return selectedOption;
+
+    }, [selectedId, opcoes]);
+
     const { debouce } = useDebouce();
 
     useEffect(() => {
@@ -44,7 +57,7 @@ export const VAutoCompleteMateriais = ({ isExternalLoading = false, name, initia
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
-                        //alert(result.message);
+                        alert(result.message);
                     } else {
                         const data = [];
                         data.push(result);
@@ -53,29 +66,18 @@ export const VAutoCompleteMateriais = ({ isExternalLoading = false, name, initia
                 });
         } else {
             debouce(() => {
-                MateriaisService.getAll(1, busca)
+                MateriaisService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
-                            //alert(result.message);
+                            alert(result.message);
                         } else {
                             setOpcoes(result.data.content.map(opcao => ({ id: opcao.id, label: opcao.descricao })));
                         }
                     });
             });
         }
-
     }, [busca, selectedId]);
-
-
-
-    const autoCompleteSelectedOption = useMemo(() => {
-        if (!selectedId) return null;
-        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        if (!selectedOption) return null;
-
-        return selectedOption;
-    }, [selectedId, opcoes]);
 
     return (
         <Autocomplete
