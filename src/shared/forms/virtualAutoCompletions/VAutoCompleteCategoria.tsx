@@ -25,6 +25,19 @@ export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
     const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [busca, setBusca] = useState('');
+
+    const autoCompleteSelectedOption = useMemo(() => {
+
+        if (!selectedId) return null;
+
+        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
+
+        if (!selectedOption) return null;
+
+        return selectedOption;
+
+    }, [selectedId, opcoes]);
+
     const { debouce } = useDebouce();
     
     useEffect(() => {
@@ -54,7 +67,7 @@ export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
                 });
         } else {
             debouce(() => {
-                CategoriasService.getAll(1, busca)
+                CategoriasService.getAll(0, busca)
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
@@ -65,18 +78,7 @@ export const VAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
                     });
             });
         }
-
     }, [busca, selectedId]);
-
-
-
-    const autoCompleteSelectedOption = useMemo(() => {
-        if (!selectedId) return null;
-        const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
-        if (!selectedOption) return null;
-
-        return selectedOption;
-    }, [selectedId, opcoes]);
 
     return (
         <Autocomplete
