@@ -17,13 +17,16 @@ const formValidationSchema: yup.ObjectSchema<Omit<IMaterialFormData, 'id'>> = yu
     valor_unt: yup.number().required(),
 });
 
-export const EditarMateriais = () => {
+export const EdicaoOuCriacaoDeMaterial = () => {
     console.log('renderizou EditarMateriais');
 
     const { id = 'new' } = useParams<'id'>();
+
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
+
     const formRef = useRef<FormHandles>(null);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         console.log('renderizou useEffect MateriaisService.getById EditarMateriais');
@@ -41,7 +44,6 @@ export const EditarMateriais = () => {
                 });
         }
     }, [id]);
-
 
     const handleSave = (dados: Omit<IMaterialFormData, 'id'>) => {
         console.log('renderizou handleSave EditarMateriais');
@@ -83,6 +85,7 @@ export const EditarMateriais = () => {
                 formRef.current?.setErrors(validationErrors);
             });
     };
+
     const handleDelete = (id: number) => {
         console.log('renderizou handleDelete EditarMateriais');
         if (confirm('Realmente deseja apagar?')) {
@@ -120,6 +123,7 @@ export const EditarMateriais = () => {
                                 <LinearProgress variant='indeterminate' />
                             </Grid>
                         )}
+
                         <Grid container columnSpacing={2} spacing={2}>
                             <Grid item xs={12} lg={6}>
                                 <VTextField
@@ -155,6 +159,7 @@ export const EditarMateriais = () => {
                         
                         <ListaUnidadesConvertidas />
                     </Grid>
+
                     <Box component='section' paddingBottom={4}>
                         <CrudTools
                             mostrarBotaoSalvar
@@ -163,7 +168,6 @@ export const EditarMateriais = () => {
                     </Box>
                 </Box>
             </Form>
-
         </LayoutBaseDaPagina>
     );
 };

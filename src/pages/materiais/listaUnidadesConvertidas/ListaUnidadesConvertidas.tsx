@@ -2,7 +2,6 @@ import { DragHandle } from '@mui/icons-material';
 import { Grid, TextField } from '@mui/material';
 import { ItensListTools } from '../../../shared/components';
 
-
 export const ListaUnidadesConvertidas = () => {
 
     function handleAdicionar(): void {
@@ -18,6 +17,7 @@ export const ListaUnidadesConvertidas = () => {
                     placeholder='quantidade'
                 />
             </Grid>
+
             <Grid item xs={2}>
                 <TextField
                     fullWidth
@@ -25,9 +25,11 @@ export const ListaUnidadesConvertidas = () => {
                     placeholder='unidade XML/NFe'
                 />
             </Grid>
+
             <Grid item >
                 <DragHandle color='primary' />
             </Grid>
+
             <Grid item>
                 <TextField
                     fullWidth
@@ -35,6 +37,7 @@ export const ListaUnidadesConvertidas = () => {
                     placeholder='quantidade'
                 />
             </Grid>
+
             <Grid item xs={2}>
                 <TextField
                     fullWidth
@@ -42,6 +45,7 @@ export const ListaUnidadesConvertidas = () => {
                     placeholder='unidade da categoria'
                 />
             </Grid>
+            
             <Grid item >
                 <ItensListTools
                     mostrarBotaoAdicionar

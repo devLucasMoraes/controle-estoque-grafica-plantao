@@ -6,29 +6,15 @@ import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { MateriaisService, IDetalhamentoMaterial } from '../../shared/services/api/materiais/MateriaisService';
 
 
-export const DetalharMateriais = () => {
+export const DetalhamentoDeMaterial = () => {
     console.log('renderizou DetalharMateriais');
 
-    const navigate = useNavigate();
     const { id } = useParams<'id'>();
+
+    const navigate = useNavigate();
+
     const [isLoading, setIsLoading] = useState(false);
     const [materiais, setMateriais] = useState<IDetalhamentoMaterial>();
-
-
-    const handleDelete = (id: number) => {
-        console.log('renderizou handleDelete DetalharMateriais');
-        if (confirm('Realmente deseja apagar?')) {
-            MateriaisService.deleteById(id)
-                .then(result => {
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        alert('Registro apagado com sucesso!');
-                        navigate('/materiais');
-                    }
-                });
-        }
-    };
 
     useEffect(() => {
         console.log('renderizou useEffect MateriaisService.getById DetalharMateriais');
@@ -48,11 +34,26 @@ export const DetalharMateriais = () => {
         }
     }, [id]);
 
+    const handleDelete = (id: number) => {
+        console.log('renderizou handleDelete DetalharMateriais');
+        if (confirm('Realmente deseja apagar?')) {
+            MateriaisService.deleteById(id)
+                .then(result => {
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        alert('Registro apagado com sucesso!');
+                        navigate('/materiais');
+                    }
+                });
+        }
+    };
+
     return (
         <LayoutBaseDaPagina
             mostrarBotaoVoltar
             aoClicaeEmVoltar={() => navigate('/materiais')}
-            titulo='Detalhar'
+            titulo='Detalhamento'
             tools={
                 <CrudTools
                     mostrarBotaoApagar
@@ -73,7 +74,6 @@ export const DetalharMateriais = () => {
                             <LinearProgress variant='indeterminate' />
                         </Grid>
                     )}
-
 
                     {materiais && (
                         <Grid item>
@@ -155,7 +155,6 @@ export const DetalharMateriais = () => {
                             </Box>
                         </Grid>
                     )}
-
                 </Grid>
             </Box>
         </LayoutBaseDaPagina>

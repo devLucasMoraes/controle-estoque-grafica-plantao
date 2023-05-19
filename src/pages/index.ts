@@ -9,8 +9,8 @@ export * from './categorias/EdicaoOuCriacaoDeCategoria';
 export * from './categorias/DetalhamentoDeCategoria';
 
 export * from './materiais/ListagemDeMateriais';
-export * from './materiais/EditarMateriais';
-export * from './materiais/DetalharMateriais';
+export * from './materiais/EdicaoOuCriacaoDeMaterial';
+export * from './materiais/DetalhamentoDeMaterial';
 
 export * from './fornecedoras/ListagemDeFornecedoras';
 export * from './fornecedoras/EdicaoOuCriacaoDeFornecedora';

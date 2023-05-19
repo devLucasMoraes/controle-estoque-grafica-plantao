@@ -1,7 +1,7 @@
 import { Category, Factory, ImportExport, Inventory, LineAxis, LocalShipping, Man, Person, Place } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, DetalhamentoDeCategoria, DetalharDestinos, DetalhamentoDeFornecedora, DetalharMateriais, DetalharRequisitantes, DetalhamentoDeTransacoesEntrada, DetalharTransacoesSaida, DetalhamentoDeTransportadora, DetalharUser, EdicaoOuCriacaoDeCategoria, EditarDestinos, EdicaoOuCriacaoDeFornecedora, EditarMateriais, EditarRequisitantes, EdicaoOuCriacaoDeTransacoesEntrada, EditarTransacoesSaida, EdicaoOuCriacaoDeTransportadora, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
+import { Dashboard, DetalhamentoDeCategoria, DetalharDestinos, DetalhamentoDeFornecedora, DetalhamentoDeMaterial, DetalharRequisitantes, DetalhamentoDeTransacoesEntrada, DetalharTransacoesSaida, DetalhamentoDeTransportadora, DetalharUser, EdicaoOuCriacaoDeCategoria, EditarDestinos, EdicaoOuCriacaoDeFornecedora, EdicaoOuCriacaoDeMaterial, EditarRequisitantes, EdicaoOuCriacaoDeTransacoesEntrada, EditarTransacoesSaida, EdicaoOuCriacaoDeTransportadora, EditarUser, ListagemDeCategorias, ListagemDeDestinos, ListagemDeFornecedoras, ListagemDeMateriais, ListagemDeRequisitantes, ListagemDeTransacoesEntrada, ListagemDeTransacoesSaida, ListagemDeTransportadoras, ListagemDeUsers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -88,9 +88,9 @@ export const AppRoutes = () => {
             <Route path='/categorias/records/show/:id' element={<DetalhamentoDeCategoria />} />
             <Route path='/categorias/records/:id' element={<EdicaoOuCriacaoDeCategoria />} />
             <Route path="/materiais" element={<ListagemDeMateriais />} />
-            <Route path='/materiais/records/edit/:id' element={<EditarMateriais />} />
-            <Route path='/materiais/records/show/:id' element={<DetalharMateriais />} />
-            <Route path='/materiais/records/:id' element={<EditarMateriais />} />
+            <Route path='/materiais/records/edit/:id' element={<EdicaoOuCriacaoDeMaterial />} />
+            <Route path='/materiais/records/show/:id' element={<DetalhamentoDeMaterial />} />
+            <Route path='/materiais/records/:id' element={<EdicaoOuCriacaoDeMaterial />} />
             <Route path="/fornecedoras" element={<ListagemDeFornecedoras />} />
             <Route path='/fornecedoras/records/edit/:id' element={<EdicaoOuCriacaoDeFornecedora />} />
             <Route path='/fornecedoras/records/show/:id' element={<DetalhamentoDeFornecedora />} />
