@@ -17,11 +17,11 @@ const ResponsiveAppBarMemo = () => {
     return (
         <AppBar position='relative' color='primary' enableColorOnDark>
             <Toolbar>
-                {mdDown &&
-                    <IconButton onClick={toggleDrawerOpen}>
-                        <Menu />
-                    </IconButton>
-                }
+
+                <IconButton onClick={toggleDrawerOpen}>
+                    <Menu />
+                </IconButton>
+
 
                 <Typography variant={smDown ? 'h5' : mdDown ? 'h5' : 'h4'} noWrap component="div" sx={{ flexGrow: 1 }}>
                     Controle de estoque

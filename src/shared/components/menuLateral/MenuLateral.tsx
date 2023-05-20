@@ -50,7 +50,7 @@ const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
 
     return (
         <>
-            <Drawer open={isDrawerOpen} variant={mdDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
+            <Drawer open={isDrawerOpen} variant={mdDown ? 'temporary' : 'persistent'} onClose={toggleDrawerOpen}>
                 <Box width={theme.spacing(37)} height='100%' display='flex' flexDirection='column'>
                     <Box width='100%' height={theme.spacing(20)} display='flex' alignItems='center' justifyContent='center'>
                         <Avatar
@@ -150,7 +150,7 @@ const MenuLateralMemo = ({ children }: IMenuLateralProps) => {
                 </Box>
             </Drawer>
 
-            <Box height='100vh' marginLeft={mdDown ? 0 : theme.spacing(37)}>
+            <Box height='100vh' marginLeft={mdDown ? 0 : isDrawerOpen ? theme.spacing(37) : 0}>
                 {children}
             </Box>
         </>
