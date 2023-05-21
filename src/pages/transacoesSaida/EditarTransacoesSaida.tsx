@@ -4,10 +4,12 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { IUFormErros, UAutoCompleteRequisitante, UDatePicker, UTextField, UAutoCompleteDestino } from '../../shared/forms';
+import { IUFormErros, UAutoComplete, UDatePicker, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { ITransacoesSaidaFormData, TransacoesSaidaService } from '../../shared/services/api/transacoesSaida/TransacoesSaidaService';
 import { CrudTools } from '../../shared/components';
+import { RequisitantesService } from '../../shared/services/api/requisitantes/RequisitantesService';
+import { DestinosService } from '../../shared/services/api/destinos/DestinosService';
 
 
 
@@ -155,14 +157,26 @@ export const EditarTransacoesSaida = () => {
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <UAutoCompleteRequisitante isExternalLoading={isLoading} />
+                            <UAutoComplete 
+                                isExternalLoading={isLoading}
+                                service={RequisitantesService}
+                                label='Requisitante'
+                                name='requisitantes_id'
+                                optionLabel='nome'
+                            />
                         </Grid>
 
                         <Grid item marginBottom={2}>
-                            <UAutoCompleteDestino isExternalLoading={isLoading} />
+                            <UAutoComplete
+                                isExternalLoading={isLoading} 
+                                service={DestinosService}
+                                name='destinos_id'
+                                label='Destino'
+                                optionLabel='nome'
+                            />
                         </Grid>
 
-                        
+
 
                     </Grid>
                     <Box component='section' paddingBottom={4}>

@@ -1,11 +1,12 @@
 import { Grid, TextField } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
-import { IItemTransacaoEntrada } from '../../services/api/transacoesEntrada/TransacoesEntradaService';
 import { Scope } from '@unform/core';
-import { IUFormErros, UAutoCompleteMaterial, UId, UTextField } from '../../forms';
-import { ItensListTools } from '../itensListTools/ItensListTools';
-import { AutoCompleteMateriais, AutoCompleteMateriaisSelectedId } from '../autoCompleteMateriais/AutoCompleteMateriais';
+import { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
+import { IItemTransacaoEntrada } from '../../services/api/transacoesEntrada/TransacoesEntradaService';
+import { IUFormErros, UAutoComplete, UId, UTextField } from '../../forms';
+import { ItensListTools } from '../itensListTools/ItensListTools';
+import { AutoCompeteForwardRef, AutoCompleteSelectedId } from '../autoCompeteForwardRef/AutoCompeteForwardRef';
+import { MateriaisService } from '../../services/api/materiais/MateriaisService';
 
 
 
@@ -40,7 +41,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
     const [itens, setItens] = useState<Array<IItemTransacaoEntrada>>(initialItens);
     const [erros, setErros] = useState<IUFormErros>({});
     const obsRef = useRef<HTMLInputElement>(null);
-    const idMaterialRef = useRef<AutoCompleteMateriaisSelectedId>(null);
+    const idMaterialRef = useRef<AutoCompleteSelectedId>(null);
     const valorIpiRef = useRef<HTMLInputElement>(null);
     const valorUntComRef = useRef<HTMLInputElement>(null);
     const undComRef = useRef<HTMLInputElement>(null);
@@ -94,7 +95,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     validationErrors[error.path] = error.message;
                 });
                 setErros(validationErrors);
-                idMaterialRef.current?.setErrosMateriais(validationErrors['materiais_id']);
+                idMaterialRef.current?.setComponentErrors(validationErrors['materiais_id']);
                 console.log(validationErrors);
             });
 
@@ -165,10 +166,13 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
             </Grid>
 
             <Grid item xs={2}>
-                <AutoCompleteMateriais
+                <AutoCompeteForwardRef
                     isExternalLoading={isLoading}
                     ref={idMaterialRef}
                     error={erros['materiais_id']}
+                    service={MateriaisService}
+                    label='Produtos / Insumos'
+                    optionLabel='descricao'
                 />
             </Grid>
 
@@ -243,10 +247,13 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     </Grid>
 
                     <Grid item xs={2}>
-                        <UAutoCompleteMaterial
+                        <UAutoComplete
                             isExternalLoading={isLoading}
                             initialSelectedIdValue={item.materiais_id}
                             name='materiais_id'
+                            service={MateriaisService}
+                            label='Produtos/Insumos'
+                            optionLabel='descricao'
                         />
                     </Grid>
 

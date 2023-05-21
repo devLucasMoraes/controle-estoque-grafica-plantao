@@ -4,10 +4,10 @@ import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { IUFormErros, UAutoCompleteFornecedora, UAutoCompleteTransportadora, UDatePicker, UTextField } from '../../shared/forms';
+import { IUFormErros, UAutoComplete, UDatePicker, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
-import { CrudTools, ItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
+import { CrudTools, ItensTransacaoEntrada, NfeItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 import { useFileHandler } from '../../shared/hooks/useFileHandler';
@@ -246,7 +246,13 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={3}>
-                                <UAutoCompleteFornecedora isExternalLoading={isLoading} />
+                                <UAutoComplete 
+                                    isExternalLoading={isLoading} 
+                                    service={FornecedorasService}
+                                    label='Fornecedora'
+                                    name='fornecedora_id'
+                                    optionLabel='nome_fantasia'
+                                />
                             </Grid>
 
                             <Grid item xs={12} lg={2}>
@@ -259,7 +265,13 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={3}>
-                                <UAutoCompleteTransportadora isExternalLoading={isLoading} />
+                                <UAutoComplete 
+                                    isExternalLoading={isLoading}
+                                    service={TransportadorasService}
+                                    label='Transportadora'
+                                    name='transportadora_id'
+                                    optionLabel='nome_fantasia'
+                                />
                             </Grid>
 
                             <Grid item xs={6}>

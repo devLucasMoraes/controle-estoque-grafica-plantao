@@ -9,6 +9,7 @@ type TUAutoCompleteOption = {
 
 interface IUAutoCompleteProps {
     isExternalLoading?: boolean;
+    initialSelectedIdValue?: number;
     name: string;
     service: {
         getById: (id: number) => Promise<any>;
@@ -20,6 +21,7 @@ interface IUAutoCompleteProps {
 
 export const UAutoComplete = ({
     isExternalLoading = false,
+    initialSelectedIdValue,
     name,
     service,
     label,
@@ -29,7 +31,7 @@ export const UAutoComplete = ({
 
     const { fieldName, clearError, error, registerField } = useField(name);
 
-    const [selectedId, setSelectedId] = useState<number | undefined>();
+    const [selectedId, setSelectedId] = useState<number | undefined>(initialSelectedIdValue);
     const [options, setOptions] = useState<TUAutoCompleteOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');

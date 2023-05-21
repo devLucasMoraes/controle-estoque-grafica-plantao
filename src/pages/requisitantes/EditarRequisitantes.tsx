@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { CrudTools } from '../../shared/components';
-import { IUFormErros, UAutoCompleteUser, UTextField } from '../../shared/forms';
+import { IUFormErros, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IRequisitantesFormData, RequisitantesService } from '../../shared/services/api/requisitantes/RequisitantesService';
 
@@ -131,10 +131,6 @@ export const EditarRequisitantes = () => {
                                 placeholder='celular'
                                 name='fone'
                             />
-                        </Grid>
-
-                        <Grid item marginBottom={2}>
-                            <UAutoCompleteUser isExternalLoading={isLoading} />
                         </Grid>
 
                     </Grid>

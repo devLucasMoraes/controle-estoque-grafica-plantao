@@ -11,9 +11,10 @@ export * from './underLineLinks/UnderLineLinkMateriais';
 export * from './underLineLinks/UnderLineLinkRequisitantes';
 export * from './underLineLinks/UnderLineLinkDestinos';
 
-export * from './autoCompleteMateriais/AutoCompleteMateriais';
+export * from './autoCompeteForwardRef/AutoCompeteForwardRef';
 
 export * from './itensTransacaoEntradaList/ItensTransacaoEntradaList';
+export * from './nfeItensTransacaoEntradaList/NfeItensTransacaoEntradaList';
 export * from './itensListTools/ItensListTools';
 
 export * from './dialogs/NovaFornecedoraDialog';
