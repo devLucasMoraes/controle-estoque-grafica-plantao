@@ -1,13 +1,14 @@
-import { TextField, TextFieldProps } from '@mui/material';
+import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useState } from 'react';
 
 type TUTextField = TextFieldProps & {
     name: string;
     initialValue?: number | string;
+    endAdornment?: string;
 }
 
-export const UTextField = ({ initialValue = '', name, ...rest }: TUTextField) => {
+export const UTextField = ({ initialValue = '', name, endAdornment , ...rest }: TUTextField) => {
     //console.log(`renderizou VTextField ${name}`);
     
     const { clearError, defaultValue, error, fieldName, registerField } = useField(name);
@@ -31,6 +32,10 @@ export const UTextField = ({ initialValue = '', name, ...rest }: TUTextField) =>
             onKeyDown={(e) => { error ? clearError() : undefined; rest.onKeyDown?.(e); }}
             value={value}
             onChange={e => { setValue(e.target.value); rest.onChange?.(e); }}
+            InputProps={{
+                endAdornment: <InputAdornment position="end">{endAdornment}</InputAdornment>,
+            }}
+            size='small'
         />
     );
 };

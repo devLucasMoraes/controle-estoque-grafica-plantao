@@ -97,6 +97,7 @@ export const UAutoCompleteFornecedora = ({ isExternalLoading = false }: IUAutoCo
                     label="Fornecedora"
                     error={!!error}
                     helperText={error}
+                    size='small'
                 />
             )}
         />

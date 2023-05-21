@@ -102,6 +102,7 @@ export const UAutoCompleteCategoria = ({ isExternalLoading = false, name, initia
                     label="Categoria"
                     error={!!error}
                     helperText={error}
+                    size='small'
                 />
             )}
         />

@@ -88,6 +88,7 @@ export const UAutoCompleteUser = ({ isExternalLoading = false }: IUAutoCompleteU
                     label="Usuario"
                     error={!!error}
                     helperText={error}
+                    size='small'
                 />
             )}
         />

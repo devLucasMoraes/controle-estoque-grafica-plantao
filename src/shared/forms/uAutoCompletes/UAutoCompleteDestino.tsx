@@ -103,6 +103,7 @@ export const UAutoCompleteDestino = ({ isExternalLoading = false }: IUAutoComple
                     label="Destino"
                     error={!!error}
                     helperText={error}
+                    size='small'
                 />
             )}
         />

@@ -121,6 +121,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     helperText={erros['quant_com']}
                     error={!!erros['quant_com']}
                     onFocus={() => handleInputFocus('quant_com')}
+                    size='small'
                 />
             </Grid>
 
@@ -133,7 +134,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     helperText={erros['und_com']}
                     error={!!erros['und_com']}
                     onFocus={() => handleInputFocus('und_com')}
-
+                    size='small'
                 />
             </Grid>
 
@@ -146,7 +147,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     helperText={erros['valor_unt_com']}
                     error={!!erros['valor_unt_com']}
                     onFocus={() => handleInputFocus('valor_unt_com')}
-
+                    size='small'
                 />
             </Grid>
 
@@ -159,7 +160,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     helperText={erros['valor_ipi']}
                     error={!!erros['valor_ipi']}
                     onFocus={() => handleInputFocus('valor_ipi')}
-
+                    size='small'
                 />
             </Grid>
 
@@ -180,7 +181,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     helperText={erros['obs']}
                     error={!!erros['obs']}
                     onFocus={() => handleInputFocus('obs')}
-
+                    size='small'
                 />
             </Grid>
 

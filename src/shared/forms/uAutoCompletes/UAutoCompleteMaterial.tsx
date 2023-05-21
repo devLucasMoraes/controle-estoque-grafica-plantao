@@ -98,9 +98,10 @@ export const UAutoCompleteMaterial = ({ isExternalLoading = false, name, initial
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Material"
+                    label="Produto / Insumo"
                     error={!!error}
                     helperText={error}
+                    size='small'
                 />
             )}
         />

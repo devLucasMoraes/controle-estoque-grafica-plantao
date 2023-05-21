@@ -103,6 +103,7 @@ export const UAutoCompleteRequisitante = ({ isExternalLoading = false }: IUAutoC
                     label="Requisitante"
                     error={!!error}
                     helperText={error}
+                    size='small'
                 />
             )}
         />

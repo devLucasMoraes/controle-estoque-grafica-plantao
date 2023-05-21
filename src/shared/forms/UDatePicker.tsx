@@ -54,6 +54,7 @@ export const UDatePicker = ({ name, ...rest }: IUDatePickerProps) => {
                 slotProps={{
                     textField: {
                         helperText: errorMessage,
+                        size: 'small'
                     },
                 }}
             />

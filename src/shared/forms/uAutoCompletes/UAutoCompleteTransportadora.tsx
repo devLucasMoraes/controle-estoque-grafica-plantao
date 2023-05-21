@@ -100,6 +100,7 @@ export const UAutoCompleteTransportadora = ({ isExternalLoading = false }: IUAut
                     label="Transportadora"
                     error={!!error}
                     helperText={error}
+                    size='small'
                 />
             )}
         />

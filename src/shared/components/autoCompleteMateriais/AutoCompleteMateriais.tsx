@@ -122,6 +122,7 @@ export const AutoCompleteMateriais = forwardRef(({ initialValue, isExternalLoadi
                     error={!!erros}
                     helperText={erros}
                     onFocus={() => handleFocus()}
+                    size='small'
                 />
             )}
         />
