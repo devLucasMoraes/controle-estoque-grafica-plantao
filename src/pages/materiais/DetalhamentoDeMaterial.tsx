@@ -153,11 +153,11 @@ export const DetalhamentoDeMaterial = () => {
                                 variant='caption'
                                 noWrap
                             >
-                                Fornecedoras Vinculadas
+                                Fornecedoras Vinculadas \ Codigo do Produto
                             </Typography>
                         </Grid>
                         {materiais?.fornecedorasVinculadas.map((vinculo) => (
-                            <Grid item key={vinculo.id} direction='row' display='flex'>
+                            <Grid item key={vinculo.id} direction='row' display='flex' gap={1}>
                                 <UnderlineLink 
                                     id={vinculo.fornecedora_id}
                                     service={FornecedorasService}
