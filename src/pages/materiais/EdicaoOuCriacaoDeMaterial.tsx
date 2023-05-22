@@ -5,10 +5,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { CrudTools } from '../../shared/components';
-import { IUFormErros, UAutoCompleteCategoria, UTextField } from '../../shared/forms';
+import { IUFormErros, UAutoComplete, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IMaterialFormData, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
-import { ListaUnidadesConvertidas } from './listaUnidadesConvertidas';
+import { VinculosComFornecedoras } from './vinculosComFornecedoras';
+import { CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
 
 
 const formValidationSchema: yup.ObjectSchema<Omit<IMaterialFormData, 'id'>> = yup.object().shape({
@@ -47,6 +48,7 @@ export const EdicaoOuCriacaoDeMaterial = () => {
 
     const handleSave = (dados: Omit<IMaterialFormData, 'id'>) => {
         console.log('renderizou handleSave EditarMateriais');
+        console.log(dados);
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -144,20 +146,23 @@ export const EdicaoOuCriacaoDeMaterial = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={4}>
-                                <UAutoCompleteCategoria
+                                <UAutoComplete
                                     isExternalLoading={isLoading}
                                     name='categorias_id'
+                                    service={CategoriasService}
+                                    label='Categoria'
+                                    optionLabel='nome'
                                 />
                             </Grid>
                         </Grid>
 
                         <Grid item flexGrow={1}>
                             <Divider textAlign="left">
-                                <Chip label="CONVERSOR DE UNIDADES" />
+                                <Chip label="VINCULAR FORNECEDORAS" />
                             </Divider>
                         </Grid>
                         
-                        <ListaUnidadesConvertidas />
+                        <VinculosComFornecedoras />
                     </Grid>
 
                     <Box component='section' paddingBottom={4}>
