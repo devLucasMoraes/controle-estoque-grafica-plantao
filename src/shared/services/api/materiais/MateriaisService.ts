@@ -32,10 +32,16 @@ interface ISpringPageData {
 
 export interface IDetalhamentoMaterial {
     id: number;
-    cod_prod: string;
     descricao: string;
     valor_unt: number;
     categorias_id: number;
+    fornecedorasVinculadas: IFornecedorasVinculadas[]
+}
+
+export interface IFornecedorasVinculadas {
+    id: number;
+    fornecedora_id: number;
+    codProd: string;
 }
 
 export interface IMaterialFormData {

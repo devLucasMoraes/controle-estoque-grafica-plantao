@@ -3,13 +3,14 @@ export * from './listingTools/ListingTools';
 export * from './crudTools/CrudTools';
 export * from './responsiveAppBar/ResponsiveAppBar';
 
-export * from './underLineLinks/UnderLineLinkUser';
-export * from './underLineLinks/UnderLineLinkCategoria';
-export * from './underLineLinks/UnderLineLinkTransportadoras';
-export * from './underLineLinks/UnderLineLinkFornecedores';
-export * from './underLineLinks/UnderLineLinkMateriais';
-export * from './underLineLinks/UnderLineLinkRequisitantes';
-export * from './underLineLinks/UnderLineLinkDestinos';
+export * from './underlineLink/UnderLineLinkUser';
+export * from './underlineLink/UnderLineLinkCategoria';
+export * from './underlineLink/UnderLineLinkTransportadoras';
+export * from './underlineLink/UnderLineLinkFornecedores';
+export * from './underlineLink/UnderLineLinkMateriais';
+export * from './underlineLink/UnderLineLinkRequisitantes';
+export * from './underlineLink/UnderLineLinkDestinos';
+export * from './underlineLink/UnderlineLink';
 
 export * from './autoCompeteForwardRef/AutoCompeteForwardRef';
 

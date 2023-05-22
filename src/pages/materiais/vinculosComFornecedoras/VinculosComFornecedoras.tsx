@@ -128,7 +128,7 @@ export const VinculosComFornecedoras = () => {
                             fullWidth
                             label='Código Produto'
                             placeholder='código do produto'
-                            name='cod_prod'
+                            name='codProd'
                             initialValue={item.cod_prod}
                         />
                     </Grid>

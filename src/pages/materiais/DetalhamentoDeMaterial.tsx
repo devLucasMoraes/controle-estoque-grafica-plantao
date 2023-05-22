@@ -1,9 +1,11 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CrudTools, UnderlineLinkCategoria } from '../../shared/components';
+import { CrudTools, UnderlineLink, UnderlineLinkCategoria } from '../../shared/components';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { MateriaisService, IDetalhamentoMaterial } from '../../shared/services/api/materiais/MateriaisService';
+import { CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
+import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 
 
 export const DetalhamentoDeMaterial = () => {
@@ -97,22 +99,6 @@ export const DetalhamentoDeMaterial = () => {
                                 variant='caption'
                                 noWrap
                             >
-                                Codigo do produto
-                            </Typography>
-                            <Typography
-                                noWrap
-                            >
-                                {materiais?.cod_prod}
-                            </Typography>
-                        </Grid>
-                    )}
-
-                    {materiais && (
-                        <Grid item>
-                            <Typography
-                                variant='caption'
-                                noWrap
-                            >
                                 Nome
                             </Typography>
                             <Typography
@@ -151,10 +137,40 @@ export const DetalhamentoDeMaterial = () => {
                                 >
                                     Categoria
                                 </Typography>
-                                <UnderlineLinkCategoria id={materiais?.categorias_id} />
+                                <UnderlineLink
+                                    id={materiais.categorias_id}
+                                    service={CategoriasService}
+                                    nameProperty='nome'
+                                    linkPath='/categorias/records/show/:id'
+                                />
                             </Box>
                         </Grid>
                     )}
+
+                    <Grid container direction='column' spacing={2} padding={4}>
+                        <Grid item>
+                            <Typography
+                                variant='caption'
+                                noWrap
+                            >
+                                Fornecedoras Vinculadas
+                            </Typography>
+                        </Grid>
+                        {materiais?.fornecedorasVinculadas.map((vinculo) => (
+                            <Grid item key={vinculo.id} direction='row' display='flex'>
+                                <UnderlineLink 
+                                    id={vinculo.fornecedora_id}
+                                    service={FornecedorasService}
+                                    nameProperty='nome_fantasia'
+                                    linkPath='/fornecedoras/records/show/:id'
+                                />
+
+                                <Typography noWrap >
+                                    {vinculo.codProd}
+                                </Typography>
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Grid>
             </Box>
         </LayoutBaseDaPagina>
