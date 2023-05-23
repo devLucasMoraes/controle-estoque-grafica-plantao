@@ -63,7 +63,7 @@ export const UAutoComplete = ({
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
-                        alert(result.message);
+                        console.error(result.message);
                     } else {
                         const data = [];
                         data.push(result);
@@ -75,7 +75,7 @@ export const UAutoComplete = ({
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
-                        alert(result.message);
+                        console.error(result.message);
                     } else {
                         setOptions(result.data.content.map((option: any) => ({ id: option.id, label: option[optionLabel] })));
                     }

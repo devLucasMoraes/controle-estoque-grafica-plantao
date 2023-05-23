@@ -92,14 +92,14 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                         navigate('/transacoes_entrada');
                     } else {
                         console.log(result);
-                        formRef.current?.setData(result);
                         setInitialItens(result.itens);
+                        formRef.current?.setData(result);
                     }
                 });
         }
         if (id === 'new' && fileData) {
-            formRef.current?.setData(fileData);
             setInitialItens(fileData.itens);
+            formRef.current?.setData(fileData);
         }
     }, [id, fileData]);
 

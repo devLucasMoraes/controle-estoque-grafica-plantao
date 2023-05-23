@@ -60,7 +60,7 @@ export const AutoCompeteForwardRef = forwardRef(
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
-                            alert(result.message);
+                            console.error(result.message);
                         } else {
                             setOptions([{ id: result.id, label: result[optionLabel] }]);
                         }
@@ -70,7 +70,7 @@ export const AutoCompeteForwardRef = forwardRef(
                     .then((result) => {
                         setIsLoading(false);
                         if (result instanceof Error) {
-                            alert(result.message);
+                            console.error(result.message);
                         } else {
                             setOptions(result.data.content.map((option: any) => ({ id: option.id, label: option[optionLabel] })));
                         }

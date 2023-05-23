@@ -1,38 +1,41 @@
 import { Grid, TextField } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { AutoCompeteForwardRef, AutoCompleteSelectedId, ItensListTools } from '../../../shared/components';
 import { IUFormErros, UAutoComplete, UId, UTextField } from '../../../shared/forms';
 import { FornecedorasService } from '../../../shared/services/api/fornecedoras/FornecedorasService';
 import { Scope } from '@unform/core';
+import { IFornecedorasVinculadas } from '../../../shared/services/api/materiais/MateriaisService';
 
-
-interface novoItem {
-    id?: number;
-    fornecedora_id?: number;
-    cod_prod?: string;
+interface IVinculosComFornecedorasProps {
+    initialValues: Array<IFornecedorasVinculadas>
 }
 
-const itemSchema: yup.ObjectSchema<novoItem> = yup.object().shape({
+const itemSchema: yup.ObjectSchema<IFornecedorasVinculadas> = yup.object().shape({
     id: yup.number().required(),
     fornecedora_id: yup.number().required(),
-    cod_prod: yup.string().required(),
+    codProd: yup.string().required(),
 });
 
-export const VinculosComFornecedoras = () => {
+export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedorasProps) => {
 
 
     const idFornecedoraRef = useRef<AutoCompleteSelectedId>(null);
     const codProdRef = useRef<HTMLInputElement>(null);
 
-    const [fornecedorasVinculadas, setFornecedorasVinculadas] = useState<Array<novoItem>>([]);
+    const [fornecedorasVinculadas, setFornecedorasVinculadas] = useState<Array<IFornecedorasVinculadas>>(initialValues);
     const [erros, setErros] = useState<IUFormErros>({});
 
+    useEffect(() => {
+        console.log('renderizou setFornecedorasVinculadas useEffect VinculosComFornecedoras');
+        setFornecedorasVinculadas(initialValues);
+    }, [initialValues]);
+
     function handleAdicionar(): void {
-        const novoItem: novoItem = {
+        const novoItem = {
             id: Math.random() - 1,
-            fornecedora_id: idFornecedoraRef.current?.selectedId,
-            cod_prod: codProdRef.current?.value,
+            fornecedora_id: idFornecedoraRef.current?.selectedId ,
+            codProd: codProdRef.current?.value,
         };
         itemSchema
             .validate(novoItem, { abortEarly: false })
@@ -92,9 +95,9 @@ export const VinculosComFornecedoras = () => {
                     fullWidth
                     placeholder='código do produto'
                     inputRef={codProdRef}
-                    helperText={erros['cod_prod']}
-                    error={!!erros['cod_prod']}
-                    onFocus={() => handleInputFocus('cod_prod')}
+                    helperText={erros['codProd']}
+                    error={!!erros['codProd']}
+                    onFocus={() => handleInputFocus('codProd')}
                     size='small'
                 />
             </Grid>
@@ -129,7 +132,7 @@ export const VinculosComFornecedoras = () => {
                             label='Código Produto'
                             placeholder='código do produto'
                             name='codProd'
-                            initialValue={item.cod_prod}
+                            initialValue={item.codProd}
                         />
                     </Grid>
 

@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { CrudTools } from '../../shared/components';
 import { IUFormErros, UAutoComplete, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
-import { IMaterialFormData, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
+import { IFornecedorasVinculadas, IMaterialFormData, MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
 import { VinculosComFornecedoras } from './vinculosComFornecedoras';
 import { CategoriasService } from '../../shared/services/api/categorias/CategoriasService';
 
@@ -29,6 +29,9 @@ export const EdicaoOuCriacaoDeMaterial = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const [fornecedorasVinculadas, setFornecedorasVinculadas] = useState<Array<IFornecedorasVinculadas>>([]);
+
+
     useEffect(() => {
         console.log('renderizou useEffect MateriaisService.getById EditarMateriais');
         if (id !== 'new') {
@@ -40,6 +43,8 @@ export const EdicaoOuCriacaoDeMaterial = () => {
                         alert(result.message);
                         navigate('/materiais');
                     } else {
+                        console.log(result);
+                        setFornecedorasVinculadas(result.fornecedorasVinculadas);
                         formRef.current?.setData(result);
                     }
                 });
@@ -162,7 +167,9 @@ export const EdicaoOuCriacaoDeMaterial = () => {
                             </Divider>
                         </Grid>
                         
-                        <VinculosComFornecedoras />
+                        <VinculosComFornecedoras
+                            initialValues={fornecedorasVinculadas}
+                        />
                     </Grid>
 
                     <Box component='section' paddingBottom={4}>
