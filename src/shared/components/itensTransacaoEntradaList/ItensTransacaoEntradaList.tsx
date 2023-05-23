@@ -211,7 +211,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                             fullWidth
                             placeholder='quantidade'
                             name='quant_com'
-                            initialValue={item.quant_com}
+                            initialValue={item.quantCom}
                         />
                     </Grid>
 
@@ -221,7 +221,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                             fullWidth
                             placeholder='unidade de compra'
                             name='und_com'
-                            initialValue={item.und_com}
+                            initialValue={item.undCom}
 
                         />
                     </Grid>
@@ -232,7 +232,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                             fullWidth
                             placeholder='valor unitário'
                             name='valor_unt_com'
-                            initialValue={item.valor_unt_com}
+                            initialValue={item.valorUntCom}
                         />
                     </Grid>
 
@@ -242,14 +242,14 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                             fullWidth
                             placeholder='IPI'
                             name='valor_ipi'
-                            initialValue={item.valor_ipi}
+                            initialValue={item.valorIpi}
                         />
                     </Grid>
 
                     <Grid item xs={2}>
                         <UAutoComplete
                             isExternalLoading={isLoading}
-                            initialSelectedIdValue={item.materiais_id}
+                            initialSelectedIdValue={item.idMaterial}
                             name='materiais_id'
                             service={MateriaisService}
                             label='Produtos/Insumos'

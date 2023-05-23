@@ -33,22 +33,22 @@ interface ISpringPageData {
 export interface IDetalhamentoMaterial {
     id: number;
     descricao: string;
-    valor_unt: number;
-    categorias_id: number;
+    valorUnt: number;
+    idCategoria: number;
     fornecedorasVinculadas: IFornecedorasVinculadas[]
 }
 
 export interface IFornecedorasVinculadas {
     id: number;
-    fornecedora_id: number;
+    idFornecedora: number;
     codProd: string;
 }
 
 export interface IMaterialFormData {
     id: number;
     descricao: string;
-    valor_unt: number;
-    categorias_id: number;
+    valorUnt: number;
+    idCategoria: number;
 }
 
 type TMateriaisComTotalCount = {

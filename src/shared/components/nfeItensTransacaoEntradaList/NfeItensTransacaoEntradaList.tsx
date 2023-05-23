@@ -7,21 +7,14 @@ import { ItensListTools } from '../itensListTools/ItensListTools';
 import * as yup from 'yup';
 import { MateriaisService } from '../../services/api/materiais/MateriaisService';
 
-
-
-interface IItensTransacaoEntradaProps {
-    isLoading: boolean;
-    initialItens: Array<IItemTransacaoEntrada>;
+export interface NfeItem extends IItemTransacaoEntrada {
+    xProd: string;
+    qtdeEstoque: number;
 }
 
-interface novoItem {
-    id?: number;
-    materiais_id?: number;
-    obs?: string;
-    quant_com?: number;
-    und_com?: string;
-    valor_ipi?: number;
-    valor_unt_com?: number;
+interface INfeItensTransacaoEntradaProps {
+    isLoading: boolean;
+    initialItens: Array<IItemTransacaoEntrada>;
 }
 
 const itemSchema: yup.ObjectSchema<IItemTransacaoEntrada> = yup.object().shape({
@@ -34,38 +27,15 @@ const itemSchema: yup.ObjectSchema<IItemTransacaoEntrada> = yup.object().shape({
     obs: yup.string(),
 });
 
-export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransacaoEntradaProps) => {
-    console.log('renderizou ItensTransacaoEntrada');
+export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensTransacaoEntradaProps) => {
+    console.log('renderizou NfeItensTransacaoEntrada');
 
-    const [itens, setItens] = useState(
-        [
-            {
-                id: Math.random(),
-                mat_nf: 'alcool',
-                materiais_id: undefined,
-                und_com: 'LT',
-                quant_com: 10.00,
-                valor_unt_com: 100.00,
-                valor_ipi: 0.00
-            },
-            {
-                id: Math.random(),
-                mat_nf: 'beca',
-                materiais_id: undefined,
-                und_com: 'LT',
-                quant_com: 10.00,
-                valor_unt_com: 100.00,
-                valor_ipi: 0.00
-            }
-        ]
-    );
+    const [itens, setItens] = useState(initialItens);
     const [erros, setErros] = useState<IUFormErros>({});
 
-
-
     useEffect(() => {
-        console.log('renderizou setItens useEffect ItensTransacaoEntrada');
-        
+        console.log('renderizou setItens useEffect NfeItensTransacaoEntrada');
+        setItens(initialItens);
     }, [initialItens]);
 
     const handleRemover = (id: number): void => {
@@ -92,7 +62,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTran
                             fullWidth
                             placeholder='material NF'
                             name='material_nf'
-                            initialValue={item.mat_nf}
+                            initialValue={item.xProd}
                             disabled
                         />
                     </Grid>
@@ -103,8 +73,8 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTran
                             fullWidth
                             placeholder='quantidade na nota Fiscal'
                             name='quant_com'
-                            initialValue={item.quant_com}
-                            endAdornment={item.und_com}
+                            initialValue={item.quantCom}
+                            endAdornment={item.undCom}
                             disabled
                         />
                     </Grid>
@@ -115,7 +85,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTran
                             fullWidth
                             placeholder='valor unitário'
                             name='valor_unt_com'
-                            initialValue={item.valor_unt_com}
+                            initialValue={item.valorUntCom}
                             disabled
                         />
                     </Grid>
@@ -126,7 +96,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTran
                             fullWidth
                             placeholder='IPI'
                             name='valor_ipi'
-                            initialValue={item.valor_ipi}
+                            initialValue={item.valorIpi}
                             disabled
                         />
                     </Grid>
@@ -144,7 +114,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTran
                     <Grid item xs={2}>
                         <UAutoComplete
                             isExternalLoading={isLoading}
-                            initialSelectedIdValue={item.materiais_id}
+                            initialSelectedIdValue={item.idMaterial}
                             name='materiais_id'
                             service={MateriaisService}
                             label='Produtos / Insumos'

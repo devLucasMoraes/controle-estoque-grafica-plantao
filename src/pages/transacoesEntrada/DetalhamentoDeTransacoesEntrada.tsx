@@ -117,7 +117,7 @@ export const DetalhamentoDeTransacoesEntrada = () => {
                             <Typography
                                 noWrap
                             >
-                                {transacoesEntrada?.data_emissao}
+                                {transacoesEntrada?.dataEmissao}
                             </Typography>
                         </Grid>
                     )}
@@ -133,7 +133,7 @@ export const DetalhamentoDeTransacoesEntrada = () => {
                             <Typography
                                 noWrap
                             >
-                                {transacoesEntrada?.data_recebimento}
+                                {transacoesEntrada?.dataRecebimento}
                             </Typography>
                         </Grid>
                     )}
@@ -149,7 +149,7 @@ export const DetalhamentoDeTransacoesEntrada = () => {
                             <Typography
                                 noWrap
                             >
-                                {transacoesEntrada?.valor_ipi_total}
+                                {transacoesEntrada?.valorIpiTotal}
                             </Typography>
                         </Grid>
                     )}
@@ -165,7 +165,7 @@ export const DetalhamentoDeTransacoesEntrada = () => {
                             <Typography
                                 noWrap
                             >
-                                {transacoesEntrada?.valor_total}
+                                {transacoesEntrada?.valorTotal}
                             </Typography>
                         </Grid>
                     )}
@@ -180,7 +180,7 @@ export const DetalhamentoDeTransacoesEntrada = () => {
                                 >
                                     Fornecedora
                                 </Typography>
-                                <UnderlineLinkFornecedores id={transacoesEntrada?.fornecedora_id} />
+                                <UnderlineLinkFornecedores id={transacoesEntrada?.idFornecedora} />
                             </Box>
                         </Grid>
                     )}
@@ -196,7 +196,7 @@ export const DetalhamentoDeTransacoesEntrada = () => {
                             <Typography
                                 noWrap
                             >
-                                {transacoesEntrada?.valor_frete}
+                                {transacoesEntrada?.valorFrete}
                             </Typography>
                         </Grid>
                     )}
@@ -211,7 +211,7 @@ export const DetalhamentoDeTransacoesEntrada = () => {
                                 >
                                     Transportadora
                                 </Typography>
-                                <UnderlineLinkTransportadoras id={transacoesEntrada?.transportadora_id} />
+                                <UnderlineLinkTransportadoras id={transacoesEntrada?.idTransportadora} />
                             </Box>
                         </Grid>
                     )}

@@ -33,16 +33,16 @@ interface ISpringPageData {
 
 export interface IDetalhamentoFornecedora {
     id: number;
-    nome_fantasia: string;
-    razao_social: string;
+    nomeFantasia: string;
+    razaoSocial: string;
     cnpj: string;
     fone: string;
 }
 
 export interface IFornecedorasFormData {
     id: number;
-    nome_fantasia: string;
-    razao_social: string;
+    nomeFantasia: string;
+    razaoSocial: string;
     cnpj: string;
     fone: string;
 }

@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { IUFormErros, UAutoComplete, UDatePicker, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
-import { CrudTools, ItensTransacaoEntrada, NfeItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
+import { CrudTools, ItensTransacaoEntrada, NfeItem, NfeItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 import { useFileHandler } from '../../shared/hooks/useFileHandler';
@@ -44,6 +44,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
     const formRef = useRef<FormHandles>(null);
 
     const [initialItens, setInitialItens] = useState<Array<IItemTransacaoEntrada>>([]);
+    const [initialNfeItens, setInitiaNfelItens] = useState<Array<IItemTransacaoEntrada>>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showNovaFornecedoraDialog, setShowNovaFornecedoraDialog] = useState(false);
     const [showNovaTransportadoraDialog, setShowNovaTransportadoraDialog] = useState(false);
@@ -98,7 +99,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                 });
         }
         if (id === 'new' && fileData) {
-            setInitialItens(fileData.itens);
+            setInitiaNfelItens(fileData.itens);
             formRef.current?.setData(fileData);
         }
     }, [id, fileData]);
@@ -246,8 +247,8 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={3}>
-                                <UAutoComplete 
-                                    isExternalLoading={isLoading} 
+                                <UAutoComplete
+                                    isExternalLoading={isLoading}
                                     service={FornecedorasService}
                                     label='Fornecedora'
                                     name='fornecedora_id'
@@ -265,7 +266,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Grid>
 
                             <Grid item xs={12} lg={3}>
-                                <UAutoComplete 
+                                <UAutoComplete
                                     isExternalLoading={isLoading}
                                     service={TransportadorasService}
                                     label='Transportadora'
@@ -290,10 +291,16 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Divider>
                         </Grid>
 
-                        <ItensTransacaoEntrada
-                            isLoading={isLoading}
-                            initialItens={initialItens}
-                        />
+                        {fileData ? 
+                            (<NfeItensTransacaoEntrada
+                                isLoading={isLoading}
+                                initialItens={initialNfeItens}
+                            />) : 
+                            (<ItensTransacaoEntrada
+                                isLoading={isLoading}
+                                initialItens={initialItens}
+                            />) 
+                        }
 
                     </Grid>
 

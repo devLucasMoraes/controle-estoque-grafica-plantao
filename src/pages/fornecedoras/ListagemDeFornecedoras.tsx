@@ -114,13 +114,13 @@ export const ListagemDeFornecedoras = () => {
             ]
         },
         {
-            field: 'nome_fantasia',
+            field: 'nomeFantasia',
             headerName: 'Nome fantasia',
             minWidth: 155,
             flex: 0.3
         },
         {
-            field: 'razao_social',
+            field: 'razaoSocial',
             headerName: 'Razão social',
             minWidth: 220,
             flex: 0.2

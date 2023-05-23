@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
@@ -33,16 +32,16 @@ interface ISpringPageData {
 
 export interface IDetalhamentoTransportadora {
     id: number;
-    nome_fantasia: string;
-    razao_social: string;
+    nomeFantasia: string;
+    razaoSocial: string;
     cnpj: string;
     fone: string;
 }
 
 export interface ITransportadoraFormData {
     id: number;
-    nome_fantasia: string;
-    razao_social: string;
+    nomeFantasia: string;
+    razaoSocial: string;
     cnpj: string;
     fone: string;
 }

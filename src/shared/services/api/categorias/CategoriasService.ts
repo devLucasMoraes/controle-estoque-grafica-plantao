@@ -33,15 +33,15 @@ interface ISpringPageData {
 export interface IDetalhamentoCategoria {
     id: number;
     nome: string;
-    und_padrao: string;
-    estoque_minimo: number;
+    undPadrao: string;
+    estoqueMinimo: number;
 }
 
 export interface ICategoriaFormData {
     id: number;
     nome: string;
-    und_padrao: string;
-    estoque_minimo: number;
+    undPadrao: string;
+    estoqueMinimo: number;
 }
 
 type TCategoriasComTotalCount = {

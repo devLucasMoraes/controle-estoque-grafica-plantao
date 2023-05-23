@@ -65,7 +65,7 @@ export interface INfeProc {
                 };
                 det: {
                     prod: {
-                        cProd: number;
+                        cProd: string;
                         cEAN: number;
                         xProd: string;
                         NCM: number;

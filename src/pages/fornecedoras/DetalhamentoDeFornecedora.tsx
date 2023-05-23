@@ -98,7 +98,7 @@ export const DetalhamentoDeFornecedora = () => {
                             <Typography
                                 noWrap
                             >
-                                {fornecedora?.nome_fantasia}
+                                {fornecedora?.nomeFantasia}
                             </Typography>
                         </Grid>
                     )}
@@ -114,7 +114,7 @@ export const DetalhamentoDeFornecedora = () => {
                             <Typography
                                 noWrap
                             >
-                                {fornecedora?.razao_social}
+                                {fornecedora?.razaoSocial}
                             </Typography>
                         </Grid>
                     )}

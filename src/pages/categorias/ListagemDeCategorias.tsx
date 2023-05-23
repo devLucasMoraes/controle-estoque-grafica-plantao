@@ -123,13 +123,13 @@ export const ListagemDeCategorias = () => {
             flex: 0.3
         },
         {
-            field: 'estoque_minimo',
+            field: 'estoqueMinimo',
             headerName: 'Estoque minimo',
             minWidth: 155,
             flex: 0.1
         },
         {
-            field: 'und_padrao',
+            field: 'undPadrao',
             headerName: 'Unidade de medida',
             minWidth: 220,
             flex: 0.2

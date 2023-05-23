@@ -121,18 +121,18 @@ export const ListagemDeMateriais = () => {
             flex: 0.3
         },
         {
-            field: 'valor_unt',
+            field: 'valorUnt',
             headerName: 'Valor unitario',
             minWidth: 155,
             flex: 0.3
         },
         {
-            field: 'categorias_id',
+            field: 'idCategoria',
             headerName: 'Categoria',
             minWidth: 220,
             flex: 0.2,
             renderCell: (params) => (
-                <UnderlineLinkCategoria id={params.row.categorias_id} />
+                <UnderlineLinkCategoria id={params.row.idCategoria} />
             )
         }
     ], [handleDelete]);

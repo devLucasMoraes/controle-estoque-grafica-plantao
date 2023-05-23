@@ -12,8 +12,8 @@ import { CategoriasService, ICategoriaFormData } from '../../shared/services/api
 
 const formValidationSchema: yup.ObjectSchema<Omit<ICategoriaFormData, 'id'>> = yup.object().shape({
     nome: yup.string().required(),
-    und_padrao: yup.string().required(),
-    estoque_minimo: yup.number().required(),
+    undPadrao: yup.string().required(),
+    estoqueMinimo: yup.number().required(),
 });
 
 export const EdicaoOuCriacaoDeCategoria = () => {
@@ -136,7 +136,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                                 label='Unidade de medida'
                                 fullWidth
                                 placeholder='unidade de medida'
-                                name='und_padrao'
+                                name='undPadrao'
                             />
                         </Grid>
 
@@ -145,7 +145,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                                 label='Estoque minimo'
                                 fullWidth
                                 placeholder='estoque minimo'
-                                name='estoque_minimo'
+                                name='estoqueMinimo'
                             />
                         </Grid>
 

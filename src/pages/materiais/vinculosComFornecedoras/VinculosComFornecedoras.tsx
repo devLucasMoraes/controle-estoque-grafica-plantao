@@ -13,7 +13,7 @@ interface IVinculosComFornecedorasProps {
 
 const itemSchema: yup.ObjectSchema<IFornecedorasVinculadas> = yup.object().shape({
     id: yup.number().required(),
-    fornecedora_id: yup.number().required(),
+    idFornecedora: yup.number().required(),
     codProd: yup.string().required(),
 });
 
@@ -34,7 +34,7 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
     function handleAdicionar(): void {
         const novoItem = {
             id: Math.random() - 1,
-            fornecedora_id: idFornecedoraRef.current?.selectedId ,
+            idFornecedora: idFornecedoraRef.current?.selectedId,
             codProd: codProdRef.current?.value,
         };
         itemSchema
@@ -57,7 +57,7 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
                     validationErrors[error.path] = error.message;
                 });
                 setErros(validationErrors);
-                idFornecedoraRef.current?.setComponentErrors(validationErrors['fornecedora_id']);
+                idFornecedoraRef.current?.setComponentErrors(validationErrors['idFornecedora']);
                 console.log(validationErrors);
             });
         console.log(novoItem);
@@ -82,10 +82,10 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
             <Grid item xs={6}>
                 <AutoCompeteForwardRef
                     ref={idFornecedoraRef}
-                    error={erros['fornecedora_id']}
+                    error={erros['idFornecedora']}
                     label='Fornecedora'
                     service={FornecedorasService}
-                    optionLabel='nome_fantasia'
+                    optionLabel='nomeFantasia'
                 />
             </Grid>
 
@@ -118,11 +118,11 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
 
                     <Grid item xs={6}>
                         <UAutoComplete
-                            name='fornecedora_id'
+                            name='idFornecedora'
                             service={FornecedorasService}
                             label='Fornecedora'
-                            optionLabel='nome_fantasia'
-                            initialSelectedIdValue={item.fornecedora_id}
+                            optionLabel='nomeFantasia'
+                            initialSelectedIdValue={item.idFornecedora}
                         />
                     </Grid>
 

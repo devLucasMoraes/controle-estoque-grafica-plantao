@@ -121,7 +121,7 @@ export const DetalhamentoDeMaterial = () => {
                             <Typography
                                 noWrap
                             >
-                                {materiais?.valor_unt}
+                                {materiais?.valorUnt}
                             </Typography>
                         </Grid>
 
@@ -138,7 +138,7 @@ export const DetalhamentoDeMaterial = () => {
                                     Categoria
                                 </Typography>
                                 <UnderlineLink
-                                    id={materiais.categorias_id}
+                                    id={materiais.idCategoria}
                                     service={CategoriasService}
                                     nameProperty='nome'
                                     linkPath='/categorias/records/show/:id'
@@ -159,9 +159,9 @@ export const DetalhamentoDeMaterial = () => {
                         {materiais?.fornecedorasVinculadas.map((vinculo) => (
                             <Grid item key={vinculo.id} direction='row' display='flex' gap={1}>
                                 <UnderlineLink 
-                                    id={vinculo.fornecedora_id}
+                                    id={vinculo.idFornecedora}
                                     service={FornecedorasService}
-                                    nameProperty='nome_fantasia'
+                                    nameProperty='nomeFantasia'
                                     linkPath='/fornecedoras/records/show/:id'
                                 />
 

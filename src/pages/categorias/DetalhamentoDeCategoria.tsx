@@ -118,7 +118,7 @@ export const DetalhamentoDeCategoria = () => {
                             <Typography
                                 noWrap
                             >
-                                {categoria?.und_padrao}
+                                {categoria?.undPadrao}
                             </Typography>
                         </Grid>
                     )}
@@ -134,7 +134,7 @@ export const DetalhamentoDeCategoria = () => {
                             <Typography
                                 noWrap
                             >
-                                {categoria?.estoque_minimo}
+                                {categoria?.estoqueMinimo}
                             </Typography>
                         </Grid>
                     )}

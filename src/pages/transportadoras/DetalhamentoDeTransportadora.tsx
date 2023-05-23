@@ -100,7 +100,7 @@ export const DetalhamentoDeTransportadora = () => {
                             <Typography
                                 noWrap
                             >
-                                {transportadora?.nome_fantasia}
+                                {transportadora?.nomeFantasia}
                             </Typography>
                         </Grid>
                     )}
@@ -116,7 +116,7 @@ export const DetalhamentoDeTransportadora = () => {
                             <Typography
                                 noWrap
                             >
-                                {transportadora?.razao_social}
+                                {transportadora?.razaoSocial}
                             </Typography>
                         </Grid>
                     )}

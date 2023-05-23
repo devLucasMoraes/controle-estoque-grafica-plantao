@@ -22,7 +22,7 @@ export const UnderlineLinkFornecedores = ({ id }: IUnderlineLinkUserProps) => {
                 if (result instanceof Error) {
                     alert(result.message);
                 } else {
-                    setName(result.nome_fantasia);
+                    setName(result.nomeFantasia);
                 }
             });
     }, [id]);

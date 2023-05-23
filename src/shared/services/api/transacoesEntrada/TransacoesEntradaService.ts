@@ -33,38 +33,40 @@ interface ISpringPageData {
 export interface IDetalhamentoTransacoesEntrada {
     id: number;
     nfe: string;
-    data_emissao: string;
-    data_recebimento: string;
-    valor_total: number;
-    valor_frete: number;
-    valor_ipi_total: number;
+    dataEmissao: string;
+    dataRecebimento: string;
+    valorTotal: number;
+    valorFrete: number;
+    valorIpiTotal: number;
     obs: string;
-    transportadora_id: number;
-    fornecedora_id: number;
+    idTransportadora: number;
+    idFornecedora: number;
     itens: Array<IItemTransacaoEntrada>
 }
 
 export interface IItemTransacaoEntrada {
     id: number
-    materiais_id: number
-    und_com: string
-    quant_com: number
-    valor_unt_com: number
-    valor_ipi: number
+    idMaterial: number
+    undCom: string
+    quantCom: number
+    valorUntCom: number
+    valorIpi: number
+    xProd?: string;
+    qtdeEstoque?: number;
     obs?: string
 }
 
 export interface ITransacoesEntradaFormData {
     id: number;
     nfe: string;
-    data_emissao: string;
-    data_recebimento: string;
-    valor_total: number;
-    valor_frete: number;
-    valor_ipi_total: number;
+    dataEmissao: string;
+    dataRecebimento: string;
+    valorTotal: number;
+    valorFrete: number;
+    valorIpiTotal: number;
     obs?: string;
-    transportadora_id: number;
-    fornecedora_id: number;
+    idTransportadora: number;
+    idFornecedora: number;
     itens: Array<Omit<IItemTransacaoEntrada, 'id'>>
 }
 

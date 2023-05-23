@@ -6,11 +6,12 @@ import { IFornecedorasFormData } from '../services/api/fornecedoras/Fornecedoras
 import { ITransportadoraFormData } from '../services/api/transportadoras/TransportadorasService';
 
 type GetIdporCnpjFunc = (cnpj: string) => Promise<number | undefined>;
+type GetIdporCodProdFunc = (codProd: string) => Promise<number | undefined>;
 
-export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTransportadoraNfeId: GetIdporCnpjFunc) => {
+export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTransportadoraNfeId: GetIdporCnpjFunc, getMaterialNfeId: GetIdporCodProdFunc) => {
     const [fileData, setFileData] = useState<IDetalhamentoTransacoesEntrada>();
-    const [fornecedoraFileData, setFornecedoraFileData] = useState <Omit<IFornecedorasFormData, 'id'>>();
-    const [transportadoraFileData, setTransportadoraFileData] = useState <Omit<ITransportadoraFormData, 'id'>>();
+    const [fornecedoraFileData, setFornecedoraFileData] = useState<Omit<IFornecedorasFormData, 'id'>>();
+    const [transportadoraFileData, setTransportadoraFileData] = useState<Omit<ITransportadoraFormData, 'id'>>();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,43 +41,50 @@ export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTranspo
 
             const fornecedoraImportData: Omit<IFornecedorasFormData, 'id'> = {
                 cnpj: fornecedoraNfe.CNPJ,
-                nome_fantasia: fornecedoraNfe.xFant,
-                razao_social: fornecedoraNfe.xNome,
+                nomeFantasia: fornecedoraNfe.xFant,
+                razaoSocial: fornecedoraNfe.xNome,
                 fone: fornecedoraNfe.enderEmit.fone.toString()
             };
             setFornecedoraFileData(fornecedoraImportData);
 
             const transportadoraImportData: Omit<IFornecedorasFormData, 'id'> = {
                 cnpj: transportadoraNfe.CNPJ,
-                nome_fantasia: '',
-                razao_social: transportadoraNfe.xNome,
+                nomeFantasia: '',
+                razaoSocial: transportadoraNfe.xNome,
                 fone: ''
             };
             setTransportadoraFileData(transportadoraImportData);
 
-            const transportadoraId = await getTransportadoraNfeId(transportadoraNfe.CNPJ) ?? 0;
-            const fornecedoraId = await getFornecedoraNfeId(fornecedoraNfe.CNPJ) ?? 0;
+            const idTransportadora = await getTransportadoraNfeId(transportadoraNfe.CNPJ) ?? -1;
+            const idFornecedora = await getFornecedoraNfeId(fornecedoraNfe.CNPJ) ?? -1;
+
 
             const xmlImportData: IDetalhamentoTransacoesEntrada = {
                 id: Math.random(),
                 nfe: chaveNfe,
-                data_emissao: dataEmissaoNfe,
-                data_recebimento: '',
-                valor_total: totaisNfe.ICMSTot.vNF,
-                valor_frete: totaisNfe.ICMSTot.vFrete,
-                valor_ipi_total: totaisNfe.ICMSTot.vIPI,
+                dataEmissao: dataEmissaoNfe,
+                dataRecebimento: '',
+                valorTotal: totaisNfe.ICMSTot.vNF,
+                valorFrete: totaisNfe.ICMSTot.vFrete,
+                valorIpiTotal: totaisNfe.ICMSTot.vIPI,
                 obs: '',
-                transportadora_id: transportadoraId,
-                fornecedora_id: fornecedoraId,
-                itens: itensNfe.map((item) => ({
-                    id: Math.random(),
-                    materiais_id: 1,
-                    und_com: item.prod.uCom,
-                    quant_com: item.prod.qCom,
-                    valor_unt_com: item.prod.vUnCom,
-                    valor_ipi: item.imposto.IPI.IPITrib?.vIPI ?? 0
-                }))
+                idTransportadora: idTransportadora,
+                idFornecedora: idFornecedora,
+                itens: []
             };
+
+            itensNfe.map(async (item) => (
+                xmlImportData.itens.push({
+                    id: Math.random(),
+                    xProd: item.prod.xProd,
+                    qtdeEstoque: 0,
+                    idMaterial: await getMaterialNfeId(item.prod.cProd) ?? -1,
+                    undCom: item.prod.uCom,
+                    quantCom: item.prod.qCom,
+                    valorUntCom: item.prod.vUnCom,
+                    valorIpi: item.imposto.IPI.IPITrib?.vIPI ?? 0
+                })
+            ));
 
             setFileData(xmlImportData);
         };
@@ -95,7 +103,7 @@ export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTranspo
                 fileInput.removeEventListener('change', handleChange);
             };
         }
-    }, []);
+    }, [fileInputRef]);
 
     return {
         fileData,

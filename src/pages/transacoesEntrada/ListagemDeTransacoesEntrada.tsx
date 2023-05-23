@@ -141,7 +141,7 @@ export const ListagemDeTransacoesEntrada = () => {
             minWidth: 220,
             flex: 0.2,
             renderCell: (params) => (
-                <UnderlineLinkFornecedores id={params.row.fornecedora_id} />
+                <UnderlineLinkFornecedores id={params.row.idFornecedora} />
             )
         },
         {
@@ -156,7 +156,7 @@ export const ListagemDeTransacoesEntrada = () => {
             minWidth: 220,
             flex: 0.2,
             renderCell: (params) => (
-                <UnderlineLinkTransportadoras id={params.row.transportadora_id} />
+                <UnderlineLinkTransportadoras id={params.row.idTransportadora} />
             )
         }
     ], [handleDelete]);

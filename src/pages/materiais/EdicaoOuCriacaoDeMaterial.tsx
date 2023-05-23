@@ -14,8 +14,8 @@ import { CategoriasService } from '../../shared/services/api/categorias/Categori
 
 const formValidationSchema: yup.ObjectSchema<Omit<IMaterialFormData, 'id'>> = yup.object().shape({
     descricao: yup.string().required(),
-    categorias_id: yup.number().required(),
-    valor_unt: yup.number().required(),
+    idCategoria: yup.number().required(),
+    valorUnt: yup.number().required(),
 });
 
 export const EdicaoOuCriacaoDeMaterial = () => {
@@ -54,6 +54,7 @@ export const EdicaoOuCriacaoDeMaterial = () => {
     const handleSave = (dados: Omit<IMaterialFormData, 'id'>) => {
         console.log('renderizou handleSave EditarMateriais');
         console.log(dados);
+        console.log(id);
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -146,14 +147,14 @@ export const EdicaoOuCriacaoDeMaterial = () => {
                                     label='Valor unitário'
                                     fullWidth
                                     placeholder='valor unitário'
-                                    name='valor_unt'
+                                    name='valorUnt'
                                 />
                             </Grid>
 
                             <Grid item xs={12} lg={4}>
                                 <UAutoComplete
                                     isExternalLoading={isLoading}
-                                    name='categorias_id'
+                                    name='idCategoria'
                                     service={CategoriasService}
                                     label='Categoria'
                                     optionLabel='nome'
