@@ -27,12 +27,14 @@ interface novoItem {
 
 const itemSchema: yup.ObjectSchema<IItemTransacaoEntrada> = yup.object().shape({
     id: yup.number().required(),
-    materiais_id: yup.number().required(),
-    und_com: yup.string().required(),
-    quant_com: yup.number().required(),
-    valor_unt_com: yup.number().required(),
-    valor_ipi: yup.number().required(),
+    idMaterial: yup.number().required(),
+    undCom: yup.string().required(),
+    quantCom: yup.number().required(),
+    valorUntCom: yup.number().required(),
+    valorIpi: yup.number().required(),
     obs: yup.string(),
+    xProd: yup.string(),
+    qtdeEstoque: yup.number()
 });
 
 export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransacaoEntradaProps) => {

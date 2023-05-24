@@ -91,6 +91,21 @@ const getById = async (id: number): Promise<IDetalhamentoMaterial | Error> => {
     }
 };
 
+const getByCodProd = async (codProd: string): Promise<IDetalhamentoMaterial | Error> => {
+    try {
+        const { data } = await Api.get(`/materiais/search/cod_prod/${codProd}`);
+
+        if (data) {
+            return data;
+        }
+
+        return new Error('Erro ao consutar o registro.');
+    } catch (error) {
+        console.error(error);
+        return new Error((error as { message: string }).message || 'Erro ao consutar o registro.');
+    }
+};
+
 const create = async (dados: Omit<IMaterialFormData, 'id'>): Promise<number | Error> => {
     try {
         const { data } = await Api.post<IMaterialFormData>('/materiais', dados);
@@ -127,6 +142,7 @@ const deleteById = async (id: number): Promise<void | Error> => {
 export const MateriaisService = {
     getAll,
     getById,
+    getByCodProd,
     create,
     updateById,
     deleteById

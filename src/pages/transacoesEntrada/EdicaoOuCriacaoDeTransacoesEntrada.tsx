@@ -7,30 +7,34 @@ import * as yup from 'yup';
 import { IUFormErros, UAutoComplete, UDatePicker, UTextField } from '../../shared/forms';
 import { LayoutBaseDaPagina } from '../../shared/layouts';
 import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaService } from '../../shared/services/api/transacoesEntrada/TransacoesEntradaService';
-import { CrudTools, ItensTransacaoEntrada, NfeItem, NfeItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
+import { CrudTools, ItensTransacaoEntrada, NfeItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 import { useFileHandler } from '../../shared/hooks/useFileHandler';
+import { MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
+import { error } from 'console';
 
 const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.object().shape({
-    materiais_id: yup.number().required(),
-    und_com: yup.string().required(),
-    quant_com: yup.number().required(),
-    valor_unt_com: yup.number().required(),
-    valor_ipi: yup.number().required(),
+    idMaterial: yup.number().required(),
+    undCom: yup.string().required(),
+    quantCom: yup.number().required(),
+    valorUntCom: yup.number().required(),
+    valorIpi: yup.number().required(),
     obs: yup.string(),
+    xProd: yup.string(),
+    qtdeEstoque: yup.number(),
 });
 
 const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'id'>> = yup.object().shape({
     nfe: yup.string().required(),
-    data_emissao: yup.string().required(),
-    data_recebimento: yup.string().required(),
-    valor_total: yup.number().required(),
-    valor_frete: yup.number().required(),
-    valor_ipi_total: yup.number().required(),
+    dataEmissao: yup.string().required(),
+    dataRecebimento: yup.string().required(),
+    valorTotal: yup.number().required(),
+    valorFrete: yup.number().required(),
+    valorIpiTotal: yup.number().required(),
     obs: yup.string(),
-    transportadora_id: yup.number().required(),
-    fornecedora_id: yup.number().required(),
+    idTransportadora: yup.number().required(),
+    idFornecedora: yup.number().required(),
     itens: new yup.ArraySchema(itemSchema).required()
 });
 
@@ -79,7 +83,22 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
         }
     };
 
-    const { fileData, handleFileChange, fornecedoraFileData, transportadoraFileData } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId);
+    const getMaterialNfeId = async (codProd: string): Promise<number | undefined> => {
+        try {
+            const result = await MateriaisService.getByCodProd(codProd);
+            console.log(codProd);
+            if (result instanceof Error) {
+                alert(result.message);
+            } else {
+                return result.id;
+            }
+        } catch (error) {
+            alert('Aconteceu um erro desconhecido');
+            throw error;
+        }
+    };
+
+    const { fileData, handleFileChange, fornecedoraFileData, transportadoraFileData } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId, getMaterialNfeId);
 
     useEffect(() => {
         console.log('renderizou useEffect EdicaoOuCriacaoDeTransacoesEntrada');
@@ -215,14 +234,14 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             <Grid item xs={12} lg={2}>
                                 <UDatePicker
                                     label='Data de emissao da nota'
-                                    name='data_emissao'
+                                    name='dataEmissao'
                                 />
                             </Grid>
 
                             <Grid item xs={12} lg={2}>
                                 <UDatePicker
                                     label='Recebido em'
-                                    name='data_recebimento'
+                                    name='dataRecebimento'
                                 />
                             </Grid>
                         </Grid>
@@ -233,7 +252,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                                     label='Valor total IPI'
                                     fullWidth
                                     placeholder='valor total IPI'
-                                    name='valor_ipi_total'
+                                    name='valorIpiTotal'
                                 />
                             </Grid>
 
@@ -242,7 +261,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                                     label='Valor total da nota'
                                     fullWidth
                                     placeholder='valor total da nota'
-                                    name='valor_total'
+                                    name='valorTotal'
                                 />
                             </Grid>
 
@@ -251,8 +270,8 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                                     isExternalLoading={isLoading}
                                     service={FornecedorasService}
                                     label='Fornecedora'
-                                    name='fornecedora_id'
-                                    optionLabel='nome_fantasia'
+                                    name='idFornecedora'
+                                    optionLabel='nomeFantasia'
                                 />
                             </Grid>
 
@@ -261,7 +280,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                                     label='Valor do frete'
                                     fullWidth
                                     placeholder='valor do frete'
-                                    name='valor_frete'
+                                    name='valorFrete'
                                 />
                             </Grid>
 
@@ -270,8 +289,8 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                                     isExternalLoading={isLoading}
                                     service={TransportadorasService}
                                     label='Transportadora'
-                                    name='transportadora_id'
-                                    optionLabel='nome_fantasia'
+                                    name='idTransportdora'
+                                    optionLabel='nomeFantasia'
                                 />
                             </Grid>
 

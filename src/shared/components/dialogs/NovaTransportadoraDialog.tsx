@@ -8,8 +8,8 @@ import { FormHandles } from '@unform/core';
 import { ITransportadoraFormData, TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
 
 const formValidationSchema: yup.ObjectSchema<Omit<ITransportadoraFormData, 'id'>> = yup.object().shape({
-    nome_fantasia: yup.string().required(),
-    razao_social: yup.string().required(),
+    nomeFantasia: yup.string().required(),
+    razaoSocial: yup.string().required(),
     cnpj: yup.string().required(),
     fone: yup.string().required(),
 });
@@ -69,7 +69,7 @@ export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportado
                                     label='Nome'
                                     fullWidth
                                     placeholder='Nome'
-                                    name='nome_fantasia'
+                                    name='nomeFantasia'
                                 />
                             </Grid>
 
@@ -78,7 +78,7 @@ export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportado
                                     label='Razão social'
                                     fullWidth
                                     placeholder='razão social'
-                                    name='razao_social'
+                                    name='razaoSocial'
                                 />
                             </Grid>
 
