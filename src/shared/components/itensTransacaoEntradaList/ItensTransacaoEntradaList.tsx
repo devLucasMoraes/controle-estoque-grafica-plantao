@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { IItemTransacaoEntrada } from '../../services/api/transacoesEntrada/TransacoesEntradaService';
 import { IUFormErros, UAutoComplete, UId, UTextField } from '../../forms';
 import { ItensListTools } from '../itensListTools/ItensListTools';
-import { AutoCompeteForwardRef, AutoCompleteSelectedId } from '../autoCompeteForwardRef/AutoCompeteForwardRef';
+import { AutoCompeteForwardRef, IAutoCompleteForwardRef } from '../autoCompeteForwardRef/AutoCompeteForwardRef';
 import { MateriaisService } from '../../services/api/materiais/MateriaisService';
 
 
@@ -43,7 +43,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
     const [itens, setItens] = useState<Array<IItemTransacaoEntrada>>(initialItens);
     const [erros, setErros] = useState<IUFormErros>({});
     const obsRef = useRef<HTMLInputElement>(null);
-    const idMaterialRef = useRef<AutoCompleteSelectedId>(null);
+    const idMaterialRef = useRef<IAutoCompleteForwardRef>(null);
     const valorIpiRef = useRef<HTMLInputElement>(null);
     const valorUntComRef = useRef<HTMLInputElement>(null);
     const undComRef = useRef<HTMLInputElement>(null);

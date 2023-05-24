@@ -20,7 +20,7 @@ interface IAutoCompeteForwardRefProps {
     optionLabel: string; // Nome da chave do objeto de opção para exibição do rótulo
 }
 
-export interface AutoCompleteSelectedId {
+export interface IAutoCompleteForwardRef {
     selectedId: number;
     setSelectedIdUndefined: () => void;
     setComponentErrors: (error: string) => void;

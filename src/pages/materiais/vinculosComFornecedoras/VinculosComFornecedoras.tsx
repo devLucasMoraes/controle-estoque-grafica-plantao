@@ -1,7 +1,7 @@
 import { Grid, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
-import { AutoCompeteForwardRef, AutoCompleteSelectedId, ItensListTools } from '../../../shared/components';
+import { AutoCompeteForwardRef, IAutoCompleteForwardRef, ItensListTools } from '../../../shared/components';
 import { IUFormErros, UAutoComplete, UId, UTextField } from '../../../shared/forms';
 import { FornecedorasService } from '../../../shared/services/api/fornecedoras/FornecedorasService';
 import { Scope } from '@unform/core';
@@ -20,7 +20,7 @@ const itemSchema: yup.ObjectSchema<IFornecedorasVinculadas> = yup.object().shape
 export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedorasProps) => {
 
 
-    const idFornecedoraRef = useRef<AutoCompleteSelectedId>(null);
+    const idFornecedoraRef = useRef<IAutoCompleteForwardRef>(null);
     const codProdRef = useRef<HTMLInputElement>(null);
 
     const [fornecedorasVinculadas, setFornecedorasVinculadas] = useState<Array<IFornecedorasVinculadas>>(initialValues);

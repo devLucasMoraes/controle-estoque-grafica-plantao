@@ -12,7 +12,6 @@ import { TransportadorasService } from '../../shared/services/api/transportadora
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
 import { useFileHandler } from '../../shared/hooks/useFileHandler';
 import { MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
-import { error } from 'console';
 
 const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.object().shape({
     idMaterial: yup.number().required(),
