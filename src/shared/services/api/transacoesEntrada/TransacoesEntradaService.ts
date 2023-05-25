@@ -39,14 +39,14 @@ export interface IDetalhamentoTransacoesEntrada {
     valorFrete: number;
     valorIpiTotal: number;
     obs: string;
-    idTransportadora: number;
-    idFornecedora: number;
+    idTransportadora?: number;
+    idFornecedora?: number;
     itens: Array<IItemTransacaoEntrada>
 }
 
 export interface IItemTransacaoEntrada {
     id: number
-    idMaterial: number
+    idMaterial?: number
     undCom: string
     quantCom: number
     valorUntCom: number

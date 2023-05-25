@@ -17,15 +17,6 @@ interface INfeItensTransacaoEntradaProps {
     initialItens: Array<IItemTransacaoEntrada>;
 }
 
-const itemSchema: yup.ObjectSchema<IItemTransacaoEntrada> = yup.object().shape({
-    id: yup.number().required(),
-    materiais_id: yup.number().required(),
-    und_com: yup.string().required(),
-    quant_com: yup.number().required(),
-    valor_unt_com: yup.number().required(),
-    valor_ipi: yup.number().required(),
-    obs: yup.string(),
-});
 
 export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensTransacaoEntradaProps) => {
     console.log('renderizou NfeItensTransacaoEntrada');
@@ -61,7 +52,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
                             label='Material NF'
                             fullWidth
                             placeholder='material NF'
-                            name='material_nf'
+                            name='xProd'
                             initialValue={item.xProd}
                             disabled
                         />
@@ -72,7 +63,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
                             label='Qtde NF'
                             fullWidth
                             placeholder='quantidade na nota Fiscal'
-                            name='quant_com'
+                            name='quantCom'
                             initialValue={item.quantCom}
                             endAdornment={item.undCom}
                             disabled
@@ -84,7 +75,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
                             label='Valor unitário NF'
                             fullWidth
                             placeholder='valor unitário'
-                            name='valor_unt_com'
+                            name='valorUntCom'
                             initialValue={item.valorUntCom}
                             disabled
                         />
@@ -95,7 +86,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
                             label='IPI'
                             fullWidth
                             placeholder='IPI'
-                            name='valor_ipi'
+                            name='valorIpi'
                             initialValue={item.valorIpi}
                             disabled
                         />
@@ -106,7 +97,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
                             label='Qtde Estoque'
                             fullWidth
                             placeholder='quantidade no estoque'
-                            name='quant_com'
+                            name='quantCom'
 
                         />
                     </Grid>
@@ -115,7 +106,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
                         <UAutoComplete
                             isExternalLoading={isLoading}
                             initialSelectedIdValue={item.idMaterial}
-                            name='materiais_id'
+                            name='idMaterial'
                             service={MateriaisService}
                             label='Produtos / Insumos'
                             optionLabel='descricao'

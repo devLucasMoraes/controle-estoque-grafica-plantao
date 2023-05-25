@@ -45,7 +45,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
     }, [id]);
 
     const handleSave = (dados: Omit<ICategoriaFormData, 'id'>) => {
-        console.log('renderizou handleSave EdicaoOuCriacaoDeCategoria');
+        console.log(dados);
         formValidationSchema
             .validate(dados, { abortEarly: false })
             .then(dadosValidados => {
@@ -137,6 +137,7 @@ export const EdicaoOuCriacaoDeCategoria = () => {
                                 fullWidth
                                 placeholder='unidade de medida'
                                 name='undPadrao'
+                                select
                             />
                         </Grid>
 

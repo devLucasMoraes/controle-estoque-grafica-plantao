@@ -55,8 +55,8 @@ export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTranspo
             };
             setTransportadoraFileData(transportadoraImportData);
 
-            const idTransportadora = await getTransportadoraNfeId(transportadoraNfe.CNPJ) ?? -1;
-            const idFornecedora = await getFornecedoraNfeId(fornecedoraNfe.CNPJ) ?? -1;
+            const idTransportadora = await getTransportadoraNfeId(transportadoraNfe.CNPJ);
+            const idFornecedora = await getFornecedoraNfeId(fornecedoraNfe.CNPJ);
 
 
             const xmlImportData: IDetalhamentoTransacoesEntrada = {
@@ -78,7 +78,7 @@ export const useFileHandler = (getFornecedoraNfeId: GetIdporCnpjFunc, getTranspo
                     id: Math.random(),
                     xProd: item.prod.xProd,
                     qtdeEstoque: 0,
-                    idMaterial: await getMaterialNfeId(item.prod.cProd) ?? -1,
+                    idMaterial: await getMaterialNfeId(item.prod.cProd),
                     undCom: item.prod.uCom,
                     quantCom: item.prod.qCom,
                     valorUntCom: item.prod.vUnCom,

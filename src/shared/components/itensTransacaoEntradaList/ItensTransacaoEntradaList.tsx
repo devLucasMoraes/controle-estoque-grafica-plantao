@@ -15,16 +15,6 @@ interface IItensTransacaoEntradaProps {
     initialItens: Array<IItemTransacaoEntrada>;
 }
 
-interface novoItem {
-    id?: number;
-    materiais_id?: number;
-    obs?: string;
-    quant_com?: number;
-    und_com?: string;
-    valor_ipi?: number;
-    valor_unt_com?: number;
-}
-
 const itemSchema: yup.ObjectSchema<IItemTransacaoEntrada> = yup.object().shape({
     id: yup.number().required(),
     idMaterial: yup.number().required(),
@@ -67,14 +57,13 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
     };
 
     const handleAdicionar = (): void => {
-        const novoItem: novoItem = {
+        const novoItem = {
             id: Math.random(),
-            materiais_id: idMaterialRef.current?.selectedId,
-            obs: obsRef.current?.value,
-            quant_com: Number(quantComRef.current?.value == '' ? 'undefined' : quantComRef.current?.value),
-            und_com: undComRef.current?.value,
-            valor_ipi: Number(valorIpiRef.current?.value == '' ? 'undefined' : valorIpiRef.current?.value),
-            valor_unt_com: Number(valorUntComRef.current?.value == '' ? 'undefined' : valorUntComRef.current?.value)
+            idMaterial: idMaterialRef.current?.selectedId,
+            quantCom: Number(quantComRef.current?.value == '' ? 'undefined' : quantComRef.current?.value),
+            undCom: undComRef.current?.value,
+            valorIpi: Number(valorIpiRef.current?.value == '' ? 'undefined' : valorIpiRef.current?.value),
+            valorUntCom: Number(valorUntComRef.current?.value == '' ? 'undefined' : valorUntComRef.current?.value)
         };
         console.log(novoItem);
         itemSchema
@@ -121,9 +110,9 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='quantidade'
                     inputRef={quantComRef}
-                    helperText={erros['quant_com']}
-                    error={!!erros['quant_com']}
-                    onFocus={() => handleInputFocus('quant_com')}
+                    helperText={erros['quantCom']}
+                    error={!!erros['quantCom']}
+                    onFocus={() => handleInputFocus('quantCom')}
                     size='small'
                 />
             </Grid>
@@ -134,9 +123,9 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='unidade de compra'
                     inputRef={undComRef}
-                    helperText={erros['und_com']}
-                    error={!!erros['und_com']}
-                    onFocus={() => handleInputFocus('und_com')}
+                    helperText={erros['undCom']}
+                    error={!!erros['undCom']}
+                    onFocus={() => handleInputFocus('undCom')}
                     size='small'
                 />
             </Grid>
@@ -147,9 +136,9 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='valor unitário'
                     inputRef={valorUntComRef}
-                    helperText={erros['valor_unt_com']}
-                    error={!!erros['valor_unt_com']}
-                    onFocus={() => handleInputFocus('valor_unt_com')}
+                    helperText={erros['valorUntCom']}
+                    error={!!erros['valorUntCom']}
+                    onFocus={() => handleInputFocus('valorUntCom')}
                     size='small'
                 />
             </Grid>
@@ -160,9 +149,9 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                     fullWidth
                     placeholder='IPI'
                     inputRef={valorIpiRef}
-                    helperText={erros['valor_ipi']}
-                    error={!!erros['valor_ipi']}
-                    onFocus={() => handleInputFocus('valor_ipi')}
+                    helperText={erros['valorIpi']}
+                    error={!!erros['valorIpi']}
+                    onFocus={() => handleInputFocus('valorIpi')}
                     size='small'
                 />
             </Grid>
@@ -171,23 +160,10 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                 <AutoCompeteForwardRef
                     isExternalLoading={isLoading}
                     ref={idMaterialRef}
-                    error={erros['materiais_id']}
+                    error={erros['idMaterial']}
                     service={MateriaisService}
                     label='Produtos / Insumos'
                     optionLabel='descricao'
-                />
-            </Grid>
-
-            <Grid item xs={2}>
-                <TextField
-                    label='Observações'
-                    fullWidth
-                    placeholder='observações'
-                    inputRef={obsRef}
-                    helperText={erros['obs']}
-                    error={!!erros['obs']}
-                    onFocus={() => handleInputFocus('obs')}
-                    size='small'
                 />
             </Grid>
 
@@ -212,7 +188,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                             label='Quantidade'
                             fullWidth
                             placeholder='quantidade'
-                            name='quant_com'
+                            name='quantCom'
                             initialValue={item.quantCom}
                         />
                     </Grid>
@@ -222,7 +198,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                             label='Unidade de compra'
                             fullWidth
                             placeholder='unidade de compra'
-                            name='und_com'
+                            name='undCom'
                             initialValue={item.undCom}
 
                         />
@@ -233,7 +209,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                             label='Valor unitário'
                             fullWidth
                             placeholder='valor unitário'
-                            name='valor_unt_com'
+                            name='valorUntCom'
                             initialValue={item.valorUntCom}
                         />
                     </Grid>
@@ -243,7 +219,7 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                             label='IPI'
                             fullWidth
                             placeholder='IPI'
-                            name='valor_ipi'
+                            name='valorIpi'
                             initialValue={item.valorIpi}
                         />
                     </Grid>
@@ -252,21 +228,10 @@ export const ItensTransacaoEntrada = ({ isLoading, initialItens }: IItensTransac
                         <UAutoComplete
                             isExternalLoading={isLoading}
                             initialSelectedIdValue={item.idMaterial}
-                            name='materiais_id'
+                            name='idMaterial'
                             service={MateriaisService}
                             label='Produtos/Insumos'
                             optionLabel='descricao'
-                        />
-                    </Grid>
-
-                    <Grid item xs={2}>
-                        <UTextField
-                            label='Observações'
-                            fullWidth
-                            placeholder='observações'
-                            name='obs'
-                            initialValue={item.obs}
-
                         />
                     </Grid>
 
