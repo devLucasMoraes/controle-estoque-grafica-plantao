@@ -1,4 +1,4 @@
-export * from './dashboard/dashboard';
+export * from './dashboard/Dashboard';
 
 export * from './users/ListagemDeUsers';
 export * from './users/EditarUser';
