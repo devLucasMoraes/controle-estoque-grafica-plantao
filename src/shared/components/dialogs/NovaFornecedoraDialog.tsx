@@ -1,11 +1,12 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Paper, Button, Typography } from '@mui/material';
 import { Close, Save } from '@mui/icons-material';
 import { Form } from '@unform/web';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { IUFormErros, UTextField } from '../../forms';
 import { FormHandles } from '@unform/core';
 import { IFornecedorasFormData, FornecedorasService } from '../../services/api/fornecedoras/FornecedorasService';
+import { useFileHandleContext } from '../../contexts';
 
 const formValidationSchema: yup.ObjectSchema<Omit<IFornecedorasFormData, 'id'>> = yup.object().shape({
     nomeFantasia: yup.string().required(),
@@ -22,13 +23,16 @@ export const NovaFornecedoraDialog = ({ aoFecharOuSalvar, initialFornecedoraFile
     console.log('renderizou NovaFornecedoraDialog');
     console.log(initialFornecedoraFileData);
 
+    const {showNovaFornecedoraDialog, setShowNovaFornecedoraDialog} = useFileHandleContext();
+
     const formRef = useRef<FormHandles>(null);
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     const hadleClose = (id?: number): void => {
         setOpen(false);
         aoFecharOuSalvar('fornecedora_id', id);
+        setShowNovaFornecedoraDialog(false);
     };
 
     const handleSave = (dados: Omit<IFornecedorasFormData, 'id'>) => {
@@ -54,6 +58,10 @@ export const NovaFornecedoraDialog = ({ aoFecharOuSalvar, initialFornecedoraFile
                 formRef.current?.setErrors(validationErrors);
             });
     };
+
+    useEffect(() => {
+        setOpen(showNovaFornecedoraDialog);
+    }, [showNovaFornecedoraDialog]);
 
     return (
         <Dialog open={open} onClose={() => hadleClose()}>

@@ -10,8 +10,7 @@ import { IItemTransacaoEntrada, ITransacoesEntradaFormData, TransacoesEntradaSer
 import { CrudTools, ItensTransacaoEntrada, NfeItensTransacaoEntrada, NovaFornecedoraDialog, NovaTransportadoraDialog } from '../../shared/components';
 import { TransportadorasService } from '../../shared/services/api/transportadoras/TransportadorasService';
 import { FornecedorasService } from '../../shared/services/api/fornecedoras/FornecedorasService';
-import { useFileHandler } from '../../shared/hooks/useFileHandler';
-import { MateriaisService } from '../../shared/services/api/materiais/MateriaisService';
+import { useFileHandleContext } from '../../shared/contexts';
 
 const itemSchema: yup.ObjectSchema<Omit<IItemTransacaoEntrada, 'id'>> = yup.object().shape({
     idMaterial: yup.number().required(),
@@ -40,6 +39,8 @@ const formValidationSchema: yup.ObjectSchema<Omit<ITransacoesEntradaFormData, 'i
 export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
     console.log('renderizou EdicaoOuCriacaoDeTransacoesEntrada');
 
+    const { fileData, handleFileChange, fornecedoraFileData, transportadoraFileData } = useFileHandleContext();
+
     const { id = 'new' } = useParams<'id'>();
 
     const navigate = useNavigate();
@@ -49,55 +50,6 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
     const [initialItens, setInitialItens] = useState<Array<IItemTransacaoEntrada>>([]);
     const [initialNfeItens, setInitiaNfelItens] = useState<Array<IItemTransacaoEntrada>>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [showNovaFornecedoraDialog, setShowNovaFornecedoraDialog] = useState(false);
-    const [showNovaTransportadoraDialog, setShowNovaTransportadoraDialog] = useState(false);
-
-    const getTransportadoraNfeId = async (cnpj: string): Promise<number | undefined> => {
-        try {
-            const result = await TransportadorasService.getByCNPJ(cnpj);
-            console.log(cnpj);
-            if (result instanceof Error) {
-                setShowNovaTransportadoraDialog(true);
-            } else {
-                return result.id;
-            }
-        } catch (error) {
-            alert('Aconteceu um erro desconhecido');
-            throw error;
-        }
-    };
-
-    const getFornecedoraNfeId = async (cnpj: string): Promise<number | undefined> => {
-        try {
-            const result = await FornecedorasService.getByCNPJ(cnpj);
-            console.log(cnpj);
-            if (result instanceof Error) {
-                setShowNovaFornecedoraDialog(true);
-            } else {
-                return result.id;
-            }
-        } catch (error) {
-            alert('Aconteceu um erro desconhecido');
-            throw error;
-        }
-    };
-
-    const getMaterialNfeId = async (codProd: string): Promise<number | undefined> => {
-        try {
-            const result = await MateriaisService.getByCodProd(codProd);
-            console.log(codProd);
-            if (result instanceof Error) {
-                alert(result.message);
-            } else {
-                return result.id;
-            }
-        } catch (error) {
-            alert('Aconteceu um erro desconhecido');
-            throw error;
-        }
-    };
-
-    const { fileData, handleFileChange, fornecedoraFileData, transportadoraFileData } = useFileHandler(getFornecedoraNfeId, getTransportadoraNfeId, getMaterialNfeId);
 
     useEffect(() => {
         console.log('renderizou useEffect EdicaoOuCriacaoDeTransacoesEntrada');
@@ -119,6 +71,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
         if (id === 'new' && fileData) {
             setInitiaNfelItens(fileData.itens);
             formRef.current?.setData(fileData);
+            console.log(fileData.itens);
         }
     }, [id, fileData]);
 
@@ -179,8 +132,6 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
 
 
     function handleAoFecharOuSalvar(fieldName: string, id: number | undefined): void {
-        fieldName === 'fornecedora_id' ? setShowNovaFornecedoraDialog(false) : '';
-        fieldName === 'transportadora_id' ? setShowNovaTransportadoraDialog(false) : '';
         formRef.current?.setFieldValue(fieldName, id);
     }
 
@@ -203,14 +154,15 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
             <Form ref={formRef} onSubmit={dados => handleSave(dados)}>
                 <Box component={Paper} display='flex' flexDirection='column' variant='outlined' margin={1} alignItems='center' justifyContent='center'>
 
-                    {showNovaFornecedoraDialog && (
-                        <NovaFornecedoraDialog
-                            initialFornecedoraFileData={fornecedoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
-                    )}
+                    <NovaFornecedoraDialog
+                        initialFornecedoraFileData={fornecedoraFileData} 
+                        aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} 
+                    />
 
-                    {showNovaTransportadoraDialog && (
-                        <NovaTransportadoraDialog initialTransportadoraFileData={transportadoraFileData} aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} />
-                    )}
+                    <NovaTransportadoraDialog
+                        initialTransportadoraFileData={transportadoraFileData} 
+                        aoFecharOuSalvar={(fieldName, id) => handleAoFecharOuSalvar(fieldName, id)} 
+                    />
 
                     <Grid container padding={4} rowGap={2}>
 
@@ -288,7 +240,7 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                                     isExternalLoading={isLoading}
                                     service={TransportadorasService}
                                     label='Transportadora'
-                                    name='idTransportdora'
+                                    name='idTransportadora'
                                     optionLabel='nomeFantasia'
                                 />
                             </Grid>
@@ -309,15 +261,15 @@ export const EdicaoOuCriacaoDeTransacoesEntrada = () => {
                             </Divider>
                         </Grid>
 
-                        {fileData ? 
+                        {fileData ?
                             (<NfeItensTransacaoEntrada
                                 isLoading={isLoading}
                                 initialItens={initialNfeItens}
-                            />) : 
+                            />) :
                             (<ItensTransacaoEntrada
                                 isLoading={isLoading}
                                 initialItens={initialItens}
-                            />) 
+                            />)
                         }
 
                     </Grid>

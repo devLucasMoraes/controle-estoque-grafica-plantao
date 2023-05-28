@@ -26,6 +26,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
 
     useEffect(() => {
         console.log('renderizou setItens useEffect NfeItensTransacaoEntrada');
+        console.log(initialItens);
         setItens(initialItens);
     }, [initialItens]);
 
@@ -97,8 +98,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
                             label='Qtde Estoque'
                             fullWidth
                             placeholder='quantidade no estoque'
-                            name='quantCom'
-
+                            name='quantEstoque'
                         />
                     </Grid>
 
@@ -115,7 +115,7 @@ export const NfeItensTransacaoEntrada = ({ isLoading, initialItens }: INfeItensT
 
                     <Grid item xs={1}>
                         <ItensListTools
-                            mostrarBotaoVincular
+                            mostrarBotaoVincular={!item.idMaterial}
                             aoClicarEmRemover={() => handleRemover(item.id)}
                         />
                     </Grid>

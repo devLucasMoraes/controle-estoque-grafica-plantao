@@ -1,11 +1,12 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Paper, Button, Typography } from '@mui/material';
 import { Close, Save } from '@mui/icons-material';
 import { Form } from '@unform/web';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { IUFormErros, UTextField } from '../../forms';
 import { FormHandles } from '@unform/core';
 import { ITransportadoraFormData, TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
+import { useFileHandleContext } from '../../contexts';
 
 const formValidationSchema: yup.ObjectSchema<Omit<ITransportadoraFormData, 'id'>> = yup.object().shape({
     nomeFantasia: yup.string().required(),
@@ -21,14 +22,21 @@ interface INovaTransportadoraDialog {
 export const NovaTransportadoraDialog = ({ aoFecharOuSalvar, initialTransportadoraFileData }: INovaTransportadoraDialog) => {
     console.log('renderizou NovaTransportadoraDialog');
 
+    const {showNovaTransportadoraDialog, setShowNovaTransportadoraDialog} = useFileHandleContext();
+
     const formRef = useRef<FormHandles>(null);
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     const hadleClose = (id?: number): void => {
         setOpen(false);
         aoFecharOuSalvar('transportadora_id', id);
+        setShowNovaTransportadoraDialog(false);
     };
+
+    useEffect(() => {
+        setOpen(showNovaTransportadoraDialog);
+    }, [showNovaTransportadoraDialog]);
 
     const handleSave = (dados: Omit<ITransportadoraFormData, 'id'>) => {
         formValidationSchema

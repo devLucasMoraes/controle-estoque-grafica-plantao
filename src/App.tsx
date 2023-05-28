@@ -2,7 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './shared/forms/TraducoesYup';
 import { AppRoutes } from './routes';
 import { ResponsiveAppBar, MenuLateral } from './shared/components';
-import { AppThemeProvider, DrawerProvider } from './shared/contexts';
+import { AppThemeProvider, DrawerProvider, FileHandlerProvider } from './shared/contexts';
 
 
 
@@ -13,7 +13,9 @@ export const App = () => {
                 <BrowserRouter>
                     <MenuLateral>
                         <ResponsiveAppBar />
-                        <AppRoutes></AppRoutes>
+                        <FileHandlerProvider>
+                            <AppRoutes></AppRoutes>
+                        </FileHandlerProvider>
                     </MenuLateral>
                 </BrowserRouter>
             </DrawerProvider>
