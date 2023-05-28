@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { TransportadorasService } from '../../services/api/transportadoras/TransportadorasService';
 
 interface IUnderlineLinkUserProps {
-    id: number;
+    id?: number;
 }
 
 export const UnderlineLinkTransportadoras = ({ id }: IUnderlineLinkUserProps) => {
@@ -16,15 +16,17 @@ export const UnderlineLinkTransportadoras = ({ id }: IUnderlineLinkUserProps) =>
 
     useEffect(() => {
         setIsLoading(true);
-        TransportadorasService.getById(id)
-            .then(result => {
-                setIsLoading(false);
-                if (result instanceof Error) {
-                    alert(result.message);
-                } else {
-                    setName(result.nomeFantasia);
-                }
-            });
+        if (id) {
+            TransportadorasService.getById(id)
+                .then(result => {
+                    setIsLoading(false);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        setName(result.nomeFantasia);
+                    }
+                });
+        }
     }, [id]);
 
     return (

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { DestinosService } from '../../services/api/destinos/DestinosService';
 
 interface IUnderlineLinkUserProps {
-    id: number;
+    id?: number;
 }
 
 export const UnderlineLinkDestinos = ({ id }: IUnderlineLinkUserProps) => {
@@ -16,15 +16,18 @@ export const UnderlineLinkDestinos = ({ id }: IUnderlineLinkUserProps) => {
 
     useEffect(() => {
         setIsLoading(true);
-        DestinosService.getById(id)
-            .then(result => {
-                setIsLoading(false);
-                if (result instanceof Error) {
-                    alert(result.message);
-                } else {
-                    setName(result.nome);
-                }
-            });
+        if (id) {
+            DestinosService.getById(id)
+                .then(result => {
+                    setIsLoading(false);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        setName(result.nome);
+                    }
+                });
+
+        }
     }, [id]);
 
     return (

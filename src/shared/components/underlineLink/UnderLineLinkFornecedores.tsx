@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FornecedorasService } from '../../services/api/fornecedoras/FornecedorasService';
 
 interface IUnderlineLinkUserProps {
-    id: number;
+    id?: number;
 }
 
 export const UnderlineLinkFornecedores = ({ id }: IUnderlineLinkUserProps) => {
@@ -16,15 +16,17 @@ export const UnderlineLinkFornecedores = ({ id }: IUnderlineLinkUserProps) => {
 
     useEffect(() => {
         setIsLoading(true);
-        FornecedorasService.getById(id)
-            .then(result => {
-                setIsLoading(false);
-                if (result instanceof Error) {
-                    alert(result.message);
-                } else {
-                    setName(result.nomeFantasia);
-                }
-            });
+        if (id) {
+            FornecedorasService.getById(id)
+                .then(result => {
+                    setIsLoading(false);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        setName(result.nomeFantasia);
+                    }
+                });
+        }
     }, [id]);
 
     return (

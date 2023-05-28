@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { RequisitantesService } from '../../services/api/requisitantes/RequisitantesService';
 
 interface IUnderlineLinkUserProps {
-    id: number;
+    id?: number;
 }
 
 export const UnderlineLinkRequisitantes = ({ id }: IUnderlineLinkUserProps) => {
@@ -14,15 +14,17 @@ export const UnderlineLinkRequisitantes = ({ id }: IUnderlineLinkUserProps) => {
 
     useEffect(() => {
         setIsLoading(true);
-        RequisitantesService.getById(id)
-            .then(result => {
-                setIsLoading(false);
-                if (result instanceof Error) {
-                    alert(result.message);
-                } else {
-                    setName(result.nome);
-                }
-            });
+        if(id) {
+            RequisitantesService.getById(id)
+                .then(result => {
+                    setIsLoading(false);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                    } else {
+                        setName(result.nome);
+                    }
+                });
+        }
     }, [id]);
 
     return (
