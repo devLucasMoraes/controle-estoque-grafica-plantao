@@ -42,6 +42,15 @@ export interface IFornecedorasVinculadas {
     id: number;
     idFornecedora: number;
     codProd: string;
+    conversoesDeCompra: IConversoesDeCompra[]
+}
+
+export interface IConversoesDeCompra {
+    id: number
+    undCompra: string;
+    undPadrao: string;
+    fatorDeConversao: number;
+    idFornecedorasVinculadas: number;
 }
 
 export interface IMaterialFormData {
