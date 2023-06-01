@@ -1,4 +1,4 @@
-import { Checkbox, Grid, InputAdornment, MenuItem, TextField, Typography } from '@mui/material';
+import { Box, Checkbox, Grid, InputAdornment, MenuItem, Paper, TextField, Typography } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { AutoCompeteForwardRef, IAutoCompleteForwardRef, ItensListTools } from '../../../shared/components';
@@ -60,7 +60,7 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
             codProd: codProdRef.current?.value,
             conversoesDeCompra: conversoesDeCompra
         };
-        ConversaoDeCompraSchema
+        VinculoSchema
             .validate(novoVinculo, { abortEarly: false })
             .then(itemValidado => {
                 setFornecedorasVinculadas(oldItens => [...oldItens, itemValidado]);
@@ -86,24 +86,6 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
         console.log(novoVinculo);
     }
 
-    function handleInputFocus(ref: string): void {
-        if (erros[ref]) {
-            setErros((errosAntigos) => ({
-                ...errosAntigos,
-                [ref]: '',
-            }));
-
-        }
-    }
-
-    function handleRemover(id?: number): void {
-        setFornecedorasVinculadas(fornecedorasVinculadas.filter(item => item.id !== id));
-    }
-
-    const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
-    };
-
     function handleAdicionarConversao(): void {
         const novaConversao = {
             id: Math.random() - 1,
@@ -112,7 +94,7 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
             fatorDeConversao: yup.number().required(),
             idFornecedorasVinculadas: yup.number().required(),
         };
-        VinculoSchema
+        ConversaoDeCompraSchema
             .validate(novaConversao, { abortEarly: false })
             .then(itemValidado => {
                 setconversoesDeCompra(oldItens => [...oldItens, itemValidado]);
@@ -137,6 +119,26 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
             });
         console.log(novaConversao);
     }
+
+    function handleInputFocus(ref: string): void {
+        if (erros[ref]) {
+            setErros((errosAntigos) => ({
+                ...errosAntigos,
+                [ref]: '',
+            }));
+
+        }
+    }
+
+    function handleRemover(id?: number): void {
+        setFornecedorasVinculadas(fornecedorasVinculadas.filter(item => item.id !== id));
+    }
+
+    const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setChecked(event.target.checked);
+    };
+
+
 
     return (
         <Grid container spacing={2} alignItems={'center'}>
@@ -184,8 +186,8 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
                                 label='Unidade de Compra'
                                 fullWidth
                                 placeholder='unidade de compra'
-                                name='undPadrao'
-                                select 
+
+                                select
                                 size='small'
                             >
                                 {undDeMedidas.map((option) => (
@@ -200,7 +202,7 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
                                 label='Fator de Conversão'
                                 fullWidth
                                 placeholder='fator de comversão'
-                                name='undPadrao'
+
                                 size='small'
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end">LT</InputAdornment>,
@@ -219,56 +221,73 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
 
 
 
+            <Grid container spacing={2} alignItems={'center'} component={Paper} margin={1}>
+                {fornecedorasVinculadas.map((item, index) => (
+                    <Grid key={item.id} container spacing={2} alignItems={'center'} component={Paper} margin={1} padding={1} variant='outlined'>
+                        <Scope key={item.id} path={`fornecedorasVinculadas[${index}]`} >
+                            <UId
+                                name='id'
+                                initialValue={item.id}
+                            />
 
-            {fornecedorasVinculadas.map((item, index) => (
-                <Scope key={item.id} path={`fornecedorasVinculadas[${index}]`} >
-                    <UId
-                        name='id'
-                        initialValue={item.id}
-                    />
+                            <Grid item xs={6}>
+                                <UAutoComplete
+                                    name='idFornecedora'
+                                    service={FornecedorasService}
+                                    label='Fornecedora'
+                                    optionLabel='nomeFantasia'
+                                    initialSelectedIdValue={item.idFornecedora}
+                                />
+                            </Grid>
 
-                    <Grid item xs={6}>
-                        <UAutoComplete
-                            name='idFornecedora'
-                            service={FornecedorasService}
-                            label='Fornecedora'
-                            optionLabel='nomeFantasia'
-                            initialSelectedIdValue={item.idFornecedora}
-                        />
-                    </Grid>
-
-                    <Grid item xs={5}>
-                        <UTextField
-                            fullWidth
-                            label='Código Produto'
-                            placeholder='código do produto'
-                            name='codProd'
-                            initialValue={item.codProd}
-                        />
-                    </Grid>
-
-                    {conversoesDeCompra.map((item, index) => (
-                        <Scope key={item.id} path={`conversoesDeCompra[${index}]`}>
                             <Grid item xs={5}>
                                 <UTextField
                                     fullWidth
-                                    label='Embalagem'
-                                    placeholder='embalagem'
-                                    name='undCompra'
-                                    initialValue={item.undCompra}
+                                    label='Código Produto'
+                                    placeholder='código do produto'
+                                    name='codProd'
+                                    initialValue={item.codProd}
+                                />
+                            </Grid>
+
+                            {conversoesDeCompra.map((item, index) => (
+                                <Scope key={item.id} path={`conversoesDeCompra[${index}]`}>
+                                    <Grid item xs={5}>
+                                        <UTextField
+                                            fullWidth
+                                            label='Embalagem'
+                                            placeholder='embalagem'
+                                            name='undCompra'
+                                            initialValue={item.undCompra}
+                                            size='small'
+                                            InputProps={{
+                                                endAdornment: <InputAdornment position="end">LT</InputAdornment>,
+                                            }}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={5}>
+                                        <UTextField
+                                            fullWidth
+                                            label='Fator de Conversão'
+                                            placeholder='fator de comversão'
+                                            name='undPadrao'
+                                            initialValue={item.fatorDeConversao}
+                                        />
+                                    </Grid>
+                                </Scope>
+                            ))}
+
+                            <Grid item xs={1}>
+                                <ItensListTools
+                                    mostrarBotaoRemover
+                                    aoClicarEmRemover={() => handleRemover(item.id)}
                                 />
                             </Grid>
                         </Scope>
-                    ))}
-
-                    <Grid item xs={1}>
-                        <ItensListTools
-                            mostrarBotaoRemover
-                            aoClicarEmRemover={() => handleRemover(item.id)}
-                        />
                     </Grid>
-                </Scope>
-            ))}
+                ))}
+            </Grid>
 
         </Grid>
     );
