@@ -2,7 +2,7 @@ import { Box, Checkbox, Grid, InputAdornment, MenuItem, Paper, TextField, Typogr
 import { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { AutoCompeteForwardRef, IAutoCompleteForwardRef, ItensListTools } from '../../../shared/components';
-import { IUFormErros, UAutoComplete, UId, UTextField } from '../../../shared/forms';
+import { IUAutoCompleteForwardRef, IUFormErros, UAutoComplete, UId, UTextField } from '../../../shared/forms';
 import { FornecedorasService } from '../../../shared/services/api/fornecedoras/FornecedorasService';
 import { Scope } from '@unform/core';
 import { IConversoesDeCompra, IFornecedorasVinculadas } from '../../../shared/services/api/materiais/MateriaisService';
@@ -34,17 +34,12 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
 
     const idFornecedoraRef = useRef<IAutoCompleteForwardRef>(null);
     const codProdRef = useRef<HTMLInputElement>(null);
+    const undComRef = useRef<HTMLInputElement>(null);
+    const fatorDeConversaoRef = useRef<HTMLInputElement>(null);
+  
 
     const [fornecedorasVinculadas, setFornecedorasVinculadas] = useState<Array<IFornecedorasVinculadas>>(initialValues);
-    const [conversoesDeCompra, setconversoesDeCompra] = useState<Array<IConversoesDeCompra>>([
-        {
-            id: Math.random() - 1,
-            undCompra: 'string',
-            undPadrao: 'string',
-            fatorDeConversao: 1,
-            idFornecedorasVinculadas: 1
-        }
-    ]);
+    const [conversoesDeCompra, setconversoesDeCompra] = useState<Array<IConversoesDeCompra>>([]);
     const [erros, setErros] = useState<IUFormErros>({});
     const [checked, setChecked] = useState(false);
 
@@ -54,11 +49,13 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
     }, [initialValues]);
 
     function handleAdicionar(): void {
+        console.log('conversoesDeCompra');
+        console.log(conversoesDeCompra);
         const novoVinculo = {
             id: Math.random() - 1,
             idFornecedora: idFornecedoraRef.current?.selectedId,
             codProd: codProdRef.current?.value,
-            conversoesDeCompra: conversoesDeCompra
+            conversoesDeCompra: checked ? (conversoesDeCompra.length ? conversoesDeCompra : undefined) : conversoesDeCompra
         };
         VinculoSchema
             .validate(novoVinculo, { abortEarly: false })
@@ -89,22 +86,22 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
     function handleAdicionarConversao(): void {
         const novaConversao = {
             id: Math.random() - 1,
-            undCompra: yup.string().required(),
-            undPadrao: yup.string().required(),
-            fatorDeConversao: yup.number().required(),
-            idFornecedorasVinculadas: yup.number().required(),
+            undCompra: undComRef.current?.value,
+            undPadrao: 'LT',
+            fatorDeConversao: fatorDeConversaoRef.current?.value,
+            idFornecedorasVinculadas: Math.random() - 1,
         };
         ConversaoDeCompraSchema
             .validate(novaConversao, { abortEarly: false })
             .then(itemValidado => {
                 setconversoesDeCompra(oldItens => [...oldItens, itemValidado]);
 
-                if (codProdRef.current) {
-                    codProdRef.current.value = '';
+                if (undComRef.current) {
+                    undComRef.current.value = '';
                 }
 
-                if (idFornecedoraRef.current) {
-                    idFornecedoraRef.current.setSelectedIdUndefined();
+                if (fatorDeConversaoRef.current) {
+                    fatorDeConversaoRef.current.value = '';
                 }
             })
             .catch((erros: yup.ValidationError) => {
@@ -114,20 +111,23 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
                     validationErrors[error.path] = error.message;
                 });
                 setErros(validationErrors);
-                idFornecedoraRef.current?.setComponentErrors(validationErrors['idFornecedora']);
+
                 console.log(validationErrors);
             });
         console.log(novaConversao);
     }
 
-    function handleInputFocus(ref: string): void {
-        if (erros[ref]) {
-            setErros((errosAntigos) => ({
-                ...errosAntigos,
-                [ref]: '',
-            }));
-
-        }
+    function handleInputFocus(ref: Array<string>): void {
+        ref.forEach(
+            ref => {
+                if (erros[ref]) {
+                    setErros((errosAntigos) => ({
+                        ...errosAntigos,
+                        [ref]: '',
+                    }));
+                }
+            }
+        );
     }
 
     function handleRemover(id?: number): void {
@@ -136,13 +136,17 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
 
     const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
+        setconversoesDeCompra([]);
     };
 
 
 
+    const handleRemoverConversao = (id: number): void => {
+        setconversoesDeCompra(conversoesDeCompra.filter(item => item.id !== id));
+    };
+
     return (
         <Grid container spacing={2} alignItems={'center'}>
-
             <Grid item xs={6}>
                 <AutoCompeteForwardRef
                     ref={idFornecedoraRef}
@@ -161,7 +165,7 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
                     inputRef={codProdRef}
                     helperText={erros['codProd']}
                     error={!!erros['codProd']}
-                    onFocus={() => handleInputFocus('codProd')}
+                    onFocus={() => handleInputFocus(['codProd'])}
                     size='small'
                 />
             </Grid>
@@ -178,41 +182,92 @@ export const VinculosComFornecedoras = ({ initialValues }: IVinculosComFornecedo
                     checked={checked}
                     onChange={handleChangeCheckBox}
                 />
+
                 <Typography>Possui conversao na compra?</Typography>
-                {checked && conversoesDeCompra.map((item, index) => (
-                    <Grid key={index} container spacing={2} alignItems={'center'}>
+
+                {checked && (
+                    <Grid container spacing={2} alignItems={'center'}>
                         <Grid item xs={5}>
                             <TextField
-                                label='Unidade de Compra'
+                                label='Unidade de compra'
                                 fullWidth
                                 placeholder='unidade de compra'
-
-                                select
+                                inputRef={undComRef}
+                                helperText={erros['undCom'] || erros['conversoesDeCompra']}
+                                error={!!erros['undCom'] || !!erros['conversoesDeCompra']}
+                                onFocus={() => handleInputFocus(['undCom', 'conversoesDeCompra'])}
                                 size='small'
                             >
-                                {undDeMedidas.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
+                                
                             </TextField>
                         </Grid>
+
                         <Grid item xs={5}>
                             <TextField
                                 label='Fator de Conversão'
                                 fullWidth
-                                placeholder='fator de comversão'
-
+                                placeholder='fator de conversão'
+                                inputRef={fatorDeConversaoRef}
+                                helperText={erros['fatorDeConversao'] || erros['conversoesDeCompra']}
+                                error={!!erros['fatorDeConversao'] || !!erros['conversoesDeCompra']}
+                                onFocus={() => handleInputFocus(['fatorDeConversao', 'conversoesDeCompra'])}
                                 size='small'
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end">LT</InputAdornment>,
                                 }}
                             />
                         </Grid>
+
                         <Grid item xs={1}>
                             <ItensListTools
                                 mostrarBotaoAdicionar
                                 aoClicarEmAdicionar={() => handleAdicionarConversao()}
+                            />
+                        </Grid>
+                    </Grid>
+                )}
+            </Grid>
+
+            <Grid container spacing={2} alignItems={'center'}>
+                {conversoesDeCompra && conversoesDeCompra.map((item) => (
+                    <Grid key={item.id} container spacing={2} alignItems={'center'} margin={1} justifyContent={'center'}>
+                        <Grid item xs={4}>
+                            <TextField
+                                label='Unidade de compra'
+                                fullWidth
+                                placeholder='unidade de compra'
+                                inputRef={undComRef}
+                                helperText={erros['undCom']}
+                                error={!!erros['undCom']}
+                                onFocus={() => handleInputFocus(['undCom'])}
+                                size='small'
+                                value={item.undCompra}
+                            >
+                               
+                            </TextField>
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <TextField
+                                label='Fator de Conversão'
+                                fullWidth
+                                placeholder='fator de conversão'
+                                inputRef={fatorDeConversaoRef}
+                                helperText={erros['fatorDeConversao']}
+                                error={!!erros['fatorDeConversao']}
+                                onFocus={() => handleInputFocus(['fatorDeConversao'])}
+                                size='small'
+                                InputProps={{
+                                    endAdornment: <InputAdornment position="end">LT</InputAdornment>,
+                                }}
+                                value={item.fatorDeConversao}
+                            />
+                        </Grid>
+
+                        <Grid item xs={1}>
+                            <ItensListTools
+                                mostrarBotaoRemover
+                                aoClicarEmRemover={() => handleRemoverConversao(item.id)}
                             />
                         </Grid>
                     </Grid>
